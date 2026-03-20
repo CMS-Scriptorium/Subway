@@ -175,6 +175,20 @@ class RequestTest extends TestCase
                     'allowed' => "<p><a><i>"
                 ],
                 'expected' => "<p>Aladin his wonderlamp.</p>"
+            ],
+            'e-mail ok' => [
+                'setup' => [
+                    'where' => Request::USE_POST,
+                    'value' => "aladin.gibtesnicht@none.tld"
+                ],
+                'where' => Request::USE_POST,
+                'name' => "test_mail",
+                'type' => 'email',
+                'default' => "",
+                'options' => [
+                    'default' => "no valid"
+                ],
+                'expected' => "aladin.gibtesnicht@none.tld"
             ]
         ];
     }

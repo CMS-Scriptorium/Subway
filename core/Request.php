@@ -111,6 +111,7 @@ class Request
             case 's':
             case 'strip':
             case 'string':
+            case 'email':
                 $retVal = (is_string($value))
                     ? $value
                     : $default
@@ -191,6 +192,13 @@ class Request
                         {
                             $value = $options['default'] ?? "";
                         }
+                    }
+                    break;
+
+                case "email":
+                    if (false === filter_var($value, FILTER_VALIDATE_EMAIL))
+                    {
+                        $value = $options['default'] ?? "";
                     }
                     break;
             }
