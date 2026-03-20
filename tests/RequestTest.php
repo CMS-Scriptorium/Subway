@@ -2,7 +2,7 @@
 
 /**
  *  [0] Basics
- *      PHPUnit 12.5.4
+ *      PHPUnit 13.0.5
  *
  *  to get phpunit use
  *
@@ -10,8 +10,8 @@
  *
  *  @example
  *
- *   cd /Applications/MAMP/htdocs/projekte/wbce_git/wbce/modules/Subway/
- *   php phpunit.phar --colors='always' --display-warnings tests/RequestTest.php
+ *   cd /Applications/MAMP/htdocs/projekte/wbce_git/wbce/modules/Subway/tests
+ *   php phpunit.phar --colors='always' --display-warnings RequestTest.php
  *
  *   phpcs --colors --standard=PSR12 tests/AccessDeniedTest.php
  *   phpcbf --standard=PSR12 tests/AccessDeniedTest.php
