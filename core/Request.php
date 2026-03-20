@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Subway\core;
 
 use Subway\core\traits\Singleton;
-
+use Subway\core\traits\RequestNumbers;
 /**
  * Description of Request
  *
@@ -25,6 +25,7 @@ class Request
 {
 
     use Singleton;
+    use RequestNumbers;
 
     public const USE_POST = "post";
     public const USE_GET = "get";
@@ -82,7 +83,10 @@ class Request
         $tempVal = $refLookUp[$name] ?? $default;
         $retVal = $this->testValue($tempVal, $type, $default);
 
-        $this->handleOptions($retVal, $type, $options);
+        if ($retVal !== $default)
+        {
+            $this->handleOptions($retVal, $type, $default, $options);
+        }
 
         return $retVal;
     }
@@ -101,7 +105,11 @@ class Request
         switch(strtolower($type))
         {
             case 'i':
+            case 'int':
+            case 'int+':
+            case 'i+':
             case 'integer':
+            case 'integer+':
                 $retVal = (is_numeric($value))
                     ? intval($value)
                     : $default
@@ -109,12 +117,20 @@ class Request
                 break;
 
             case 's':
+            case 'str':
             case 'strip':
             case 'string':
-            case 'email':
                 $retVal = (is_string($value))
                     ? $value
                     : $default
+                    ;
+                break;
+
+            case 'email':
+                $sTempResult = trim($value);
+                $retVal = (false === filter_var($sTempResult, FILTER_VALIDATE_EMAIL))
+                    ? $default
+                    : $sTempResult
                     ;
                 break;
 
@@ -132,30 +148,16 @@ class Request
      * @param string $type
      * @param array $options
      */
-    protected function handleOptions(mixed &$value, string $type, array $options)
+    protected function handleOptions(mixed &$value, string $type, mixed &$default, array $options)
     {
         if (!empty($options))
         {
             switch($type)
             {
                 case 'i':
+                case 'int':
                 case 'integer':
-                    if (isset($options['min']))
-                    {
-                        $iMin = intval($options['min']);
-                        if ($value < $iMin)
-                        {
-                            $value = $options['default'] ?? $iMin;
-                        }
-                    }
-                    if (isset($options['max']))
-                    {
-                        $iMax = intval($options['max']);
-                        if ($value > $iMax)
-                        {
-                            $value = $options['default'] ?? $iMax;
-                        }
-                    }
+                    RequestNumbers::handleIntRange($value, $default, $options);
                     break;
 
                 case 's':

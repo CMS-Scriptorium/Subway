@@ -1,9 +1,0 @@
-@startuml
-class Example {
-{static} + field1_public
-# instance2
-- field2_private
-# method_protected()
-{static} + getName(int $source)
-}
-@enduml
