@@ -9,7 +9,7 @@ I for myself prefert to handle phpunit tests via terminal/console.
 
 To get phpunit use you can use (e.g.)
 ```php
-wget -O phpunit https://phar.phpunit.de/phpunit-12.phar
+wget -O phpunit https://phar.phpunit.de/phpunit-13.phar
 ```
 
 You can find [PhpUnit][1] here: https://phpunit.de/index.html

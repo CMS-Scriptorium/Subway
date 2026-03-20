@@ -6,7 +6,7 @@
  *
  *  to get phpunit use
  *
- *  wget -O phpunit https://phar.phpunit.de/phpunit-12.phar
+ *  wget -O phpunit https://phar.phpunit.de/phpunit-13.phar
  *
  *  @example
  *
