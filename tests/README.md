@@ -12,7 +12,7 @@ To get phpunit use you can use (e.g.)
 wget -O phpunit https://phar.phpunit.de/phpunit-12.phar
 ```
 
-You can find [PhpUnit here][1].
+You can find [PhpUnit][1] here: https://phpunit.de/index.html
 
 #### How to use it
 Example given
@@ -28,4 +28,4 @@ export PATH=/Applications/MAMP/bin/php/php8.4.1/bin:$PATH
 
 May 2026
 
-[1] https://phpunit.de/index.html
+[1]: https://phpunit.de/index.html
