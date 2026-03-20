@@ -13,8 +13,8 @@
  *   cd /Applications/MAMP/htdocs/projekte/wbce_git/wbce/modules/Subway/tests
  *   php phpunit.phar --colors='always' --display-warnings RequestTest.php
  *
- *   phpcs --colors --standard=PSR12 tests/AccessDeniedTest.php
- *   phpcbf --standard=PSR12 tests/AccessDeniedTest.php
+ *   phpcs --colors --standard=PSR12 RequestTest.php
+ *   phpcbf --standard=PSR12 RequestTest.php
  *
  *   php phpstan.phar analyse  /Applications/MAMP/htdocs/projekte/LEPTON_VII/tests/LeptonBasicsTest.php
  *
@@ -38,14 +38,13 @@ use PHPUnit\Framework\TestCase;
 use Subway\core\Request;
 
 // [4]
-require_once \dirname(__DIR__)."/core/traits/Singleton.php";
-require_once \dirname(__DIR__)."/core/Info.php";
-require_once \dirname(__DIR__)."/core/Request.php";
+require_once \dirname(__DIR__) . "/core/traits/Singleton.php";
+require_once \dirname(__DIR__) . "/core/Info.php";
+require_once \dirname(__DIR__) . "/core/Request.php";
 
 //  [5] Here we go
 class RequestTest extends TestCase
 {
-
     protected $oREQUEST = null;
 
     public function setUp(): void
@@ -55,8 +54,7 @@ class RequestTest extends TestCase
 
     public function setUpTestValues(string $name, array $values): void
     {
-        switch (strToLower($values['where']))
-        {
+        switch (strToLower($values['where'])) {
             case 'post':
                 $_POST[$name] = $values['value'];
                 break;
@@ -64,7 +62,7 @@ class RequestTest extends TestCase
             case 'get':
                 $_GET[$name] = $values['value'];
                 break;
-            
+
             case 'session':
                 $_SESSION[$name] = $values['value'];
                 break;
@@ -80,10 +78,8 @@ class RequestTest extends TestCase
         mixed $default,
         array $options,
         mixed $expected
-        ): void
-    {
-        if (!empty($setup))
-        {
+    ): void {
+        if (!empty($setup)) {
             $this->setUpTestValues($name, $setup);
         }
 
