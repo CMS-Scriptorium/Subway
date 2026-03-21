@@ -30,6 +30,6 @@ export PATH=/Applications/MAMP/bin/php/php8.4.1/bin:$PATH
 
 Here is one [![Deprecated in PhpUnit](img/unfortunately_01.png)](img/unfortunately_01.png)
 
-May 2026
+March 2026
 
 [1]: https://phpunit.de/index.html
