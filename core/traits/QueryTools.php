@@ -16,7 +16,7 @@ namespace Subway\core\traits;
 
 trait QueryTools
 {
-    protected ?object $mysqli = NULL;
+    protected ?object $mysqli = null;
 
     public function getMysqlHandle(): bool
     {
@@ -33,8 +33,8 @@ trait QueryTools
      */
     public function buildFields(array $aFields = []): string
     {
-        return (empty($aFields)) 
-            ? "*" 
+        return (empty($aFields))
+            ? "*"
             : "`" . implode("`, `", $aFields) . "`"
             ;
     }
@@ -48,28 +48,27 @@ trait QueryTools
      *  @param    bool    $bFetch Fetching the result - default is false.
      *  @param    array   $aStorage A storage array for the fetched results. Pass by reference!
      *  @param    bool    $bFetchAll Try to get all entries. Default is true.
-     *  @return   int 	  If success number of affected rows.
+     *  @return   int     If success number of affected rows.
      *
      *  @example
      *      $results_array = [];       
      *      $database->execute_query( 
      *          "SELECT * from ".TABLE_PREFIX."pages WHERE page_id = ".$page_id." ",
-     *          true, 
-     *          $results_array, 
-     *          false 
+     *          true,
+     *          $results_array,
+     *          false
      *      );
-     *        
      *
      */
-    public function execute_query(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ) : int
+    public function executeQuery(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ) : int
     {
         try{
             $oStatement=$this->mysqli->prepare($aQuery);
-            
+
             $oStatement->execute();
-            
+
             $oResult = $oStatement->get_result();
-            
+
             if (($oResult->num_rows > 0) && (true === $bFetch))
             {
                 $aStorage = (true === $bFetchAll)

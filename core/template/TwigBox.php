@@ -83,11 +83,11 @@ class TwigBox
 
         // [3] Functions
         $this->parser->addFunction(TwigFunctions::fileExists());
-        // $this->parser->addFunction(TwigFunctions::processTranslationL());
+        $this->parser->addFunction(TwigFunctions::processTranslationL());
 
         // [4] Filters
         $this->parser->addFilter(TwigFilters::getFilterDisplay());
-        $this->parser->addFilter(TwigFilters::getFilterIntersects()); 
+        $this->parser->addFilter(TwigFilters::getFilterIntersects());
     }
 
     /**
@@ -109,17 +109,17 @@ class TwigBox
         string $sNamespace = "__main__"
     ): bool
     {
-        if ($sPath === "") {
+        if ($sPath === "")
+        {
             return false;
         }
 
-        if (true === file_exists($sPath)) {
+        if (true === file_exists($sPath))
+        {
             $current_paths = $this->loader->getPaths($sNamespace);
             if (!in_array($sPath, $current_paths)) {
                 $this->loader->prependPath($sPath, $sNamespace);
                 return true;
-            } else {
-                return false;
             }
         }
 

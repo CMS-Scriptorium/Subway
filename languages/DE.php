@@ -14,7 +14,5 @@ use Subway\core\language\DE;
  * @requirements    PHP 8.4.x (8.3 recommented)
  */
 
-//$module_description = 'This tool allows for managing your local initial page';
-
 // Backwards
 $MOD_INITIALPAGE = DE::getInstance()->getConstants();

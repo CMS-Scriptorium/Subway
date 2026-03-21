@@ -46,12 +46,12 @@ class TwigFilters
         {
             if (true === $useVarDump)
             {
-                \Subway\core\tools\data::use_var_dump(true);
+                \Subway\core\tools\Data::setVarDump(true);
             }
-            return \Subway\core\tools\data::display($string, $tagType, $cssClass);
+            return \Subway\core\tools\Data::display($string, $tagType, $cssClass);
         }, ['needs_environment' => true]);
     }
-    
+
     /**
      *  See https://twig.symfony.com/doc/3.x/advanced.html
      *
@@ -60,15 +60,14 @@ class TwigFilters
      *
      *  @return object
      */
-    public static function CharsDecodeOutput(): object
+    public static function charsDecodeOutput(): object
     {
         return new TwigFilter('CharsDecodeOutput', function ($string)
         {
-            $content = htmlspecialchars_decode($string);
-            return $content;
+            return htmlspecialchars_decode($string);
         });
     }
-    
+
     /**
      *  See https://twig.symfony.com/doc/3.x/advanced.html
      *
@@ -87,7 +86,7 @@ class TwigFilters
             return !empty($aNewArray);
         });
     }
-    
+
     /**
      *  Force a time(-string) to display only HH:mm (e.g. "12:15")
      *  Example given
@@ -112,7 +111,7 @@ class TwigFilters
         //        As we don't know the type there is no type hint here!
         return new \Twig\TwigFilter('timeF', function ($string)
         {
-            $pattern = "~[0-2]?[0-9]\:([0-2]?[0-9])~iU";
+            $pattern = "~[0-2]?\d\:([0-2]?\d)~iU";
             $matches = [];
             if ((0 == preg_match_all($pattern, $string ?? '', $matches, PREG_SET_ORDER)) && ($string != '0'))
             {

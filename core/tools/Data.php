@@ -19,9 +19,9 @@ class Data
     /**
      *  To use "var_dump" instead of "print_r" inside the "display"-method.
      *
-     *  @property bool  $use_var_dump For the use of 'var_dump'.
+     *  @property bool  $useVarDump For the use of 'var_dump'.
      */
-    static public bool $use_var_dump = false;
+    public static bool $useVarDump = false;
 
     /**
      *  Method to change the var_dump_mode
@@ -30,9 +30,9 @@ class Data
      *  @see    __self__::display
      *
      */
-    static public function use_var_dump(bool $bUseVarDump=true): void
+    public static function setVarDump(bool $bUseVarDump=true): void
     {
-        self::$use_var_dump = $bUseVarDump;
+        self::$useVarDump = $bUseVarDump;
     }
 
     /**
@@ -59,7 +59,7 @@ class Data
      *  @endcode
      *
      */
-    static public function display(
+    public static function display(
         mixed       $something_to_display ="",
         string      $tag="pre",
         string|null $css_class = null,
@@ -79,7 +79,7 @@ class Data
             
         $sReturnVal = "\n<".$tag.(null === $css_class ? "" : " class='".$css_class."'").">\n";
         ob_start();
-            ((true === self::$use_var_dump) || (true === $useVarDumpParam))
+            ((true === self::$useVarDump) || (true === $useVarDumpParam))
             ? var_dump($something_to_display)
             : print_r($something_to_display)
             ;
@@ -110,12 +110,12 @@ class Data
      *      <code class="example_class">
      *          Location: ~modules/whatever/ajax/CallMe.php ->Line: 208
      *          array( [1] => "whatever");
-     *      </code>  
+     *      </code>
      *
      *  @endcode
      *
      */
-    static public function display_dev(
+    public static function display_dev(
         mixed       $something_to_display = "",
         string      $tag = "pre",
         string|null $css_class = null,
@@ -134,7 +134,7 @@ class Data
 
         // [1] get 'caller'
         $backtrace = debug_backtrace();
-       //var_dump($backtrace[7]['args'][0]);
+
         $sOriginInfo = "<none>";
         if (isset($backtrace[0]['file']))
         {
@@ -150,7 +150,7 @@ class Data
         $s = "\n<".$tag.(null === $css_class ? "" : " class='".$css_class."'").">\n";
         $s .= $sOriginInfo;
         ob_start();
-            ((true === self::$use_var_dump) || (true === $useVarDumpParam))
+            ((true === self::$useVarDump) || (true === $useVarDumpParam))
             ? var_dump($something_to_display)
             : print_r($something_to_display)
             ;

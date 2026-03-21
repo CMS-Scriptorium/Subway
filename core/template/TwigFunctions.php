@@ -45,7 +45,7 @@ class TwigFunctions extends AbstractExtension
      *
      * Correct format would be:
      *     L_('ARRAY:KEY'); or
-     *     L_('{ARRAY:KEY}'); 
+     *     L_('{ARRAY:KEY}');
      * example:
      *     L_('TEXT:ACTIVE');
      *     L_('{TEXT:ACTIVE}');

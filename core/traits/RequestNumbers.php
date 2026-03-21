@@ -17,7 +17,7 @@ namespace Subway\core\traits;
 trait RequestNumbers
 {
     /**
-     * 
+     *
      * @param mixed $value      The currend value; call by reference
      * @param mixed $default    The default value
      * @param array $options    Call by reference
@@ -25,7 +25,7 @@ trait RequestNumbers
      * @return void Nothing
      */
     protected function handleIntRange(
-        mixed &$value, 
+        mixed &$value,
         mixed $default,
         array &$options
     ): void
