@@ -45,7 +45,7 @@ class Data
      *
      * @return string
      *
-     *  example given:  
+     *  example given:
      *  @code{.php}
      *      LEPTON_tools::display( $result_array, "code", "example_class" )
      *  @endcode
@@ -115,7 +115,7 @@ class Data
      *  @endcode
      *
      */
-    public static function display_dev(
+    public static function displayDev(
         mixed       $something_to_display = "",
         string      $tag = "pre",
         string|null $css_class = null,

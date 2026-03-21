@@ -65,7 +65,7 @@ class Database
      *      );
      *
      */
-    public static function execute_query(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ) : int
+    public static function executeQuery(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ) : int
     {
 
         try{

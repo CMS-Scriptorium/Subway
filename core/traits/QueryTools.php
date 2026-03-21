@@ -51,8 +51,8 @@ trait QueryTools
      *  @return   int     If success number of affected rows.
      *
      *  @example
-     *      $results_array = [];       
-     *      $database->execute_query( 
+     *      $results_array = [];
+     *      $database->execute_query(
      *          "SELECT * from ".TABLE_PREFIX."pages WHERE page_id = ".$page_id." ",
      *          true,
      *          $results_array,

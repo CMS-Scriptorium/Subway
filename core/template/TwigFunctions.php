@@ -39,7 +39,7 @@ class TwigFunctions extends AbstractExtension
     /**
      *  processTranslation / L_
      *  ---------------------------------------------------------------------------
-     *  This function allows you to use any language string that is active on the 
+     *  This function allows you to use any language string that is active on the
      *  page you're templating. No need to hand over long lists of lang strings
      *  to the templates anymore as it was with the previously used Template Engine
      *

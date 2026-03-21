@@ -104,7 +104,7 @@ class Pages
      *    @param    int     $aNum Root-Id
      *    @param    array   $aRefArray Result-Storage. Call by reference!
      *
-     */ 
+     */
     protected function makeList(int $aNum, array &$aRefArray): void
     {
 
