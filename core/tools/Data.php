@@ -59,7 +59,7 @@ class Data
      *  @endcode
      *
      */
-    static function display(
+    static public function display(
         mixed       $something_to_display ="",
         string      $tag="pre",
         string|null $css_class = null,
@@ -115,7 +115,7 @@ class Data
      *  @endcode
      *
      */
-    static function display_dev(
+    static public function display_dev(
         mixed       $something_to_display = "",
         string      $tag = "pre",
         string|null $css_class = null,

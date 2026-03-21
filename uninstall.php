@@ -16,7 +16,8 @@ use Subway\core\sql\Table;
 
 if (!defined('WB_PATH'))
 {
-    die(header('Location: ../../index.php'));
+    header('Location: ../../index.php');
+    die();
 }
 
 $oTable = Table::getInstance();

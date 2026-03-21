@@ -14,7 +14,8 @@ declare(strict_types=1);
 
 if (!defined('WB_PATH'))
 {
-    die(header('Location: ../../index.php'));
+    header('Location: ../../index.php');
+    die();
 }
 
 /** 
