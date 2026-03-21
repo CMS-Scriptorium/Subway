@@ -16,15 +16,15 @@ namespace Subway\core;
 
 class Info
 {
-    public const string module_directory   = 'Subway';
-    public const string module_name        = 'Initial Page';
-    public const string module_function    = 'initialize, tool';
-    public const string module_version     = '0.1.0';
-    public const string module_status      = 'alpha';
-    public const string module_platform    = '1.6.0';
-    public const string module_author      = 'Kant (Aldus)';
-    public const string module_license     = 'CC BY-SA 4.0';
-    public const string module_description = 'Nothing more and nothing less than a private study for WBCE and some additional code.';
-    public const string module_guid        = '9A4C71C8-E9DA-413D-A226-D31FB4A5E77F';
-    public const string module_icon        = 'fa fa-diamond';
+    public const string MODULE_DIRECTORY   = 'Subway';
+    public const string MODULE_NAME        = 'Initial Page';
+    public const string MODULE_FUNCTION    = 'initialize, tool';
+    public const string MODULE_VERSION     = '0.1.0';
+    public const string MODULE_STATUS      = 'alpha';
+    public const string MODULE_PLATFORM    = '1.6.0';
+    public const string MODULE_AUTHOR      = 'Kant (Aldus)';
+    public const string MODULE_LICENSE     = 'CC BY-SA 4.0';
+    public const string MODULE_DESCRIPTION = 'Nothing more and nothing less than a private study for WBCE and some additional code.';
+    public const string MODULE_GUID        = '9A4C71C8-E9DA-413D-A226-D31FB4A5E77F';
+    public const string MODULE_ICON        = 'fa fa-diamond';
 }

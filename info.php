@@ -16,14 +16,14 @@ require_once __DIR__.'/initialize.php';
 
 use Subway\core\Subway;
 
-$module_directory   = Subway::module_directory;    // 'WbceGateway';
-$module_name        = Subway::module_name;         // 'Wbce Gateway';
-$module_function    = Subway::module_function;     // 'tool, initialize';
-$module_version     = Subway::module_version;      // '0.1.0';
-$module_status      = Subway::module_status;       // 'stable';
-$module_platform    = Subway::module_platform;     // '1.6.0';
-$module_author      = Subway::module_author;       // 'Kant (Aldus)';
-$module_license     = Subway::module_license;      // 'CC BY-SA 4.0';
-$module_description = Subway::module_description;  // 'Nothing more and nothing less than a private study for WBCE and some additional code.';
-$module_guid        = Subway::module_guid;         // 'F6148B2F-9758-4A1A-9B2B-04ADEA861192';
+$module_directory   = Subway::MODULE_DIRECTORY;    // 'WbceGateway';
+$module_name        = Subway::MODULE_NAME;         // 'Wbce Gateway';
+$module_function    = Subway::MODULE_FUNCTION;     // 'tool, initialize';
+$module_version     = Subway::MODULE_VERSION;      // '0.1.0';
+$module_status      = Subway::MODULE_STATUS;       // 'stable';
+$module_platform    = Subway::MODULE_PLATFORM;     // '1.6.0';
+$module_author      = Subway::MODULE_AUTHOR;       // 'Kant (Aldus)';
+$module_license     = Subway::MODULE_LICENSE;      // 'CC BY-SA 4.0';
+$module_description = Subway::MODULE_DESCRIPTION;  // 'Nothing more and nothing less than a private study for WBCE and some additional code.';
+$module_guid        = Subway::MODULE_GUID;         // 'F6148B2F-9758-4A1A-9B2B-04ADEA861192';
 $module_icon        = 'fa fa-diamond';             // This doesn't work: Subway::module_icon;
