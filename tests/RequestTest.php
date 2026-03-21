@@ -12,6 +12,8 @@
  *
  *   cd /Applications/MAMP/htdocs/projekte/wbce_git/wbce/modules/Subway/tests
  *   php phpunit.phar --colors='always' --display-warnings RequestTest.php
+ * 
+ *   php phpunit.phar --colors='always' --display-deprecations RequestTest.php
  *
  *   phpcs --colors --standard=PSR12 RequestTest.php
  *   phpcbf --standard=PSR12 RequestTest.php

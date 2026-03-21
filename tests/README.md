@@ -30,6 +30,14 @@ export PATH=/Applications/MAMP/bin/php/php8.4.1/bin:$PATH
 
 Here is one [![Deprecated in PhpUnit](img/unfortunately_01.png)](img/unfortunately_01.png)
 
+horay - using
+```php
+php phpunit.phar --colors='always' --display-deprecations RequestTest.php
+```
+gives more details
+[![Deprecated in PhpUnit](img/unfortunately_02.png)](img/unfortunately_02.png)
+
+
 March 2026
 
 [1]: https://phpunit.de/index.html
