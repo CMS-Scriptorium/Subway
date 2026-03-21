@@ -13,8 +13,6 @@ declare(strict_types=1);
  */
 
 namespace Subway\core\template;
-// use Subway\core\template\TwigOperators;
-
 
 use Subway\core\sql\Database;
 use Subway\core\traits\Singleton;

@@ -20,13 +20,13 @@ use Subway\core\traits\QueryTools;
 use const TABLE_PREFIX;
 
 class Table
-{    
+{
     use Singleton;
     use QueryTools;
 
     public static $instance;
     
-    protected ?object $database = NULL;
+    protected ?object $database = null;
     
     // Avoid using "new" for a new instance.
     protected function __construct()
@@ -38,7 +38,7 @@ class Table
     }
     
     /**
-     * 
+     *
      * @return bool
      */
     public function install(): bool
@@ -48,7 +48,7 @@ class Table
     }
     
     /**
-     * 
+     *
      * @return bool
      */
     public function uninstall(): bool
@@ -58,7 +58,7 @@ class Table
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function update(): bool

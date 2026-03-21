@@ -16,12 +16,12 @@ namespace Subway\core\template;
 
 use Twig\TwigFilter;
 
-class TwigFilters // extends Twig\Extension\AbstractExtension
+class TwigFilters
 {
     // Requested by the parent.
     public function __construct()
     {
-        // At this time nothing to do here.    
+        // At this time nothing to do here.
     }
 
     /**
@@ -44,11 +44,6 @@ class TwigFilters // extends Twig\Extension\AbstractExtension
     {
         return new TwigFilter('display', function ($env, $string, string $tagType='pre', string $cssClass = "ui message olive", bool $useVarDump=false)
         {
-            /**
-            $a = get_class_methods($env);
-            natsort($a);
-            return LEPTON_tools::display($a);
-            **/
             if (true === $useVarDump)
             {
                 \Subway\core\tools\data::use_var_dump(true);

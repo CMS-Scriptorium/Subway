@@ -21,7 +21,7 @@ trait RequestNumbers
      * @param mixed $value      The currend value; call by reference
      * @param mixed $default    The default value
      * @param array $options    Call by reference
-     * 
+     *
      * @return void Nothing
      */
     protected function handleIntRange(

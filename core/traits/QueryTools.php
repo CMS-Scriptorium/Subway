@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Subway\core\traits;
 
 trait QueryTools
-{   
+{
     protected ?object $mysqli = NULL;
 
     public function getMysqlHandle(): bool
@@ -63,7 +63,6 @@ trait QueryTools
      */
     public function execute_query(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ) : int
     {
-        // $this->error = "";
         try{
             $oStatement=$this->mysqli->prepare($aQuery);
             
@@ -77,16 +76,12 @@ trait QueryTools
                     ? $oResult->fetch_all(MYSQLI_ASSOC)
                     : $oResult->fetch(MYSQLI_ASSOC)
                     ;
-            
             }
             return $oResult->num_rows;
         } catch(\mysqli_sql_exception $error) {
             die("E: " . $error->getMessage() );
-            // $this->error = $error->getMessage();
-            // $this->HandleDisplayError("10");
             return -1;
         }
     }
 
-    
 }

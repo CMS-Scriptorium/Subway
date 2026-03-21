@@ -42,7 +42,7 @@ class Request
     }
 
     /**
-     * 
+     *
      * @param string $where
      * @param string $name
      * @param string $type
@@ -96,7 +96,7 @@ class Request
     }
 
     /**
-     * 
+     *
      * @param mixed $value
      * @param string $type
      * @param mixed $default
@@ -147,7 +147,7 @@ class Request
     }
 
     /**
-     * 
+     *
      * @param mixed $value
      * @param string $type
      * @param array $options

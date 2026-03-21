@@ -19,7 +19,7 @@ class Data
     /**
      *  To use "var_dump" instead of "print_r" inside the "display"-method.
      *
-     *  @property bool	$use_var_dump For the use of 'var_dump'.
+     *  @property bool  $use_var_dump For the use of 'var_dump'.
      */
     static public bool $use_var_dump = false;
 
@@ -47,14 +47,14 @@ class Data
      *
      *  example given:  
      *  @code{.php}
-     *      LEPTON_tools::display( $result_array, "code", "example_class" )  
+     *      LEPTON_tools::display( $result_array, "code", "example_class" )
      *  @endcode
-     *      will return:  
+     *      will return:
      *  @code{.xml}
      *
-     *      <code class="example_class">  
-     *          array( [1] => "whatever");  
-     *      </code>  
+     *      <code class="example_class">
+     *          array( [1] => "whatever");
+     *      </code>
      *
      *  @endcode
      *
@@ -100,16 +100,16 @@ class Data
      *
      * @return string
      *
-     *  example given:..
+     *  example given:
      *  @code{.php}
-     *      LEPTON_tools::display_dev( $result_array, "code", "example_class" )  
+     *      LEPTON_tools::display_dev( $result_array, "code", "example_class" )
      *  @endcode
-     *      will return:  
+     *      will return:
      *  @code{.xml}
      *
-     *      <code class="example_class">  
-     *          Location: ~modules/whatever/ajax/CallMe.php ->Line: 208  
-     *          array( [1] => "whatever");  
+     *      <code class="example_class">
+     *          Location: ~modules/whatever/ajax/CallMe.php ->Line: 208
+     *          array( [1] => "whatever");
      *      </code>  
      *
      *  @endcode
@@ -131,7 +131,7 @@ class Data
             ? (bool)$useVarDump
             : false
             ;
-        
+
         // [1] get 'caller'
         $backtrace = debug_backtrace();
        //var_dump($backtrace[7]['args'][0]);

@@ -12,7 +12,7 @@
  *
  *   cd /Applications/MAMP/htdocs/projekte/wbce_git/wbce/modules/Subway/tests
  *   php phpunit.phar --colors='always' --display-warnings RequestTest.php
- * 
+ *
  *   php phpunit.phar --colors='always' --display-deprecations RequestTest.php
  *
  *   phpcs --colors --standard=PSR12 RequestTest.php
@@ -68,6 +68,9 @@ class RequestTest extends TestCase
 
             case 'session':
                 $_SESSION[$name] = $values['value'];
+                break;
+
+            default:
                 break;
         }
     }

@@ -20,13 +20,13 @@ use Subway\core\traits\QueryTools;
 use const TABLE_PREFIX;
 
 class Pages
-{    
+{
     use Singleton;
     use QueryTools;
 
     public static $instance;
 
-    protected ?object $database = NULL;
+    protected ?object $database = null;
     
     public array $WBCE_all_pages = [];
 

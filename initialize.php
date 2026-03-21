@@ -18,7 +18,7 @@ if (!defined('WB_PATH'))
     die();
 }
 
-/** 
+/**
  * [1] Just to make sure the WBCE autoloader will find the module classes
  *     (As this one line is missing in the "inizialize" file of the root.)
  */

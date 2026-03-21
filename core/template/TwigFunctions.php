@@ -21,13 +21,13 @@ class TwigFunctions extends AbstractExtension
 {
     // Requested by the parent.
     public function __construct() {
-        // At this time nothing to do here.    
+        // At this time nothing to do here.
     }
 
     /**
      *  check if file exists.
      *  @param string $lookUpPath  A valid path including LEPTON_PATH
-     *  @usage (use tilde as a term-connector): {% if !fileExists( (AnyPath ~ AnyFilePart1 ~ '_' ~ AnyFilePart2 ~ '.pdf') ) %}	
+     *  @usage (use tilde as a term-connector): {% if !fileExists( (AnyPath ~ AnyFilePart1 ~ '_' ~ AnyFilePart2 ~ '.pdf') ) %}
      *  @return object.
      */
     public static function fileExists(string $lookUpPath = ''): object {
@@ -37,8 +37,8 @@ class TwigFunctions extends AbstractExtension
     }
 
     /**
-     * 	processTranslation / L_
-     * 	---------------------------------------------------------------------------
+     *  processTranslation / L_
+     *  ---------------------------------------------------------------------------
      *  This function allows you to use any language string that is active on the 
      *  page you're templating. No need to hand over long lists of lang strings
      *  to the templates anymore as it was with the previously used Template Engine
@@ -50,10 +50,10 @@ class TwigFunctions extends AbstractExtension
      *     L_('TEXT:ACTIVE');
      *     L_('{TEXT:ACTIVE}');
      *
-     * 	@author Christian M. Stefan <stefek@designthings.de>	
-     * 	@param  string	
-     * 	@param  bool	
-     * 	@return string Translated String
+     * @author Christian M. Stefan <stefek@designthings.de>
+     * @param  string
+     * @param  bool
+     * @return string Translated String
      */
     public static function processTranslationL(string $sStr = ''): object
     {
@@ -81,7 +81,7 @@ class TwigFunctions extends AbstractExtension
                     if ($bShowMissing)
                     {
                         $sRetVal = "<span style='color:purple'>";
-                        $sRetVal .= (is_array($GLOBALS[$arr]) == false) ? 'Array ' . $arr . ' does not exist.<br>' : '';
+                        $sRetVal .= (!is_array($GLOBALS[$arr])) ? 'Array ' . $arr . ' does not exist.<br>' : '';
                         $sRetVal .= "<b>Missing Translation:</b> <input style=\"width:450px\" type=\"text\" value=\"$" . $arr . "['" . $key . "']\"></span>";
                     } else
                     {

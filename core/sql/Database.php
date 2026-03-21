@@ -57,17 +57,17 @@ class Database
      *
      *  @example
      *      $results_array = [];
-     *      Database::execute_query( 
+     *      Database::execute_query(
      *          "SELECT * from ".TABLE_PREFIX."pages WHERE page_id = ".$page_id." ",
-     *          true, 
-     *          $results_array, 
-     *          false 
+     *          true,
+     *          $results_array,
+     *          false
      *      );
      *
      */
     public static function execute_query(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ) : int
     {
-        // $this->error = "";
+
         try{
             $oStatement = self::getInstance()->mysqli->prepare($aQuery);
 
@@ -86,8 +86,6 @@ class Database
             return $oResult->num_rows;
         } catch(\mysqli_sql_exception $error) {
             die("E: " . $error->getMessage() );
-            // $this->error = $error->getMessage();
-            // $this->HandleDisplayError("10");
             return -1;
         }
     }
@@ -95,6 +93,6 @@ class Database
     // Avoid using "new" for a new instance.
     protected function __construct()
     {
-        
+        // Nothing to do here now.
     }
 }
