@@ -28,7 +28,7 @@ class Pages
 
     protected ?object $database = NULL;
     
-    public array $LEPTON_CORE_all_pages = [];
+    public array $WBCE_all_pages = [];
 
     // Avoid using "new" for a new instance.
     protected function __construct()
@@ -58,7 +58,7 @@ class Pages
         array $fields = ['page_id', 'page_title', 'menu_title', 'parent','position', 'visibility', 'admin_groups']
         ): void
     {
-        // global $LEPTON_CORE_all_pages;
+        // global $WBCE_all_pages;
         // $database = LEPTON_database::getInstance();
 
         // [1.0.2]
@@ -79,18 +79,19 @@ class Pages
 
         $select_fields = "`".implode("`,`", $fields)."`";
 
-        $this->LEPTON_CORE_all_pages = [];
+        $this->WBCE_all_pages = [];
         $this->execute_query(
             "SELECT ".$select_fields." FROM `".TABLE_PREFIX."pages` ORDER BY `parent`,`position`",
             true,
-            $this->LEPTON_CORE_all_pages
+            $this->WBCE_all_pages
         );
 
         // [2.1]
-        foreach ($this->LEPTON_CORE_all_pages as &$ref)
+        foreach ($this->WBCE_all_pages as &$ref)
         {
             $ref['admin_groups'] = explode(",", $ref['admin_groups']);
         }
+        unset($ref);
 
         // [2.2]
 /*
@@ -111,13 +112,14 @@ class Pages
 */
         if (in_array("viewing_groups", $fields))
         {
-            foreach ($this->LEPTON_CORE_all_pages as &$ref)
+            foreach ($this->WBCE_all_pages as &$ref)
             {
                 $ref['viewing_groups'] = explode(",", $ref['viewing_groups']);
             }
         }
+        unset($ref);
 
-        $this->LEPTON_CORE_make_list($root_id, $page_storage);
+        $this->make_list($root_id, $page_storage);
     }
 
     /**
@@ -127,11 +129,11 @@ class Pages
      *    @param    array   $aRefArray Result-Storage. Call by reference!
      *
      */ 
-    protected function LEPTON_CORE_make_list(int $aNum, array &$aRefArray): void
+    protected function make_list(int $aNum, array &$aRefArray): void
     {
-        // global $LEPTON_CORE_all_pages, $TEXT;
+        // global $WBCE_all_pages, $TEXT;
 
-        foreach($this->LEPTON_CORE_all_pages as &$aTempPage)
+        foreach($this->WBCE_all_pages as &$aTempPage)
         {
 
             if ($aTempPage['parent'] > $aNum)
@@ -190,7 +192,7 @@ class Pages
                 }
 */
                 $aTempPage['subpages'] = [];
-                $this->LEPTON_CORE_make_list($aTempPage['page_id'], $aTempPage['subpages']);
+                $this->make_list($aTempPage['page_id'], $aTempPage['subpages']);
 
                 if (isset($aTempPage['link']))
                 {
