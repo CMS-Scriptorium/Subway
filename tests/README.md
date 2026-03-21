@@ -26,7 +26,7 @@ To use a spezific php version, e.g. under MacOS e.g. MAMP you will have to expor
 export PATH=/Applications/MAMP/bin/php/php8.4.1/bin:$PATH
 ```
 
-### issures?
+### misfortune?
 
 Here is one [![Deprecated in PhpUnit](img/unfortunately_01.png)](img/unfortunately_01.png)
 
