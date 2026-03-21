@@ -38,7 +38,7 @@ class Request
 
     protected function __construct()
     {
-        
+        // Nothing to do here now.
     }
 
     /**
@@ -78,6 +78,10 @@ class Request
             case self::USE_ENV :
                 $refLookUp = &$_ENV;
                 break;
+
+            default:
+                die("Unsupported lookup!");
+                break;
         }
 
         $tempVal = $refLookUp[$name] ?? $default;
@@ -100,7 +104,7 @@ class Request
      */
     protected function testValue(mixed $value, string $type, mixed $default): mixed
     {
-        $retVal = NULL;
+        $retVal = null;
 
         switch(strtolower($type))
         {
@@ -185,7 +189,7 @@ class Request
                     break;
 
                 case 'regexpr':
-                    if ((isset($options['pattern']) && (!empty($options['pattern']))))
+                    if (isset($options['pattern']) && (!empty($options['pattern'])))
                     {
                         $results = [];
                         preg_match($options['pattern'], $value, $results);
@@ -202,6 +206,10 @@ class Request
                     {
                         $value = $options['default'] ?? "";
                     }
+                    break;
+
+                default:
+                    // nothing - keep it as it is.
                     break;
             }
         }

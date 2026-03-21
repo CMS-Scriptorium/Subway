@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @requirements    PHP 8.4.x (8.3 recommented)
  */
 
-namespace Subway\core\language; 
+namespace Subway\core\language;
 
 class DE extends EN
 {

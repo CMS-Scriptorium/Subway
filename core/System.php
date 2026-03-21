@@ -36,8 +36,8 @@ class System
             $aInfo['cms'] = "WBCE CMS";
             $aInfo['version'] = WBCE_VERSION;
         } elseif ($this->isLEPTON) {
-
-
+            $aInfo['cms'] = "LEPTON-CMS";
+            $aInfo['version'] = VERSION;
         } elseif ($this->isWB) {
             $aInfo['cms'] = "WebsiteBaker";
             $aInfo['version'] = WB_VERSION;
@@ -48,6 +48,7 @@ class System
 
     protected function __construct()
     {
+        // Das kann so nicht bleiben! To do!!
         $this->isWBCE = (defined("WBCE_VERSION"));
         $this->isLEPTON = (defined("LEPTON_PATH"));
     }

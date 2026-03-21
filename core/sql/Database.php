@@ -16,24 +16,24 @@ namespace Subway\core\sql;
 
 /**
  * Keep in mind that we can only use static methods/properties here!
- * 
+ *
  */
 class Database
 {
 
     /**
      * Singleton instance of the class.
-     * 
+     *
      * @var object
      */
     public static $instance;
 
     /**
      * Internal shortcut to the MySqli-handle.
-     * 
+     *
      * @var object|null
      */
-    protected static ?object $mysqli = NULL;
+    protected static ?object $mysqli = null;
 
     public static function getInstance()
     {
@@ -49,22 +49,20 @@ class Database
     /**
      *  Public "shortcut" for executing a single mySql-query without passing values.
      *
-     *
      *  @param    string  $aQuery A valid mySQL query.
      *  @param    bool    $bFetch Fetching the result - default is false.
      *  @param    array   $aStorage A storage array for the fetched results. Pass by reference!
      *  @param    bool    $bFetchAll Try to get all entries. Default is true.
-     *  @return   int 	  If success number of affected rows.
+     *  @return   int     If success number of affected rows.
      *
      *  @example
-     *      $results_array = [];       
+     *      $results_array = [];
      *      Database::execute_query( 
      *          "SELECT * from ".TABLE_PREFIX."pages WHERE page_id = ".$page_id." ",
      *          true, 
      *          $results_array, 
      *          false 
      *      );
-     *        
      *
      */
     public static function execute_query(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ) : int
