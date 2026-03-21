@@ -61,39 +61,51 @@ class TwigFunctions extends AbstractExtension
             $sRetVal = '';
             if (strpos($sStr, ':') !== false)
             {
-                $sStr = str_replace(' ', '', $sStr);
-                if (strpos($sStr, '{') !== false)
-                {
-                    preg_match_all('/{(.*?)}/', $sStr, $sOut);
-                    $tmp = explode(':', $sOut[1][0]);
-                } else
-                {
-                    $tmp = explode(':', $sStr);
-                }
+                $tmp = self::splitString($sStr);
                 $arr = $tmp[0];
                 $key = $tmp[1];
-                if (is_array($GLOBALS[$arr]) && array_key_exists($key, $GLOBALS[$arr]))
-                {
-                    $sRetVal = $GLOBALS[$arr][$key];
-                } else
-                {
-                    $bShowMissing = (defined('TWIG_SHOW_MISSING_LANG_STRINGS') && TWIG_SHOW_MISSING_LANG_STRINGS == true) ? true : false;
-                    if ($bShowMissing)
-                    {
-                        $sRetVal = "<span style='color:purple'>";
-                        $sRetVal .= (!is_array($GLOBALS[$arr])) ? 'Array ' . $arr . ' does not exist.<br>' : '';
-                        $sRetVal .= "<b>Missing Translation:</b> <input style=\"width:450px\" type=\"text\" value=\"$" . $arr . "['" . $key . "']\"></span>";
-                    } else
-                    {
-                        $key = str_replace('_', ' ', $key) . '.';
-                        $sRetVal = $key;
-                    }
-                }
+
+                $sRetVal = (is_array($GLOBALS[$arr]) && array_key_exists($key, $GLOBALS[$arr]))
+                    ? $GLOBALS[$arr][$key]
+                    : self::formatString($arr, $key)
+                    ;
+                
             } else
             {
                 $sRetVal = $sStr;
             }
             return $sRetVal;
         });
+    }
+
+    protected static function splitString(string &$sStr): array
+    {
+        $sStr = str_replace(' ', '', $sStr);
+        if (strpos($sStr, '{') !== false)
+        {
+            $sOut = [];
+            preg_match_all('/{(.*?)}/', $sStr, $sOut);
+            $tmp = explode(':', $sOut[1][0]);
+        } else
+        {
+            $tmp = explode(':', $sStr);
+        }
+        return $tmp;
+    }
+
+    protected static function formatString(string $arr, string $key): string
+    {
+        $bShowMissing = (defined('TWIG_SHOW_MISSING_LANG_STRINGS') && TWIG_SHOW_MISSING_LANG_STRINGS == true) ? true : false;
+        if ($bShowMissing)
+        {
+            $sRetVal = "<span style='color:purple'>";
+            $sRetVal .= (!is_array($GLOBALS[$arr])) ? 'Array ' . $arr . ' does not exist.<br>' : '';
+            $sRetVal .= "<b>Missing Translation:</b> <input style=\"width:450px\" type=\"text\" value=\"$" . $arr . "['" . $key . "']\"></span>";
+        } else
+        {
+            $key = str_replace('_', ' ', $key) . '.';
+            $sRetVal = $key;
+        }
+        return $sRetVal;
     }
 }
