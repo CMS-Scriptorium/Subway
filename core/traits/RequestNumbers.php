@@ -24,7 +24,7 @@ trait RequestNumbers
      * 
      * @return void Nothing
      */
-    static function handleIntRange(
+    protected function handleIntRange(
         mixed &$value, 
         mixed $default,
         array &$options

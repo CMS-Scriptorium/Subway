@@ -157,7 +157,7 @@ class Request
                 case 'i':
                 case 'int':
                 case 'integer':
-                    RequestNumbers::handleIntRange($value, $default, $options);
+                    $this->handleIntRange($value, $default, $options);
                     break;
 
                 case 's':
