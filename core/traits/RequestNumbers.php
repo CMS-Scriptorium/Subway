@@ -14,10 +14,22 @@ declare(strict_types=1);
 
 namespace Subway\core\traits;
 
-class RequestNumbers
+trait RequestNumbers
 {
-   static function handleIntRange(mixed &$value, mixed $default, array &$options): int
-   {
+    /**
+     * 
+     * @param mixed $value      The currend value; call by reference
+     * @param mixed $default    The default value
+     * @param array $options    Call by reference
+     * 
+     * @return void Nothing
+     */
+    static function handleIntRange(
+        mixed &$value, 
+        mixed $default,
+        array &$options
+    ): void
+    {
         if (isset($options['min']))
         {
             $iMin = intval($options['min']);

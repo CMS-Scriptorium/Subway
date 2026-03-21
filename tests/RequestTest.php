@@ -39,6 +39,7 @@ use Subway\core\Request;
 
 // [4]
 require_once \dirname(__DIR__) . "/core/traits/Singleton.php";
+require_once \dirname(__DIR__) . "/core/traits/RequestNumbers.php";
 require_once \dirname(__DIR__) . "/core/Info.php";
 require_once \dirname(__DIR__) . "/core/Request.php";
 
