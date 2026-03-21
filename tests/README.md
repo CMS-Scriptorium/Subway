@@ -19,6 +19,8 @@ Example given
 ```php
 cd ~/projekte/wbce_git/wbce/modules/Subway/tests
 php phpunit.phar --colors='always' --display-warnings RequestTest.php
+
+php phpunit.phar --colors='always' --display-deprecations RequestTest.php
 ```
 
 To use a spezific php version, e.g. under MacOS e.g. MAMP you will have to export like
