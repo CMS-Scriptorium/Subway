@@ -147,8 +147,8 @@ class TwigBox
         // for the frontend
         if (defined("PAGE_ID"))
         {
-            $database = Database::getInstance();
-            $page_template = $database->get_one("SELECT `template` FROM `".TABLE_PREFIX."pages` WHERE `page_id`=".PAGE_ID);
+            $oDB = Database::getInstance();
+            $page_template = $oDB->get_one("SELECT `template` FROM `".TABLE_PREFIX."pages` WHERE `page_id`=".PAGE_ID);
             $this->registerPath(WB_PATH.self::TEMPLATE_DIR.( $page_template === "" ? DEFAULT_TEMPLATE : $page_template)."/frontend/".$sModuleDir."/", $sModuleDir);
         }
     }

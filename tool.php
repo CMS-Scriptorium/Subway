@@ -24,5 +24,3 @@ echo $oTwig->render(
         'message' => Subway::getInstance()->language['NO_INTERFACE']
     ]
 );
-
-

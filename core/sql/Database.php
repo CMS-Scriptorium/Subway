@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Subway\core\sql;
 
+use Exception;
+
 /**
  * Keep in mind that we can only use static methods/properties here!
  *
@@ -34,7 +36,6 @@ class Database
         {
             // Using WBCE-database here!
             static::$instance = $GLOBALS['database'];
-
         }
         return static::$instance;
     }
@@ -60,8 +61,14 @@ class Database
      */
     public static function executeQuery(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ) : int
     {
+        if (is_null(self::$instance))
+        {
+            self::getInstance();
+        }
+
+        $oTempHandle = self::$instance->db_handle;
         try{
-            $oStatement = self::$instance->db_handle->prepare($aQuery);
+            $oStatement = $oTempHandle->prepare($aQuery);
 
             $oStatement->execute();
 
@@ -76,8 +83,10 @@ class Database
             }
 
             return $oResult->num_rows;
-        } catch(\mysqli_sql_exception $error) {
-            die("E: " . $error->getMessage());
+        } catch(Exception $error) {
+            trigger_error(sprintf('EXCEPTION: %s', mysqli_error($oTempHandle)));
+            trigger_error(sprintf('STATEMENT: %s', preg_replace('/\s+/', ' ', $aQuery)));
+            self::$instance->set_error(sprintf('EXCEPTION: %s', mysqli_error($oTempHandle)));
             return -1;
         }
     }

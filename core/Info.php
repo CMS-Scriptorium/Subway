@@ -18,7 +18,7 @@ class Info
 {
     public const string MODULE_DIRECTORY   = 'Subway';
     public const string MODULE_NAME        = 'Initial Page';
-    public const string MODULE_FUNCTION    = 'initialize, tool';
+    public const string MODULE_FUNCTION    = 'tool, initialize';
     public const string MODULE_VERSION     = '0.1.0';
     public const string MODULE_STATUS      = 'alpha';
     public const string MODULE_PLATFORM    = '1.6.0';
