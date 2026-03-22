@@ -204,10 +204,11 @@ class RequestTest extends TestCase
                 ],
                 'where' => Request::USE_POST,
                 'name' => "test_str",
-                'type' => 'strip',
+                'type' => 's',
                 'default' => "",
                 'options' => [
-                    'allowed' => ""
+                    'min' => 1,
+                    'max' => 128
                 ],
                 'expected' => "ein einfacher Text"
             ]
