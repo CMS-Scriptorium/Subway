@@ -10,13 +10,15 @@
  */
 #}{% autoescape false %}
 <!-- Output by Twig :: module "Subway" -->
-<p><hr></p>	
-	<h3 class="ip_message">{{ message }}</h3>
-<p><hr></p>
-
-{% if (!aladin) && (message != "" ) %}AAAA{% endif %}
+<p>
+    <h3 class="ip_message">{{ message }}</h3>
+</p>
+<p></p>
 {#
+{% if (!aladin) && (message != "" ) %}AAAA{% endif %}
+
 {% if (fileExists( WB_PATH ~ '/___README.md')) %}******{% else %}not found{% endif %}
+
 {{ [1,2,3,4,5]|display(useVarDump: true) }}
 #}
 <!-- end Twig -->

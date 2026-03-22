@@ -70,13 +70,13 @@ class Data
         {
             $something_to_display = "The value is NULL!";
         }
-        
+
         // [0] useVarDump?
         $useVarDumpParam = is_bool($useVarDump)
             ? (bool)$useVarDump
             : false
             ;
-            
+
         $sReturnVal = "\n<".$tag.(null === $css_class ? "" : " class='".$css_class."'").">\n";
         ob_start();
             ((true === self::$useVarDump) || (true === $useVarDumpParam))

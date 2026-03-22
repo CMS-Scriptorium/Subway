@@ -18,7 +18,7 @@ use Subway\core\traits\Constants;
 use Subway\core\traits\Singleton;
 use const LANGUAGE;
 
-class Subway extends Info
+class Subway
 {
     use Singleton;
     use Constants;
