@@ -46,12 +46,9 @@ trait RequestStrings
                 $value .= $add;
             }
         }
-        if (isset($options['default']))
+        if (isset($options['default']) && ($options['default'] == true))
         {
-            if ($options['default'])
-            {
-                $value  = $default;
-            }
+            $value  = $default;
         }
     }
 }
