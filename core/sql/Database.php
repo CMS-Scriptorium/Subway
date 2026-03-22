@@ -26,14 +26,7 @@ class Database
      *
      * @var object
      */
-    public static $instance;
-
-    /**
-     * Internal shortcut to the MySqli-handle.
-     *
-     * @var object|null
-     */
-    protected static ?object $mysqli = null;
+    public static ?object $instance = null;
 
     public static function getInstance()
     {
@@ -41,7 +34,7 @@ class Database
         {
             // Using WBCE-database here!
             static::$instance = $GLOBALS['database'];
-            static::$mysqli = static::$instance->db_handle;
+
         }
         return static::$instance;
     }
@@ -67,25 +60,24 @@ class Database
      */
     public static function executeQuery(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ) : int
     {
-
         try{
-            $oStatement = self::getInstance()->mysqli->prepare($aQuery);
+            $oStatement = self::$instance->db_handle->prepare($aQuery);
 
             $oStatement->execute();
-            
+
             $oResult = $oStatement->get_result();
-            
+
             if (($oResult->num_rows > 0) && (true === $bFetch))
             {
                 $aStorage = (true === $bFetchAll)
-                    ? $oResult->fetch_all(MYSQLI_ASSOC)
-                    : $oResult->fetch(MYSQLI_ASSOC)
+                    ? mysqli_fetch_assoc($oResult) //, MYSQLI_ASSOC)
+                    : mysqli_fetch_all($oResult, MYSQLI_ASSOC)
                     ;
-            
             }
+
             return $oResult->num_rows;
         } catch(\mysqli_sql_exception $error) {
-            die("E: " . $error->getMessage() );
+            die("E: " . $error->getMessage());
             return -1;
         }
     }
@@ -93,6 +85,6 @@ class Database
     // Avoid using "new" for a new instance.
     protected function __construct()
     {
-        // Nothing to do here now.
+        // Nothing here
     }
 }
