@@ -13,7 +13,7 @@
  *   cd /Applications/MAMP/htdocs/projekte/wbce_git/wbce/modules/Subway/tests
  *   php phpunit.phar --colors='always' --display-warnings RequestTest.php
  *
- *   php phpunit.phar --colors='always' --display-deprecations RequestTest.php
+ *   php phpunit.phar --colors='always' --display-deprecations --display-warnings RequestTest.php
  *
  *   phpcs --colors --standard=PSR12 RequestTest.php
  *   phpcbf --standard=PSR12 RequestTest.php
@@ -200,7 +200,7 @@ class RequestTest extends TestCase
             'string' => [
                 'setup' => [
                     'where' => Request::USE_POST,
-                    'value' => "ein <em>einfacher</em> Text"
+                    'value' => "<p>ein <em>einfacher</em> Text.</p>"
                 ],
                 'where' => Request::USE_POST,
                 'name' => "test_str",
@@ -210,7 +210,7 @@ class RequestTest extends TestCase
                     'min' => 1,
                     'max' => 128
                 ],
-                'expected' => "ein einfacher Text"
+                'expected' => "<p>ein <em>einfacher</em> Text.</p>"
             ]
         ];
     }

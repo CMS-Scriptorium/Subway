@@ -52,7 +52,7 @@ trait QueryTools
      *
      *  @example
      *      $results_array = [];
-     *      $database->execute_query(
+     *      $database->executeQuery(
      *          "SELECT * from ".TABLE_PREFIX."pages WHERE page_id = ".$page_id." ",
      *          true,
      *          $results_array,

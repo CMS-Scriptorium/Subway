@@ -150,10 +150,11 @@ class Request
     }
 
     /**
-     *
-     * @param mixed $value
-     * @param string $type
-     * @param array $options
+     *  handleOptions
+     * 
+     * @param mixed $value    A given "value" (call-by-reference)
+     * @param string $type    The type as string (e.g. "i", or "str").
+     * @param array $options  The given options (call-by-reference).
      */
     protected function handleOptions(mixed &$value, string $type, mixed &$default, array $options)
     {
@@ -177,23 +178,11 @@ class Request
                     break;
 
                 case 'regexpr':
-                    if (isset($options['pattern']) && (!empty($options['pattern'])))
-                    {
-                        $results = [];
-                        preg_match($options['pattern'], $value, $results);
-                        
-                        if (empty($results))
-                        {
-                            $value = $options['default'] ?? "";
-                        }
-                    }
+                    $this->handleRegexpr($value, $default, $options);
                     break;
 
                 case "email":
-                    if (false === filter_var($value, FILTER_VALIDATE_EMAIL))
-                    {
-                        $value = $options['default'] ?? "";
-                    }
+                    $this->handleEmail($value, $default, $options);
                     break;
 
                 default:

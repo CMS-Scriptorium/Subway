@@ -102,7 +102,7 @@ class Data
      *
      *  example given:
      *  @code{.php}
-     *      LEPTON_tools::display_dev( $result_array, "code", "example_class" )
+     *      LEPTON_tools::displayDev($resultArray, "code", "example_class")
      *  @endcode
      *      will return:
      *  @code{.xml}
