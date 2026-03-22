@@ -35,6 +35,7 @@ class TwigBox
     use Singleton;
 
     protected const TWIG_BASE_PATH = "/include/Sensio/";
+    protected const TEMPLATE_DIR = "/templates/";
 
     /**
      *  Public var that holds the instance of the TWIG-loader.
@@ -55,10 +56,10 @@ class TwigBox
         $this->loader = new FilesystemLoader(WB_PATH.'/');
 
         $this->registerPath(
-                WB_PATH."/templates/".DEFAULT_THEME."/templates/", "theme"
+                WB_PATH.self::TEMPLATE_DIR.DEFAULT_THEME.self::TEMPLATE_DIR, "theme"
         );
         $this->registerPath(
-                WB_PATH."/templates/".DEFAULT_TEMPLATE."/templates/", "frontend"
+                WB_PATH.self::TEMPLATE_DIR.DEFAULT_TEMPLATE.self::TEMPLATE_DIR, "frontend"
         );
 
         $this->parser = new Environment(
@@ -137,18 +138,18 @@ class TwigBox
     public function registerModule(string $sModuleDir): void
     {
         $basePath = WB_PATH."/modules/".$sModuleDir;
-        $this->registerPath($basePath."/templates/", $sModuleDir);
-        $this->registerPath($basePath."/templates/backend", $sModuleDir);
-        $this->registerPath($basePath."/templates/frontend", $sModuleDir);
+        $this->registerPath($basePath.self::TEMPLATE_DIR, $sModuleDir);
+        $this->registerPath($basePath.self::TEMPLATE_DIR."backend", $sModuleDir);
+        $this->registerPath($basePath.self::TEMPLATE_DIR."frontend", $sModuleDir);
 
-        $this->registerPath(WB_PATH."/templates/".DEFAULT_THEME."/backend/".$sModuleDir."/", $sModuleDir);
+        $this->registerPath(WB_PATH.self::TEMPLATE_DIR.DEFAULT_THEME."/backend/".$sModuleDir."/", $sModuleDir);
 
         // for the frontend
         if (defined("PAGE_ID"))
         {
             $database = Database::getInstance();
             $page_template = $database->get_one("SELECT `template` FROM `".TABLE_PREFIX."pages` WHERE `page_id`=".PAGE_ID);
-            $this->registerPath(WB_PATH."/templates/".( $page_template == "" ? DEFAULT_TEMPLATE : $page_template)."/frontend/".$sModuleDir."/", $sModuleDir);
+            $this->registerPath(WB_PATH.self::TEMPLATE_DIR.( $page_template === "" ? DEFAULT_TEMPLATE : $page_template)."/frontend/".$sModuleDir."/", $sModuleDir);
         }
     }
 
