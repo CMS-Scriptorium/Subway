@@ -42,6 +42,7 @@ use Subway\core\Request;
 // [4]
 require_once \dirname(__DIR__) . "/core/traits/Singleton.php";
 require_once \dirname(__DIR__) . "/core/traits/RequestNumbers.php";
+require_once \dirname(__DIR__) . "/core/traits/RequestStrings.php";
 require_once \dirname(__DIR__) . "/core/Info.php";
 require_once \dirname(__DIR__) . "/core/Request.php";
 
@@ -195,6 +196,20 @@ class RequestTest extends TestCase
                     'default' => "no valid"
                 ],
                 'expected' => "aladin.gibtesnicht@none.tld"
+            ],
+            'string' => [
+                'setup' => [
+                    'where' => Request::USE_POST,
+                    'value' => "ein <em>einfacher</em> Text"
+                ],
+                'where' => Request::USE_POST,
+                'name' => "test_str",
+                'type' => 'strip',
+                'default' => "",
+                'options' => [
+                    'allowed' => ""
+                ],
+                'expected' => "ein einfacher Text"
             ]
         ];
     }

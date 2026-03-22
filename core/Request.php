@@ -16,6 +16,8 @@ namespace Subway\core;
 
 use Subway\core\traits\Singleton;
 use Subway\core\traits\RequestNumbers;
+use Subway\core\traits\RequestStrings;
+
 /**
  * Description of Request
  *
@@ -26,6 +28,7 @@ class Request
 
     use Singleton;
     use RequestNumbers;
+    use RequestStrings;
 
     public const USE_POST = "post";
     public const USE_GET = "get";
@@ -166,22 +169,7 @@ class Request
 
                 case 's':
                 case 'string':
-                    if (isset($options['max']))
-                    {
-                        $value = substr($value, 0, intval($options['max']));
-                    }
-                    if (isset($options['min']))
-                    {
-                        $x = strlen($value);
-                        $add = \str_repeat(($options['fill'] ?? " "), \intval($options['min']) - $x);
-                        if (($options['prepend'] ?? false) === true)
-                        {
-                            $value = $add . $value;
-                        } else
-                        {
-                            $value .= $add;
-                        }
-                    }
+                    $this->handleStrRange($value, $default, $options);
                     break;
 
                 case 'strip':
