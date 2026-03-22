@@ -151,7 +151,7 @@ class Request
 
     /**
      *  handleOptions
-     * 
+     *
      * @param mixed $value    A given "value" (call-by-reference)
      * @param string $type    The type as string (e.g. "i", or "str").
      * @param array $options  The given options (call-by-reference).
