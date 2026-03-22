@@ -95,7 +95,7 @@ class TwigFunctions extends AbstractExtension
 
     protected static function formatString(string $arr, string $key): string
     {
-        $bShowMissing = (defined('TWIG_SHOW_MISSING_LANG_STRINGS') && TWIG_SHOW_MISSING_LANG_STRINGS == true) ? true : false;
+        $bShowMissing = (defined('TWIG_SHOW_MISSING_LANG_STRINGS') && (TWIG_SHOW_MISSING_LANG_STRINGS)) ? true : false;
         if ($bShowMissing)
         {
             $sRetVal = "<span style='color:purple'>";
