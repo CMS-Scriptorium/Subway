@@ -110,7 +110,7 @@ class Pages
             if ($aTempPage['parent'] > $aNum)
             {
                 break;
-            }    
+            }
 
             if ($aTempPage['parent'] == $aNum)
             {
