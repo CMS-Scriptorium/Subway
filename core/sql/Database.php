@@ -77,8 +77,8 @@ class Database
             if (($oResult->num_rows > 0) && (true === $bFetch))
             {
                 $aStorage = (true === $bFetchAll)
-                    ? mysqli_fetch_assoc($oResult) //, MYSQLI_ASSOC)
-                    : mysqli_fetch_all($oResult, MYSQLI_ASSOC)
+                    ? $oResult->fetch_all(MYSQLI_ASSOC)
+                    : $oResult->fetch_assoc()//($oResult, MYSQLI_ASSOC)
                     ;
             }
 

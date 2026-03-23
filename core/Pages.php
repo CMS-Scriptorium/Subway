@@ -12,38 +12,34 @@ declare(strict_types=1);
  * @requirements    PHP 8.4.x (8.3 recommented)
  */
 
-namespace Subway\core\sql;
+namespace Subway\core;
 
+use Subway\core\sql\Database;
 use Subway\core\traits\Singleton;
-use Subway\core\traits\QueryTools;
-
+use const PAGE_EXTENSION;
+use const PAGES_DIRECTORY;
 use const TABLE_PREFIX;
 
 class Pages
 {
+
     use Singleton;
-    use QueryTools;
 
     public static $instance;
 
-    protected ?object $database = null;
-    
     public array $allPages = [];
 
     // Avoid using "new" for a new instance.
     protected function __construct()
     {
-        $this->database = $GLOBALS['database'];
-        
-        // Method is inside QueryTools
-        $this->getMysqlHandle();
+        // nothing here to do right now.
     }
+
 
     /**
      *    Generates a page-tree (array) by given parameters (see below).
      *
      *    @param    int     $root_id        Any root-(page) id. Default = 0.
-     *    @param    array   $page_storage   Storage-Array for the results. Pass by reference!
      *    @param    array   $fields         A linear list of field-names to collect. As default
      *                                      'page_id', 'page_title', 'menu_title', 'parent','position','visibility', 'admin_groups' are
      *                                      collected in the result-array.
@@ -54,9 +50,8 @@ class Pages
      */
     public function getPageTree(
         int $root_id = 0,
-        array &$page_storage = [],
         array $fields = ['page_id', 'page_title', 'menu_title', 'parent','position', 'visibility', 'admin_groups']
-        ): void
+        ): array
     {
 
         // [1.1] make sure that required fields are in list
@@ -73,10 +68,11 @@ class Pages
         $select_fields = "`".implode("`,`", $fields)."`";
 
         $this->allPages = [];
-        $this->execute_query(
+        Database::executeQuery(
             "SELECT ".$select_fields." FROM `".TABLE_PREFIX."pages` ORDER BY `parent`,`position`",
             true,
-            $this->allPages
+            $this->allPages,
+            true
         );
 
         // [2.1]
@@ -95,7 +91,9 @@ class Pages
         }
         unset($ref);
 
+        $page_storage = [];
         $this->makeList($root_id, $page_storage);
+        return $page_storage;
     }
 
     /**
