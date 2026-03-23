@@ -66,6 +66,8 @@ class Database
             self::getInstance();
         }
 
+        self::handleTableprefix($aQuery);
+
         $oTempHandle = self::$instance->db_handle;
         try{
             $oStatement = $oTempHandle->prepare($aQuery);
@@ -78,7 +80,7 @@ class Database
             {
                 $aStorage = (true === $bFetchAll)
                     ? $oResult->fetch_all(MYSQLI_ASSOC)
-                    : $oResult->fetch_assoc()//($oResult, MYSQLI_ASSOC)
+                    : $oResult->fetch_assoc()
                     ;
             }
 
@@ -90,7 +92,15 @@ class Database
             return -1;
         }
     }
-
+    
+    public static function handleTableprefix(string &$source): void
+    {
+        $source = str_replace(
+            ['{TP}', '{TABLE_PREFIX}'],
+            TABLE_PREFIX,
+            $source
+        );
+    }
     // Avoid using "new" for a new instance.
     protected function __construct()
     {

@@ -18,7 +18,6 @@ use Subway\core\sql\Database;
 use Subway\core\traits\Singleton;
 use const PAGE_EXTENSION;
 use const PAGES_DIRECTORY;
-use const TABLE_PREFIX;
 
 class Pages
 {
@@ -43,9 +42,9 @@ class Pages
      *    @param    array   $fields         A linear list of field-names to collect. As default
      *                                      'page_id', 'page_title', 'menu_title', 'parent','position','visibility', 'admin_groups' are
      *                                      collected in the result-array.
-     *                    Keep in mind that also 'subpages' is generated!
+     *                      Keep in mind that also 'subpages' is generated!
      *
-     *    @return    void    As the storage is called by reference.
+     *    @return   array    Two dim. array with the result/page-tree-values.
      *
      */
     public function getPageTree(
@@ -69,7 +68,7 @@ class Pages
 
         $this->allPages = [];
         Database::executeQuery(
-            "SELECT ".$select_fields." FROM `".TABLE_PREFIX."pages` ORDER BY `parent`,`position`",
+            "SELECT ".$select_fields." FROM `{TP}pages` ORDER BY `parent`,`position`",
             true,
             $this->allPages,
             true
@@ -97,10 +96,10 @@ class Pages
     }
 
     /**
-     *    Internal Sub-function for "page_tree" to build the page-tree via recursive calls.
+     *  Internal Sub-function for "page_tree" to build the page-tree via recursive calls.
      *
-     *    @param    int     $aNum Root-Id
-     *    @param    array   $aRefArray Result-Storage. Call by reference!
+     *  @param  int     $aNum       Root-Id
+     *  @param  array   $aRefArray  Result-Storage (call-by-reference!)
      *
      */
     protected function makeList(int $aNum, array &$aRefArray): void
@@ -108,12 +107,10 @@ class Pages
 
         foreach($this->allPages as &$aTempPage)
         {
-
             if ($aTempPage['parent'] > $aNum)
             {
                 break;
-            }
-            
+            }    
 
             if ($aTempPage['parent'] == $aNum)
             {
