@@ -21,7 +21,7 @@ class TwigOperatorsOld extends \Twig\Extension\AbstractExtension
     }
     
     /**
-     *  See: page 40 ff. inside the twig documentation-pdf. 
+     *  See: page 40 ff. inside the twig documentation-pdf.
      *      https://twig.symfony.com/doc/2.x/
      *      https://twig.symfony.com/doc/2.x/advanced.html#operators
      */
