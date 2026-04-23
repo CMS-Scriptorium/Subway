@@ -41,17 +41,18 @@ class Database
     }
 
     /**
-     *  Public "shortcut" for executing a single mySql-query without passing values.
+     *  Public "shortcut" for executing a single mySql-query.
      *
-     *  @param    string  $aQuery A valid mySQL query.
-     *  @param    bool    $bFetch Fetching the result - default is false.
-     *  @param    array   $aStorage A storage array for the fetched results. Pass by reference!
+     *  @param    string  $aQuery    A valid mySQL query.
+     *  @param    bool    $bFetch    Fetching the result - default is false.
+     *  @param    array   $aStorage  A storage array for the fetched results. Pass by reference!
      *  @param    bool    $bFetchAll Try to get all entries. Default is true.
+     *
      *  @return   int     If success number of affected rows.
      *
      *  @example
      *      $results_array = [];
-     *      Database::execute_query(
+     *      Subway\core\sql\Database::execute_query(
      *          "SELECT * from ".TABLE_PREFIX."pages WHERE page_id = ".$page_id." ",
      *          true,
      *          $results_array,
@@ -69,7 +70,8 @@ class Database
         self::handleTableprefix($aQuery);
 
         $oTempHandle = self::$instance->db_handle;
-        try{
+        
+        try {
             $oStatement = $oTempHandle->prepare($aQuery);
 
             $oStatement->execute();
@@ -101,6 +103,7 @@ class Database
             $source
         );
     }
+    
     // Avoid using "new" for a new instance.
     protected function __construct()
     {

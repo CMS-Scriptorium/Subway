@@ -16,6 +16,11 @@ namespace Subway\core\template;
 
 use Subway\core\sql\Database;
 use Subway\core\traits\Singleton;
+use Subway\core\template\TwigBox\TwigFilters;
+use Subway\core\template\TwigBox\TwigFunctions;
+use Subway\core\template\TwigBox\TwigOperators;
+use Subway\core\template\TwigBox\TwigOperatorsOld;
+
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
@@ -79,8 +84,13 @@ class TwigBox
         $this->parser->addGlobal("MEDIA_DIRECTORY", MEDIA_DIRECTORY);
 
         // [2] Extensions
-        $this->parser->addExtension(new TwigOperators());
         $this->parser->addExtension(new DebugExtension());
+        if (version_compare(Environment::VERSION, "3.21.0") >= 0)
+        {
+            $this->parser->addExtension(new TwigOperators());
+        } else {
+            $this->parser->addExtension(new TwigOperatorsOld());
+        }
 
         // [3] Functions
         $this->parser->addFunction(TwigFunctions::fileExists());

@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @requirements    PHP 8.4.x (8.3 recommented)
  */
 
-namespace Subway\core\template;
+namespace Subway\core\template\TwigBox;
 
 use Twig\ExpressionParser\Infix\BinaryOperatorExpressionParser;
 use Twig\ExpressionParser\Prefix\UnaryOperatorExpressionParser;

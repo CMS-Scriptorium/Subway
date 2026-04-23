@@ -14,6 +14,6 @@ use Subway\core\language\EN;
  * @requirements    PHP 8.4.x (8.3 recommented)
  */
 
-// Backwards
+// backwards compatible
 $MOD_INITIALPAGE = EN::getInstance()->getConstants();
 

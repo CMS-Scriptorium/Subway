@@ -25,6 +25,13 @@ if (!defined('WB_PATH'))
 WbAuto::AddDir(WB_PATH."/modules/");
 
 /**
+ * [1.1] Just to make sure the WBCE autoloader will find the frontend-template
+ *       classes and also the theme ones.
+ *       (As this one line is also missing in the "inizialize" file of the root.)
+ */
+WbAuto::AddDir(WB_PATH."/templates/");
+
+/**
  * [2] Backwards for the "L_" processTranslation by Stefek.
 
 if (!defined('TWIG_SHOW_MISSING_LANG_STRINGS'))
