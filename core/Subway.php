@@ -14,9 +14,13 @@ declare(strict_types=1);
 
 namespace Subway\core;
 
+use I;
 use Subway\core\traits\Constants;
 use Subway\core\traits\Singleton;
+use const DEFAULT_TEMPLATE;
 use const LANGUAGE;
+use const WB_PATH;
+use const WB_URL;
 
 class Subway
 {
@@ -28,6 +32,31 @@ class Subway
     public static $instance;
 
     protected const string CLASSNAMESPACE = "\\Subway\\core\\language\\";
+
+    protected const string DEFAULT_FRONTEND_CSS = "modules/Subway/css/frontend.css";
+
+    protected static bool $cssLoaded = false;
+
+
+    public function initFrontend(): void
+    {
+        if ($this->cssLoaded == false)
+        {
+            $page = $GLOBALS['wb']->page ?? NULL;
+            $template = !empty($page->template) ? $page->template : DEFAULT_TEMPLATE;
+            $lookFor = "/templates/".$template."/frontend/Subway/frontend.css";
+            
+            $cssFile = (file_exists(WB_PATH.$lookFor))
+                ? $lookFor
+                : self::DEFAULT_FRONTEND_CSS
+                ;
+
+            // Using WBCE internal
+            I::insertCssFile(WB_URL . $cssFile, 'HEAD BTM-');
+
+            $this->cssLoaded = true;
+        }
+    }
 
     protected function __construct()
     {

@@ -24,5 +24,10 @@ $aPages  = Pages::getInstance()->getPageTree(
 echo Data::display($aPages);
 ```
 
+- loading Subway-frontend css
+```php
+\Subway\core\Subway::getInstance()->initFrontend();
+```
+
 [1]: https://wbce.org/de/wbce/
 [2]: https://forum.wbce.org/search.php?action=show_recent

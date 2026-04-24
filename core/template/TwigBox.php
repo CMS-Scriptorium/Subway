@@ -201,7 +201,7 @@ class TwigBox
             
             if (is_file($file))
             {
-                include_once $file;
+                require_once $file;
             }
         }
         return false;
