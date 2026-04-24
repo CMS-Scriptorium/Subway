@@ -44,7 +44,7 @@ class Subway
         {
             $page = $GLOBALS['wb']->page ?? null;
             $template = !empty($page->template) ? $page->template : DEFAULT_TEMPLATE;
-            $lookFor = "/templates/".$template."/frontend/Subway/frontend.css";
+            $lookFor = "/templates/".$template."/frontend/Subway/css/frontend.css";
             
             $cssFile = (file_exists(WB_PATH.$lookFor))
                 ? $lookFor
