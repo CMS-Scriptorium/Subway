@@ -25,32 +25,32 @@ class TwigOperatorsOld extends \Twig\Extension\AbstractExtension
      *      https://twig.symfony.com/doc/2.x/
      *      https://twig.symfony.com/doc/2.x/advanced.html#operators
      */
+    #[\Override]
     public function getOperators()
     {
-        return array(
-            array(
-                '!' => array(
+        return [
+            [
+                '!' => [
                     'precedence' => 50,
                     'class' => 'Twig\Node\Expression\Unary\NotUnary'
-                ),
-                
-                '¬' => array(
+                ],
+                '¬' => [
                     'precedence' => 50,
                     'class' => 'Twig\Node\Expression\Unary\NotUnary'
-                )
-             ),
-            array(
-                '||' => array(
+                ]
+            ],
+            [
+                '||' => [
                     'precedence' => 10,
                     'class' => 'Twig\Node\Expression\Binary\OrBinary',
                     'associativity' => \Twig\ExpressionParser::OPERATOR_LEFT
-                ),
-                '&&' => array(
+                ],
+                '&&' => [
                     'precedence' => 15,
                     'class' => 'Twig\Node\Expression\Binary\AndBinary',
                     'associativity' => \Twig\ExpressionParser::OPERATOR_LEFT
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 }
