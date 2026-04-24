@@ -33,17 +33,19 @@ class Subway
 
     protected const string CLASSNAMESPACE = "\\Subway\\core\\language\\";
 
-    protected const string DEFAULT_FRONTEND_CSS = "modules/Subway/css/frontend.css";
+    protected const string DEFAULT_FRONTEND_CSS = "/modules/Subway/css/frontend.css";
+    protected const string DEFAULT_FRONTEND_JS = "/modules/Subway/js/frontend.js";
 
     protected bool $cssLoaded = false;
-
+    protected bool $jsLoaded = false;
 
     public function initFrontend(): void
     {
+        $page = $GLOBALS['wb']->page ?? null;
+        $template = !empty($page->template) ? $page->template : DEFAULT_TEMPLATE;
+
         if (!$this->cssLoaded)
         {
-            $page = $GLOBALS['wb']->page ?? null;
-            $template = !empty($page->template) ? $page->template : DEFAULT_TEMPLATE;
             $lookFor = "/templates/".$template."/frontend/Subway/css/frontend.css";
             
             $cssFile = (file_exists(WB_PATH.$lookFor))
@@ -56,6 +58,22 @@ class Subway
 
             $this->cssLoaded = true;
         }
+
+        if (!$this->jsLoaded)
+        {
+            $lookFor = "/templates/".$template."/frontend/Subway/js/frontend.js";
+            
+            $jsFile = (file_exists(WB_PATH.$lookFor))
+                ? $lookFor
+                : self::DEFAULT_FRONTEND_JS
+                ;
+
+            // Using WBCE internal
+            I::insertJsFile(WB_URL . $jsFile, 'HEAD BTM-');
+
+            $this->jsLoaded = true;
+        }
+
     }
 
     protected function __construct()
