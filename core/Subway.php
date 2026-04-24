@@ -40,9 +40,9 @@ class Subway
 
     public function initFrontend(): void
     {
-        if ($this->cssLoaded == false)
+        if (!$this->cssLoaded)
         {
-            $page = $GLOBALS['wb']->page ?? NULL;
+            $page = $GLOBALS['wb']->page ?? null;
             $template = !empty($page->template) ? $page->template : DEFAULT_TEMPLATE;
             $lookFor = "/templates/".$template."/frontend/Subway/frontend.css";
             
