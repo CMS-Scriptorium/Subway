@@ -60,7 +60,7 @@ class Database
      *      );
      *
      */
-    public static function executeQuery(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ) : int
+    public static function executeQuery(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ): int
     {
         if (is_null(self::$instance))
         {

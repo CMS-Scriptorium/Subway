@@ -36,15 +36,15 @@ class Pages
 
 
     /**
-     *    Generates a page-tree (array) by given parameters (see below).
+     *  Generates a page-tree (array) by given parameters (see below).
      *
-     *    @param    int     $root_id        Any root-(page) id. Default = 0.
-     *    @param    array   $fields         A linear list of field-names to collect. As default
-     *                                      'page_id', 'page_title', 'menu_title', 'parent','position','visibility', 'admin_groups' are
-     *                                      collected in the result-array.
+     *  @param  int    $root_id        Any root-(page) id. Default = 0.
+     *  @param  array  $fields         A linear list of field-names to collect. As default
+     *                                 'page_id', 'page_title', 'menu_title', 'parent','position','visibility', 'admin_groups' are
+     *                                 collected in the result-array.
      *                      Keep in mind that also 'subpages' is generated!
      *
-     *    @return   array    Two dim. array with the result/page-tree-values.
+     *  @return   array   Two dim. array with the result/page-tree-values.
      *
      */
     public function getPageTree(
@@ -92,6 +92,7 @@ class Pages
 
         $page_storage = [];
         $this->makeList($root_id, $page_storage);
+
         return $page_storage;
     }
 

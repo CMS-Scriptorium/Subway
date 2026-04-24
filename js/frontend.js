@@ -2,4 +2,4 @@
  * Subway frontend javaScript
  */
 
-console.log("Subway frondend loaded.");
+console.log("Subway frontend loaded.");
