@@ -35,7 +35,7 @@ class Subway
 
     protected const string DEFAULT_FRONTEND_CSS = "modules/Subway/css/frontend.css";
 
-    protected static bool $cssLoaded = false;
+    protected bool $cssLoaded = false;
 
 
     public function initFrontend(): void
