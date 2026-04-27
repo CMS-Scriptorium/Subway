@@ -105,24 +105,24 @@ class Database
      *  @return array    A two dimensional assoc. array with the results.
      */
     public static function query(string $query): array
-    {        
+    {
         $result = [];
         self::executeQuery(
             $query,
             true,
             $result
         );
-        
+
         return $result;
     }
-    
+
     public static function update(string $what, string $table, array $values, string $where = ""): bool
     {
         if (is_null(self::$instance))
         {
             self::getInstance();
         }
-        
+
         switch (strtolower($what))
         {
             case self::DO_UPDATE:
@@ -133,14 +133,14 @@ class Database
                 }
                 $query = substr($query, 0, -2) . (($where != "") ? " WHERE " . $where : "");
                 break;
-                
+
             case self::DO_INSERT:
                 $keys = array_keys($values);
                 $query = "INSERT into `" . $table . "` (`";
                 $query .= implode("`,`", $keys) . "`) VALUES (";
                 $query .= substr(str_repeat("?, ", count($values)), 0, -2).")";
                 break;
-                
+
             default:
                 die("[2004] Not correct job in ".__CLASS__." in ".__LINE__.". Passed: ".$what);
                 break;
@@ -163,7 +163,7 @@ class Database
             return false;
         }
     }
-    
+
     public static function drop(string $table): bool
     {
         self::handleTableprefix($table);
@@ -172,7 +172,7 @@ class Database
 
         return true;
     }
-    
+
     public static function handleTableprefix(string &$source): void
     {
         $source = str_replace(
