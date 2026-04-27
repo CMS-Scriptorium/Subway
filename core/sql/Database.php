@@ -33,6 +33,9 @@ class Database
      */
     public static ?object $instance = null;
 
+    protected const string STR_EXCEPTION = "EXCEPTION: %s";
+    protected const string STR_STATEMENT = "STATEMENT: %s";
+    
     public static function getInstance()
     {
         if (null === static::$instance)
@@ -91,9 +94,9 @@ class Database
 
             return $oResult->num_rows;
         } catch(Exception $error) {
-            trigger_error(sprintf('EXCEPTION: %s', mysqli_error($oTempHandle)));
-            trigger_error(sprintf('STATEMENT: %s', preg_replace('/\s+/', ' ', $aQuery)));
-            self::$instance->set_error(sprintf('EXCEPTION: %s', mysqli_error($oTempHandle)));
+            trigger_error(sprintf(self::STR_EXCEPTION, mysqli_error($oTempHandle)));
+            trigger_error(sprintf(self::STR_STATEMENT, preg_replace('/\s+/', ' ', $aQuery)));
+            self::$instance->set_error(sprintf(self::STR_EXCEPTION, mysqli_error($oTempHandle)));
             return -1;
         }
     }
@@ -157,9 +160,9 @@ class Database
 
             return true;
         } catch(Exception $error) {
-            trigger_error(sprintf('EXCEPTION: %s', mysqli_error($oTempHandle)));
-            trigger_error(sprintf('STATEMENT: %s', preg_replace('/\s+/', ' ', $query)));
-            self::$instance->set_error(sprintf('EXCEPTION: %s', mysqli_error($oTempHandle)));
+            trigger_error(sprintf(self::STR_EXCEPTION, mysqli_error($oTempHandle)));
+            trigger_error(sprintf(self::STR_STATEMENT, preg_replace('/\s+/', ' ', $query)));
+            self::$instance->set_error(sprintf(self::STR_EXCEPTION, mysqli_error($oTempHandle)));
             return false;
         }
     }
