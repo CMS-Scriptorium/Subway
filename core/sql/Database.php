@@ -23,6 +23,9 @@ use Exception;
 class Database
 {
 
+    public const string DO_UPDATE = "update";
+    public const string DO_INSERT = "insert";
+    
     /**
      * Singleton instance of the class.
      *
@@ -93,6 +96,81 @@ class Database
             self::$instance->set_error(sprintf('EXCEPTION: %s', mysqli_error($oTempHandle)));
             return -1;
         }
+    }
+    
+    /**
+     *  Performs a simple query and returns the result as an assoc. array.
+     *
+     *  @param  string   A (simple)query.
+     *  @return array    A two dimensional assoc. array with the results.
+     */
+    public static function query(string $query): array
+    {        
+        $result = [];
+        self::executeQuery(
+            $query,
+            true,
+            $result
+        );
+        
+        return $result;
+    }
+    
+    public static function update(string $what, string $table, array $values, string $where = ""): bool
+    {
+        if (is_null(self::$instance))
+        {
+            self::getInstance();
+        }
+        
+        switch (strtolower($what))
+        {
+            case self::DO_UPDATE:
+                $query = "UPDATE `".$table."` SET ";
+                foreach ($values as $field => $value)
+                {
+                    $query .= "`" . $field . "`= ?, ";
+                }
+                $query = substr($query, 0, -2) . (($where != "") ? " WHERE " . $where : "");
+                break;
+                
+            case self::DO_INSERT:
+                $keys = array_keys($values);
+                $query = "INSERT into `" . $table . "` (`";
+                $query .= implode("`,`", $keys) . "`) VALUES (";
+                $query .= substr(str_repeat("?, ", count($values)), 0, -2).")";
+                break;
+                
+            default:
+                die("[2004] Not correct job in ".__CLASS__." in ".__LINE__.". Passed: ".$what);
+                break;
+        }
+ 
+        self::handleTableprefix($query);
+
+        $oTempHandle = self::$instance->db_handle;
+        
+        try {
+            $oStatement = $oTempHandle->prepare($query);
+
+            $oStatement->execute(array_values($values));
+
+            return true;
+        } catch(Exception $error) {
+            trigger_error(sprintf('EXCEPTION: %s', mysqli_error($oTempHandle)));
+            trigger_error(sprintf('STATEMENT: %s', preg_replace('/\s+/', ' ', $query)));
+            self::$instance->set_error(sprintf('EXCEPTION: %s', mysqli_error($oTempHandle)));
+            return false;
+        }
+    }
+    
+    public static function drop(string $table): bool
+    {
+        self::handleTableprefix($table);
+
+        self::query("DROP table `".$table."` IF EXISTS;");
+
+        return true;
     }
     
     public static function handleTableprefix(string &$source): void
