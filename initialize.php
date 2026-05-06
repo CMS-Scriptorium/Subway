@@ -33,9 +33,8 @@ WbAuto::AddDir(WB_PATH."/templates/");
 
 /**
  * [2] Backwards for the "L_" processTranslation by Stefek.
-
+ */
 if (!defined('TWIG_SHOW_MISSING_LANG_STRINGS'))
 {
     define('TWIG_SHOW_MISSING_LANG_STRINGS', false);
 }
-*/

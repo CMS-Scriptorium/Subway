@@ -20,5 +20,5 @@ if (!defined('WB_PATH'))
     die();
 }
 
-$oTable = Table::getInstance();
-$oTable->install();
+// $oTable = Table::getInstance();
+// $oTable->install();

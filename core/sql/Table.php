@@ -34,7 +34,7 @@ class Table
         $this->database = $GLOBALS['database'];
         
         // Method is inside QueryTools
-        $this->getMysqlHandle();
+        // $this->getMysqlHandle();
     }
     
     /**
