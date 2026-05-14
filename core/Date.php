@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * This file is part of LEPTON Core, released under the GNU GPL
  * Please see LICENSE and COPYING files in your package for details, specially for terms and warranties.
- * 
+ *
  * NOTICE:LEPTON CMS Package has several different licenses.
  * Please see the individual license in the header of each single file or info.php of modules and templates.
  *
@@ -64,12 +64,12 @@ class Date
     public string $mode = "LC_ALL";
 
     /**
-     *  Used for "_force_year" to determiante if the year belongs to 1900 or 2000.
+     *  Used for "forceYear" to determiante if the year belongs to 1900 or 2000.
      *  Default setting is 2, so if the current year is 2008 a value of 10 will be force
      *  to 2010 instead of 11 will be force to 1911.
      *
      *  @var    integer
-     *  @see    _force_year
+     *  @see    forceYear
      *  @access public
      *
      */
@@ -398,8 +398,6 @@ class Date
      *
      *  @return string  The formatted date string
      *
-     *  @todo   Testing the timestamp before generating the html-return.
-     *
      */
     public function toHTML(int|null $iTimestamp = 0 ): string
     {
@@ -443,16 +441,14 @@ class Date
              */
             if (class_exists("IntlDateFormatter"))
             {
-                $oTempFormatter = new IntlDateFormatter(
+                return $oTempFormatter = new IntlDateFormatter(
                         $aTempLocale, // 'en_US',
                         IntlDateFormatter::LONG,
                         IntlDateFormatter::NONE,
                         DEFAULT_TIMEZONE_STRING, // 1 timezone
                         IntlDateFormatter::GREGORIAN, // 2 calendar
                         $this->sINTLFormat              // 3 format
-                );
-                
-                return $oTempFormatter->format($iTimestamp);
+                )->format($iTimestamp);
             }
             else
             {
@@ -500,8 +496,8 @@ class Date
      */
     public function transform (string $aDateString = "01.01.1971", string $aFormat="dmy"): string
     {
-        $this->_force_date ($aDateString);
-        $this->_force_format ($aFormat);
+        $this->forceDate ($aDateString);
+        $this->forceFormat ($aFormat);
 
         $temp = explode(".", $aDateString);
         $temp = array_map(
@@ -513,17 +509,17 @@ class Date
         switch ($aFormat)
         {
             case 'dmy':
-                $this->_force_year($temp[2]);
+                $this->forceYear($temp[2]);
                 $temp_time = mktime( 1, 0, 0, $temp[1], $temp[0], $temp[2]);
                 break;
 
             case 'mdy':
-                $this->_force_year($temp[2]);
+                $this->forceYear($temp[2]);
                 $temp_time = mktime( 1, 0, 0, $temp[0], $temp[1], $temp[2]);
                 break;
 
             case 'ymd':
-                $this->_force_year($temp[0]);
+                $this->forceYear($temp[0]);
                 $temp_time = mktime( 1, 0, 0, $temp[1], $temp[2], $temp[0]);
                 break;
 
@@ -551,12 +547,12 @@ class Date
      *
      * @code
      *  $date = "11-03-1988";
-     *  $this->_force_date($date);
+     *  $this->forceDate($date);
      *  echo $date;
      *
      *  results in: "11.03.1966"
      */
-    private function _force_date(string &$aDateString ): void
+    private function forceDate(string &$aDateString ): void
     {
         $pattern = ["*[\\/|.|-]+*"];
         $replace = ["."];
@@ -575,7 +571,7 @@ class Date
      *          least three chars: "d", "m", and "y"
      *
      */
-    private function _force_format(string &$aFormat): void
+    private function forceFormat(string &$aFormat): void
     {
 
         $aFormat = strtolower ($aFormat);
@@ -595,7 +591,7 @@ class Date
      *    If the year is future oriented more than two years by default at runtime,
      *    19xx is assumed.
      */
-    private function _force_year(string|int &$aYearStr = "1971"): void
+    private function forceYear(string|int &$aYearStr = "1971"): void
     {
 		$aYearStr = (string) $aYearStr;
 		
@@ -618,7 +614,7 @@ class Date
      *  @param  string    $aPattern Own patter/regexp for other formats.
      *                              default is "dd.mm.yyyy" e.g. 11.03.1966
      */
-    public function parse_string (string &$aStr = "", string $aPattern = "/([0-3][0-9].[01]{0,1}[0-9].[0-9]{2,4})/s"): void
+    public function parseString (string &$aStr = "", string $aPattern = "/([0-3][0-9].[01]{0,1}[0-9].[0-9]{2,4})/s"): void
     {
         $found=[];
         preg_match_all($aPattern, $aStr, $found );
@@ -636,7 +632,7 @@ class Date
      *  @return bool    True if the key is known, false if failed.
      *
      */
-    public function set_core_language(string $aKeyStr = ""): bool
+    public function setCoreLanguage(string $aKeyStr = ""): bool
     {
 
         $return_value = true;
@@ -673,7 +669,7 @@ class Date
                 break;
 
             default:
-                $this->test_locale($aKeyStr);
+                $this->testLocale($aKeyStr);
                 break;
         }
         return $return_value;
@@ -693,7 +689,7 @@ class Date
      *  @return array    all matches; could be empty.
      *
      */
-    public function test_locale (string $aKey = "de_DE", bool $use_it = true): array
+    public function testLocale (string $aKey = "de_DE", bool $use_it = true): array
     {
         if (strlen($aKey) == 2)
         {
@@ -1003,8 +999,6 @@ class Date
     {
         return self::MYSQL_LOCALES;
     }
-	
-
 
     /**
      * Get the date formats.
@@ -1013,7 +1007,7 @@ class Date
      *
      * @throws Exception
      */
-    static function get_dateformats(): array
+    static function getDateformats(): array
     {
         global $user_time;
         global $TEXT;
@@ -1056,7 +1050,7 @@ class Date
          * 
          */
         $oThis = self::getInstance();
-        $oThis->set_core_language(DEFAULT_LANGUAGE);
+        $oThis->setCoreLanguage(DEFAULT_LANGUAGE);
         
         /**
          * [1.2] A list with the terms (months names/weekdays) inside the formatted date.
@@ -1111,7 +1105,7 @@ class Date
      *  @return array   An assoc. array with the time-formats as key, and the current time as value.
      *
      */
-    static function get_timeformats(): array
+    static function getTimeformats(): array
     {
         global $user_time;
         global $TEXT;
@@ -1148,22 +1142,11 @@ class Date
      *  @return array   An array with days.
      *
      */
-    static function get_days(string $lang= "en_EN", bool $abbr= false): array
+    static function getDays(string $lang= "en_EN", bool $abbr= false): array
     {
         return self::getInstance()->getWeekdayNames($lang, $abbr);  // Wochentagsnamen ausgeschrieben
-        /**
-        return [
-            1 => "monday",
-            2 => "tuesday",
-            3 => "wednesday",
-            4 => "thursday",
-            5 => "friday",
-            6 => "saturday",
-            7 => "sunday"
-        ];
-        **/
     }
-	
+
     /**
      *  Get months.
      *
@@ -1175,34 +1158,18 @@ class Date
      *  @return array   An array with months.
      *
      */
-    static function get_months(string $lang= "en_EN", bool $abbr= false): array
+    static function getMonths(string $lang= "en_EN", bool $abbr= false): array
     {
         return self::getInstance()->getMonthNames($lang, $abbr); // Monatsnamen ausgeschrieben
-        /**
-        return [
-            1 => "january",
-            2 => "february",
-            3 => "march",
-            4 => "april",
-            5 => "may",
-            6 => "june",
-            7 => "july",
-            8 => "august",
-            9 => "september",
-            10 => "october",
-            11 => "november",
-            12 => "december"			
-        ];
-        **/
     }
-	
+
     /**
      *  Get the time zones.
      *
      *  @return array   A linear array with the basics timezones.
      *
      */
-    static function get_timezones(): array
+    static function getTimezones(): array
     {
         return [
             "Pacific/Kwajalein",
