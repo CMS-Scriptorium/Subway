@@ -82,6 +82,7 @@ class TwigBox
         $this->parser->addGlobal("THEME_PATH", THEME_PATH);
         $this->parser->addGlobal("THEME_URL", THEME_URL);
         $this->parser->addGlobal("MEDIA_DIRECTORY", MEDIA_DIRECTORY);
+        $this->parser->addGlobal("LANGUAGE", LANGUAGE);
 
         // [2] Extensions
         $this->parser->addExtension(new DebugExtension());
@@ -95,6 +96,7 @@ class TwigBox
         // [3] Functions
         $this->parser->addFunction(TwigFunctions::fileExists());
         $this->parser->addFunction(TwigFunctions::processTranslationL());
+        $this->parser->addFunction(TwigFunctions::formatWithMYSQL());
 
         // [4] Filters
         $this->parser->addFilter(TwigFilters::getFilterDisplay());
