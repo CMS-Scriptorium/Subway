@@ -73,7 +73,7 @@ class Date
      *  @access public
      *
      */
-    public int $force_year = 2;
+    public int $forceYear = 2;
 
     /**
      *  Translation-array for the LEPTON-CMS internal date-formats.
@@ -82,7 +82,7 @@ class Date
      *  @access public
      *
      */
-    public array $CORE_date_formats_PHP = [
+    public array $COREDateFormatsPHP = [
         'l, jS F, Y'=> '%A, %e %B, %Y',
         'jS F, Y'   => '%e %B, %Y',
         'd M Y'     => '%d %a %Y',
@@ -104,7 +104,7 @@ class Date
      *  @access public
      *  @see    https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_date-format
      */
-    public array $CORE_date_formats_MYSQL = [
+    public array $COREDateFormatsMYSQL = [
         'l, jS F, Y'=> '%W, %D %M, %Y', // 1
         'jS F, Y'   => '%D %M, %Y',     // 2
         'd M Y'     => '%e. %M %Y',     // 3 e.g. 24. Juli 2022
@@ -128,7 +128,7 @@ class Date
      *  @access public
      *
      */
-    public array $CORE_time_formats_PHP = [
+    public array $CORETimeFormatsPHP = [
         'g:i A' => '%I:%M %p',
         'g:i a' => '%I:%M %P',
         'H:i:s' => '%H:%M:%S',
@@ -142,7 +142,7 @@ class Date
      *  @access public
      *  @see    https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_date-format
      */
-    public array $CORE_time_formats_MYSQL = [
+    public array $CORETimeFormatsMYSQL = [
         'g:i A' => '%l:%i %p',  // Uppercase Ante meridiem and Post meridiem
         'g:i a' => '%r %p',
         'H:i:s' => '%H:%i:%s',  // 3
@@ -156,7 +156,7 @@ class Date
      * @access public
      * @see https://api.jqueryui.com/datepicker/#utility-formatDate
      */
-    public array $CORE_date_formats_DatePicker = [
+    public array $COREDateFormatsDatePicker = [
         'l, jS F, Y'=> 'DD, d. MM yy',  //'A, e B, yy',
         'jS F, Y'   => 'd. MM, yy',      // 1
         'd M Y'     => 'd. MM yy',       // 2
@@ -184,7 +184,7 @@ class Date
      *
      */
     public bool $useINTL = false;
-    public bool $intl_installed = false;
+    public bool $intlInstalled = false;
 
     /**
      *  Holds information for some dateFormatter patterns (M.f.i!)
@@ -193,7 +193,7 @@ class Date
      *
      *  @see    https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
      */
-    public array $CORE_date_formats_INTL = [
+    public array $COREDateFormatsINTL = [
         'l, jS F, Y'=> 'A, e B, yyyy',
         'jS F, Y'   => 'e B, yyyy',     // 1
         'd M Y'     => 'd M yyyy',
@@ -593,8 +593,8 @@ class Date
      */
     private function forceYear(string|int &$aYearStr = "1971"): void
     {
-		$aYearStr = (string) $aYearStr;
-		
+        $aYearStr = (string) $aYearStr;
+        
         if (strlen($aYearStr) == 2)
         {
             $aYearStr = (((int) $aYearStr > $this->force_year + (int) DATE("y", TIME())) ? "19" : "20").$aYearStr;
@@ -603,8 +603,8 @@ class Date
         {
             $aYearStr = substr($aYearStr, 0, 4);
         }
-		
-		$aYearStr = intval($aYearStr);
+        
+        $aYearStr = intval($aYearStr);
     }
 
     /**
@@ -726,10 +726,10 @@ class Date
      */
     public function formatToDatepicker(string $sFormatString = ""): string
     {
-        if (isset($this->CORE_date_formats_DatePicker[$sFormatString])) {
-            return $this->CORE_date_formats_DatePicker[$sFormatString];
-        } elseif (isset($this->CORE_date_formats_DatePicker[DATE_FORMAT])) {
-            return $this->CORE_date_formats_DatePicker[DATE_FORMAT];
+        if (isset($this->COREDateFormatsDatePicker[$sFormatString])) {
+            return $this->COREDateFormatsDatePicker[$sFormatString];
+        } elseif (isset($this->COREDateFormatsDatePicker[DATE_FORMAT])) {
+            return $this->COREDateFormatsDatePicker[DATE_FORMAT];
         } else {
             return "";
         }
@@ -786,7 +786,7 @@ class Date
         // [1.1] none found - page-language?
         if (is_null($sTempCurrentPageLanguage))
         {
-            $sTempCurrentPageLanguage = LEPTON_frontend::getInstance()->page['language'];
+            //$sTempCurrentPageLanguage = LEPTON_frontend::getInstance()->page['language'];
         }
 
         // [2]
@@ -834,7 +834,7 @@ class Date
             $timestamp = time();
         }
 
-        $sRealFormat = $this->CORE_date_formats_MYSQL[$format] ?? $format;
+        $sRealFormat = $this->COREDateFormatsMYSQL[$format] ?? $format;
 
         $tempLang = self::buildLanguageKey(
                 (empty($optionalLang)
