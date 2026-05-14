@@ -82,7 +82,7 @@ class Date
      *  @access public
      *
      */
-    public array $COREDateFormatsPHP = [
+    public array $coreDateFormatsPHP = [
         'l, jS F, Y'=> '%A, %e %B, %Y',
         'jS F, Y'   => '%e %B, %Y',
         'd M Y'     => '%d %a %Y',
@@ -104,7 +104,7 @@ class Date
      *  @access public
      *  @see    https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_date-format
      */
-    public array $COREDateFormatsMYSQL = [
+    public array $coreDateFormatsMYSQL = [
         'l, jS F, Y'=> '%W, %D %M, %Y', // 1
         'jS F, Y'   => '%D %M, %Y',     // 2
         'd M Y'     => '%e. %M %Y',     // 3 e.g. 24. Juli 2022
@@ -128,7 +128,7 @@ class Date
      *  @access public
      *
      */
-    public array $CORETimeFormatsPHP = [
+    public array $coreTimeFormatsPHP = [
         'g:i A' => '%I:%M %p',
         'g:i a' => '%I:%M %P',
         'H:i:s' => '%H:%M:%S',
@@ -142,7 +142,7 @@ class Date
      *  @access public
      *  @see    https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_date-format
      */
-    public array $CORETimeFormatsMYSQL = [
+    public array $coreTimeFormatsMYSQL = [
         'g:i A' => '%l:%i %p',  // Uppercase Ante meridiem and Post meridiem
         'g:i a' => '%r %p',
         'H:i:s' => '%H:%i:%s',  // 3
@@ -156,7 +156,7 @@ class Date
      * @access public
      * @see https://api.jqueryui.com/datepicker/#utility-formatDate
      */
-    public array $COREDateFormatsDatePicker = [
+    public array $coreDateFormatsDatePicker = [
         'l, jS F, Y'=> 'DD, d. MM yy',  //'A, e B, yy',
         'jS F, Y'   => 'd. MM, yy',      // 1
         'd M Y'     => 'd. MM yy',       // 2
@@ -193,7 +193,7 @@ class Date
      *
      *  @see    https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
      */
-    public array $COREDateFormatsINTL = [
+    public array $coreDateFormatsINTL = [
         'l, jS F, Y'=> 'A, e B, yyyy',
         'jS F, Y'   => 'e B, yyyy',     // 1
         'd M Y'     => 'd M yyyy',
@@ -406,6 +406,8 @@ class Date
             $iTimestamp = TIME();
         }
 
+        $retValue = "";
+        
         $aTempLocale = setlocale(LC_ALL, $this->lang);
         if (false === $aTempLocale)
         {
@@ -426,13 +428,12 @@ class Date
             {
                 // Huston: we've got a problem!
                 $this->useINTL = false;
-                return date($this->format, $iTimestamp);
+                $retValue = date($this->format, $iTimestamp);
             }
             else
             {
-             // @see     https://php.watch/versions/8.1/strftime-gmstrftime-deprecated
-                $sFormatedDate = datefmt_format($fmt,  $iTimestamp );
-                return $sFormatedDate;
+                // @see     https://php.watch/versions/8.1/strftime-gmstrftime-deprecated
+                $retValue = datefmt_format($fmt,  $iTimestamp );;
             }
         } else {
             /**
@@ -441,13 +442,13 @@ class Date
              */
             if (class_exists("IntlDateFormatter"))
             {
-                return $oTempFormatter = new IntlDateFormatter(
-                        $aTempLocale, // 'en_US',
-                        IntlDateFormatter::LONG,
-                        IntlDateFormatter::NONE,
-                        DEFAULT_TIMEZONE_STRING, // 1 timezone
-                        IntlDateFormatter::GREGORIAN, // 2 calendar
-                        $this->sINTLFormat              // 3 format
+                $retValue = new IntlDateFormatter(
+                    $aTempLocale, // 'en_US',
+                    IntlDateFormatter::LONG,
+                    IntlDateFormatter::NONE,
+                    DEFAULT_TIMEZONE_STRING, // 1 timezone
+                    IntlDateFormatter::GREGORIAN, // 2 calendar
+                    $this->sINTLFormat              // 3 format
                 )->format($iTimestamp);
             }
             else
@@ -455,9 +456,11 @@ class Date
                 // Aldus 2025-01-19: Aldus fix for the "%"-char in format!
                 // This is a more thoretical problem at all.
                 echo "HOUSTON";
-                return date(str_replace("%", "",$this->format), $iTimestamp);
+                $retValue = date(str_replace("%", "",$this->format), $iTimestamp);
             }
         }
+        
+        return $retValue;
     }
 
     /**
@@ -726,10 +729,10 @@ class Date
      */
     public function formatToDatepicker(string $sFormatString = ""): string
     {
-        if (isset($this->COREDateFormatsDatePicker[$sFormatString])) {
-            return $this->COREDateFormatsDatePicker[$sFormatString];
-        } elseif (isset($this->COREDateFormatsDatePicker[DATE_FORMAT])) {
-            return $this->COREDateFormatsDatePicker[DATE_FORMAT];
+        if (isset($this->coreDateFormatsDatePicker[$sFormatString])) {
+            return $this->coreDateFormatsDatePicker[$sFormatString];
+        } elseif (isset($this->coreDateFormatsDatePicker[DATE_FORMAT])) {
+            return $this->coreDateFormatsDatePicker[DATE_FORMAT];
         } else {
             return "";
         }
@@ -834,7 +837,7 @@ class Date
             $timestamp = time();
         }
 
-        $sRealFormat = $this->COREDateFormatsMYSQL[$format] ?? $format;
+        $sRealFormat = $this->coreDateFormatsMYSQL[$format] ?? $format;
 
         $tempLang = self::buildLanguageKey(
                 (empty($optionalLang)
