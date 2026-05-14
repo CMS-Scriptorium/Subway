@@ -570,9 +570,6 @@ class Date
      *
      *  @see    transform
      *
-     *  @todo   Error-Handling; the format-string has to have at
-     *          least three chars: "d", "m", and "y"
-     *
      */
     private function forceFormat(string &$aFormat): void
     {
@@ -846,7 +843,7 @@ class Date
                 )
         );
 
-        $database = $GLOBALS['database']; //LEPTON_database::getInstance();
+        $database = \Subway\core\sql\Database::getInstance();
 
         if ($tempLang !== "en_EN")
         {
@@ -979,10 +976,10 @@ class Date
     public function getMonthNames(string $sLanguage, bool $bAbbreviated = false): array
     {
         $returnValue = [];
-        
+
         // Der 5. Januar 1970 war ein Montag.
         $tag     = 5;
-        // $monat   = 1;
+
         $jahr    = 1970;
 
         $stunde  = 1;
@@ -1038,13 +1035,6 @@ class Date
             'd-m-Y' => date('d-m-Y', $actual_time).' (D-M-Y)',
             'Y-m-d' => date('Y-m-d', $actual_time).' (Y-M-D)', // new in L* 7.4
             'Y.m.d' => date('Y.m.d', $actual_time).' (Y.M.D)', // new in L* 7.4
-             /*
-            'D M d, Y'   => date( 'D M d, Y',   $actual_time ), // Aldus 2025-01-17: by [1] overwritten!
-            'M d Y'      => date( 'M d Y',      $actual_time ), // Aldus 2025-01-17: by [2] overwritten!
-            'd M Y'      => date( 'd M Y',      $actual_time ), // Aldus 2025-01-17: by [3] overwritten!
-            'jS F, Y'    => date( 'jS F, Y',    $actual_time ), // Aldus 2025-01-17: by [4] overwritten!
-            'l, jS F, Y' => date( 'l, jS F, Y', $actual_time )  // Aldus 2025-01-17: by [5] overwritten!
-            */
         ];
 
         /**
@@ -1097,8 +1087,8 @@ class Date
                 }
                 $dateFormats[$format] = $sFormatedTime;
             }
-
         }
+        unset($format);
         return $dateFormats;
     }
 
