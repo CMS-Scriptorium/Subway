@@ -23,6 +23,8 @@ class Date
 {
     public const SYSTEM_DEFAULT_STR = 'System Default';
 
+    public const DEFAULT_FORMAT = '%d.%m.%Y';
+    
     /**
      *  The reference to *Singleton* instance of this class
      *
@@ -40,8 +42,8 @@ class Date
      *  @access public
      *
      */
-    public string $format = "%d.%m.%Y";
-
+    public string $format = self::DEFAULT_FORMAT;
+    
     public string $sINTLFormat = "d.M.yyyy";
 
     /**
@@ -90,7 +92,7 @@ class Date
         'D M d, Y'  => '%a %b %d, %Y',  ##
         'd-m-Y'     => '%d-%m-%Y',      #1
         'm-d-Y'     => '%m-%d-%Y',
-        'd.m.Y'     => '%d.%m.%Y',      #2
+        'd.m.Y'     => self::DEFAULT_FORMAT,      #2
         'm.d.Y'     => '%m.%d.%Y',
         'd/m/Y'     => '%d/%m/%Y',      #3
         'm/d/Y'     => '%m/%d/%Y',
@@ -112,7 +114,7 @@ class Date
         'D M d, Y'  => '%a %b %e, %Y',  // 5 *
         'd-m-Y'     => '%d-%m-%Y',      // 6
         'm-d-Y'     => '%m-%d-%Y',      // 7
-        'd.m.Y'     => '%d.%m.%Y',      // 8
+        'd.m.Y'     => self::DEFAULT_FORMAT,      // 8
         'm.d.Y'     => '%m.%d.%Y',      // 9
         'd/m/Y'     => '%d/%m/%Y',      // 10
         'm/d/Y'     => '%m/%d/%Y',      // 11
