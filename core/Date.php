@@ -22,7 +22,7 @@ namespace Subway\core;
 class Date
 {
     public const SYSTEM_DEFAULT_STR = 'System Default';
-     
+
     /**
      *  The reference to *Singleton* instance of this class
      *
@@ -325,7 +325,7 @@ class Date
         "zh_HK"  =>  "Chinese - Hong Kong",
         "zh_TW"  =>  "Chinese - Taiwan"
     ];
-    
+
     /**
      *  Return the "internal" instance of this class
      *
@@ -393,17 +393,17 @@ class Date
     /**
      *  Public function to get the format-string.
      *
-     *  @param int      $aTimestamp A valid Timestamp
-     *                  If no timestamp is given the local time will be used.
+     *  @param int|null $aTimestamp A valid Timestamp
+     *                              If no timestamp is given the local time will be used.
      *
      *  @return string  The formatted date string
      *
      *  @todo   Testing the timestamp before generating the html-return.
      *
      */
-    public function toHTML(int $iTimestamp = 0 ): string
+    public function toHTML(int|null $iTimestamp = 0 ): string
     {
-        if (NULL == $iTimestamp)
+        if (is_null($iTimestamp))
         {
             $iTimestamp = TIME();
         }
@@ -423,7 +423,6 @@ class Date
                 DEFAULT_TIMEZONE_STRING, // 'Europe/Berlin',
                 IntlDateFormatter::GREGORIAN,
                 $this->sINTLFormat
-                //$this->format // "yyyy.MM.dd G 'um' HH:mm:ss zzz" // "MMMM | d | y | H"
             );
             if (is_null($fmt))
             {
@@ -433,15 +432,14 @@ class Date
             }
             else
             {
+             // @see     https://php.watch/versions/8.1/strftime-gmstrftime-deprecated
                 $sFormatedDate = datefmt_format($fmt,  $iTimestamp );
-                // echo LEPTON_tools::display_dev($this->sINTLFormat, "pre", "ui message", true);
                 return $sFormatedDate;
             }
         } else {
             /**
              * Aldus:   2022-01-25
              * @notice  In PHP 8.1.1 the strftime function produce a deprecated warning and will be removed in PHP 9.0
-             * @see     https://php.watch/versions/8.1/strftime-gmstrftime-deprecated
              */
             if (class_exists("IntlDateFormatter"))
             {
@@ -472,9 +470,6 @@ class Date
      *  @param  array   $aArray A simple Array with the strings
      *
      *  @return bool    Always true.
-     *
-     *  @todo   Testing the array-values and returning false
-     *          if something is not valid. How? No idea yet.
      */
     public function setLanguage(array $aArray = []): bool
     {
@@ -774,7 +769,7 @@ class Date
         // use strtotime()
         if ($offset != 0)
         {
-            return (strtotime($str, $offset));
+            return strtotime($str, $offset);
         }
         else
         {
@@ -790,7 +785,7 @@ class Date
     public function detectPageLanguage() : array
     {
         // [1] $_GET
-        $sTempCurrentPageLanguage = ($_GET["lang"] ?? NULL);
+        $sTempCurrentPageLanguage = ($_GET["lang"] ?? null);
 
         // [1.1] none found - page-language?
         if (is_null($sTempCurrentPageLanguage))
@@ -856,18 +851,18 @@ class Date
 
         if ($tempLang !== "en_EN")
         {
-			if($tempLang == "dk_DK")
-			{
-				$database->query("SET lc_time_names = 'da_DK';");
-			}
-			elseif($tempLang == "cz_CZ")
-			{
-				$database->query("SET lc_time_names = 'cs_CZ';");
-			}
-			else
-			{			
-				$database->query("SET lc_time_names = '".$tempLang."';");
-			}
+            if($tempLang == "dk_DK")
+            {
+                $database->query("SET lc_time_names = 'da_DK';");
+            }
+            elseif($tempLang == "cz_CZ")
+            {
+                $database->query("SET lc_time_names = 'cs_CZ';");
+            }
+            else
+            {
+                $database->query("SET lc_time_names = '".$tempLang."';");
+            }
         }
         else
         {
