@@ -433,7 +433,7 @@ class Date
             else
             {
                 // @see     https://php.watch/versions/8.1/strftime-gmstrftime-deprecated
-                $retValue = datefmt_format($fmt,  $iTimestamp );;
+                $retValue = datefmt_format($fmt,  $iTimestamp );
             }
         } else {
             /**
@@ -886,7 +886,7 @@ class Date
      * @see https://database.guide/full-list-of-locales-in-mysql/
      *
      */
-    static function buildLanguageKey(string $key = LANGUAGE): string
+    public static function buildLanguageKey(string $key = LANGUAGE): string
     {
         if (preg_match("~^[a-z]{2}_[A-Z]{2}$~", $key)) {
             // given string is "in correct form"
@@ -1010,7 +1010,7 @@ class Date
      *
      * @throws Exception
      */
-    static function getDateformats(): array
+    public static function getDateformats(): array
     {
         global $user_time;
         global $TEXT;
@@ -1027,7 +1027,7 @@ class Date
         }
 
         // Add values to list
-        $DATE_FORMATS = [
+        $dateFormats = [
             'system_default' => $sSystemDefault,
             'j.n.Y' => date('j.n.Y', $actual_time).' (j.n.Y)',
             'm/d/Y' => date('m/d/Y', $actual_time).' (M/D/Y)',
@@ -1050,7 +1050,7 @@ class Date
         /**
          * [1.1] We need this for the correct language (-terms) for the months- and weekday-names!
          * Keep in mind that 'date' will always display them in english!
-         * 
+         *
          */
         $oThis = self::getInstance();
         $oThis->setCoreLanguage(DEFAULT_LANGUAGE);
@@ -1073,7 +1073,7 @@ class Date
         {
             foreach ($aFormatList as &$format)
             {
-                $DATE_FORMATS[$format] = $oThis->formatWithMySQL($format, $actual_time);
+                $dateFormats[$format] = $oThis->formatWithMySQL($format, $actual_time);
             }
         } else
         {
@@ -1095,11 +1095,11 @@ class Date
                         $sFormatedTime
                     );
                 }
-                $DATE_FORMATS[$format] = $sFormatedTime;
+                $dateFormats[$format] = $sFormatedTime;
             }
 
         }
-        return $DATE_FORMATS;
+        return $dateFormats;
     }
 
     /**
@@ -1108,7 +1108,7 @@ class Date
      *  @return array   An assoc. array with the time-formats as key, and the current time as value.
      *
      */
-    static function getTimeformats(): array
+    public static function getTimeformats(): array
     {
         global $user_time;
         global $TEXT;
@@ -1136,7 +1136,7 @@ class Date
  
     /**
      *  Get an index array of days, started with 1!
-     *  
+     *
      *  @param  string $lang    A Language key. None given, "en_EN" is used per default.
      *                          See: ~/modules/lib_lepton/datetools/constants.php for details.
      *
@@ -1145,7 +1145,7 @@ class Date
      *  @return array   An array with days.
      *
      */
-    static function getDays(string $lang= "en_EN", bool $abbr= false): array
+    public static function getDays(string $lang= "en_EN", bool $abbr= false): array
     {
         return self::getInstance()->getWeekdayNames($lang, $abbr);  // Wochentagsnamen ausgeschrieben
     }
@@ -1161,7 +1161,7 @@ class Date
      *  @return array   An array with months.
      *
      */
-    static function getMonths(string $lang= "en_EN", bool $abbr= false): array
+    public static function getMonths(string $lang= "en_EN", bool $abbr= false): array
     {
         return self::getInstance()->getMonthNames($lang, $abbr); // Monatsnamen ausgeschrieben
     }
@@ -1172,7 +1172,7 @@ class Date
      *  @return array   A linear array with the basics timezones.
      *
      */
-    static function getTimezones(): array
+    public static function getTimezones(): array
     {
         return [
             "Pacific/Kwajalein",
