@@ -3,18 +3,13 @@
 declare(strict_types=1);
 
 /**
- * This file is part of LEPTON Core, released under the GNU GPL
- * Please see LICENSE and COPYING files in your package for details, specially for terms and warranties.
- *
- * NOTICE:LEPTON CMS Package has several different licenses.
- * Please see the individual license in the header of each single file or info.php of modules and templates.
- *
- * @author          LEPTON Project
- * @copyright       2010-2026 LEPTON Project
- * @link            https://lepton-cms.org
- * @license         https://gnu.org/licenses/gpl.html
- * @license_terms   please see LICENSE and COPYING files in your package
- *
+ * @package         Subway
+ * @version         0.1.0
+ * @authors         Kant (Aldus)
+ * @license         CC BY-SA 4.0
+ * @license_terms   https://creativecommons.org/licenses/by-sa/4.0/
+ * @platform        WBCE 1.6.x
+ * @requirements    PHP 8.4.x (8.3 recommented)
  */
 
 namespace Subway\core;
@@ -23,6 +18,10 @@ class Date
 {
     public const SYSTEM_DEFAULT_STR = 'System Default';
 
+    /**
+     *  Default format (dd.mm.YYYY)
+     *
+     */
     public const DEFAULT_FORMAT = '%d.%m.%Y';
     
     /**
