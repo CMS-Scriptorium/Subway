@@ -781,12 +781,12 @@ class Date
     public function detectPageLanguage() : array
     {
         // [1] $_GET
-        $sTempCurrentPageLanguage = ($_GET["lang"] ?? null);
+        $sTempCurrentPageLanguage = filter_input(INPUT_GET, "lang", FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? null;
 
         // [1.1] none found - page-language?
         if (is_null($sTempCurrentPageLanguage))
         {
-            //$sTempCurrentPageLanguage = LEPTON_frontend::getInstance()->page['language'];
+            $sTempCurrentPageLanguage = $GLOBALS['wb']->page['language'] ?? "EN";
         }
 
         // [2]
@@ -1147,7 +1147,7 @@ class Date
      *                          See: ~/modules/lib_lepton/datetools/constants.php for details.
      *
      *  @param  bool   $abbr    True use the 'shortnames'. Default is false: full name.
-     *  
+     *
      *  @return array   An array with months.
      *
      */
@@ -1194,7 +1194,7 @@ class Date
             "Australia/Adelaide",
             "Pacific/Guam",
             "Etc/GMT+10",
-            "Pacific/Fiji" 
+            "Pacific/Fiji"
         ];
     }
 }

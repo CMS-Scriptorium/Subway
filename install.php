@@ -19,6 +19,3 @@ if (!defined('WB_PATH'))
     header('Location: ../../index.php');
     die();
 }
-
-// $oTable = Table::getInstance();
-// $oTable->install();
