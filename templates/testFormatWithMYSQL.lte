@@ -7,6 +7,8 @@
  * @license_terms   https://creativecommons.org/licenses/by-sa/4.0/
  * @platform        WBCE 1.6.x
  * @requirements    PHP 8.4.x (8.3 recommented)
+ *
+ *  This is a simple test-template to test a new twig-function inside "Subway".
  */
 #}{% autoescape false %}
 <!-- Output by Twig :: module "Subway" -->
@@ -14,8 +16,16 @@
 <p>
     <h3 class="ip_message">{{ message }}</h3>
 </p>
-<p></p>
+<p>1. all three params set<br>
 {{ formatWithMYSQL(theFormat, theTime, theLang) }}
+</p>
 
+<p>2. first two params set<br>
+{{ formatWithMYSQL(theFormat, theTime) }}
+</p>
+
+<p>3. only first param set<br>
+{{ formatWithMYSQL(theFormat) }}
+</p>
 <!-- end Twig -->
 {% endautoescape %}

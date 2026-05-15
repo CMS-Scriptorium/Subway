@@ -80,7 +80,7 @@ class TwigFunctions extends AbstractExtension
 
     public static function formatWithMYSQL(string $format = '', int|null $timestamp = null, string|null $optionalLang = 'en_GB'): object
     {
-        return new TwigFunction("formatWithMYSQL", function (string $format, int|null $timestamp, string|null $optionalLang)
+        return new TwigFunction("formatWithMYSQL", function (string $format, int|null $timestamp = null, string|null $optionalLang = 'en_GB')
         {
             $oDate = \Subway\core\Date::getInstance();
             return $oDate->formatWithMySQL($format, $timestamp, $optionalLang);

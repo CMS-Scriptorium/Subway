@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace Subway\core;
 
+use IntlDateFormatter;
+use Subway\core\sql\Database;
+
 class Date
 {
     public const SYSTEM_DEFAULT_STR = 'System Default';
@@ -42,7 +45,7 @@ class Date
      *
      */
     public string $format = self::DEFAULT_FORMAT;
-    
+
     public string $sINTLFormat = "d.M.yyyy";
 
     /**
@@ -586,15 +589,15 @@ class Date
     /**
      *  private function that force a "short" Year to a "long" year
      *
-     *  @param  string    $aYearStr The year - called by reference!
-     *    @see  force_year
+     *  @param  string      $givenYearStr    The year - called by reference!
+     *  @see    force_year
      *
      *    If the year is future oriented more than two years by default at runtime,
      *    19xx is assumed.
      */
-    private function forceYear(string|int &$aYearStr = "1971"): void
+    private function forceYear(string|int &$givenYearStr = "1971"): void
     {
-        $aYearStr = (string) $aYearStr;
+        $aYearStr = (string) $givenYearStr;
         
         if (strlen($aYearStr) == 2)
         {
@@ -605,7 +608,7 @@ class Date
             $aYearStr = substr($aYearStr, 0, 4);
         }
         
-        $aYearStr = intval($aYearStr);
+        $givenYearStr = intval($aYearStr);
     }
 
     /**
@@ -744,9 +747,9 @@ class Date
      *
      *  @return int A timestamp
      */
-    public function calendarToTimestamp(string $str = "", int $offset = 0): int
+    public function calendarToTimestamp(string $givenStr = "", int $offset = 0): int
     {
-        $str = trim($str);
+        $str = trim($givenStr);
         if ($str == '0' || $str == '')
         {
             return 0;
@@ -838,13 +841,13 @@ class Date
         $sRealFormat = $this->coreDateFormatsMYSQL[$format] ?? $format;
 
         $tempLang = self::buildLanguageKey(
-                (empty($optionalLang)
-                    ? LANGUAGE
-                    : $optionalLang
-                )
+            (empty($optionalLang)
+                ? LANGUAGE
+                : $optionalLang
+            )
         );
 
-        $database = \Subway\core\sql\Database::getInstance();
+        $database = Database::getInstance();
 
         if ($tempLang !== "en_EN")
         {

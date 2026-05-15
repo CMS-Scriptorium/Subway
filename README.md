@@ -17,8 +17,8 @@ use Subway\core\tools\Data;
 echo "PageTree - Neu mit »Subway«.";
 
 $aPages  = Pages::getInstance()->getPageTree(
-	0, // root
-  	['page_id', 'page_title', 'menu_title']
+    0, // root
+    ['page_id', 'page_title', 'menu_title']
 );
 
 echo Data::display($aPages);
@@ -29,5 +29,21 @@ echo Data::display($aPages);
 \Subway\core\Subway::getInstance()->initFrontend();
 ```
 
+- e.g. test
+```php
+echo "<p></p>";
+$oTwig = Subway\core\template\TwigBox::getInstance();
+$oTwig->registerPath(WB_PATH."/modules/Subway/templates/", "test");
+
+echo $oTwig->render(
+  "@test/testFormatWithMYSQL.lte",
+  [
+      'message' => "Test von Subway",
+      'theFormat' => "%W, %d. %M, %Y  - %H:%i",
+      'theTime' => time(),
+      'theLang' => 'fr_FR'
+  ]
+);
+```
 [1]: https://wbce.org/de/wbce/
 [2]: https://forum.wbce.org/search.php?action=show_recent
