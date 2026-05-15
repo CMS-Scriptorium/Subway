@@ -27,7 +27,7 @@ class TwigFunctions extends AbstractExtension
 
     /**
      *  Check if file exists.
-     * 
+     *
      *  @param string $lookUpPath  A valid path including LEPTON_PATH
      *  @usage (use tilde as a term-connector):
      *      {% if !fileExists( (AnyPath ~ AnyFilePart1 ~ '_' ~ AnyFilePart2 ~ '.pdf') ) %}
