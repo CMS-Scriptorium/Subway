@@ -16,16 +16,28 @@
 <p>
     <h3 class="ip_message">{{ message }}</h3>
 </p>
-<p>1. all three params set<br>
-{{ formatWithMYSQL(theFormat, theTime, theLang) }}
-</p>
+<ol class='subway'>
+    <li>
+    all three params set:<br><em>formatWithMYSQL( format, time, language )</em><br>
+    {{ formatWithMYSQL(theFormat, theTime, theLang) }}
+    </li>
 
-<p>2. first two params set<br>
-{{ formatWithMYSQL(theFormat, theTime) }}
-</p>
+    <li>
+    first two params set<br><em>formatWithMYSQL( format, time )</em><br>
+    {{ formatWithMYSQL(theFormat, theTime) }}
+    </li>
 
-<p>3. only first param set<br>
-{{ formatWithMYSQL(theFormat) }}
-</p>
+    <li>
+    only first param set<br><em>formatWithMYSQL( format )</em><br>
+    {{ formatWithMYSQL(theFormat, -4876821461, 'no') }}
+    </li>
+
+    <li>
+    direct first param set<br><em>formatWithMYSQL( format )</em><br>
+    {{ formatWithMYSQL('%W %r', -4876821461) }}
+    </li>
+
+</ol>
+
 <!-- end Twig -->
 {% endautoescape %}

@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Subway\core\template\TwigBox;
 
+use Subway\core\Date;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -25,12 +26,16 @@ class TwigFunctions extends AbstractExtension
     }
 
     /**
-     *  check if file exists.
+     *  Check if file exists.
+     * 
      *  @param string $lookUpPath  A valid path including LEPTON_PATH
-     *  @usage (use tilde as a term-connector): {% if !fileExists( (AnyPath ~ AnyFilePart1 ~ '_' ~ AnyFilePart2 ~ '.pdf') ) %}
+     *  @usage (use tilde as a term-connector):
+     *      {% if !fileExists( (AnyPath ~ AnyFilePart1 ~ '_' ~ AnyFilePart2 ~ '.pdf') ) %}
+     *
      *  @return object.
      */
-    public static function fileExists(string $lookUpPath = ''): object {
+    public static function fileExists(string $lookUpPath = ''): object
+    {
         return new TwigFunction('fileExists', function (string $lookUpPath = '') {
             return file_exists($lookUpPath);
         });
@@ -78,16 +83,23 @@ class TwigFunctions extends AbstractExtension
         });
     }
 
-    public static function formatWithMYSQL(string $format = '', int|null $timestamp = null, string|null $optionalLang = 'en_GB'): object
+    public static function formatWithMYSQL(
+        string $format = '',
+        int|null $timestamp = null,
+        string|null $optionalLang = 'en_GB'
+    ): object
     {
-        return new TwigFunction("formatWithMYSQL", function (string $format, int|null $timestamp = null, string|null $optionalLang = 'en_GB')
-        {
-            $oDate = \Subway\core\Date::getInstance();
+        return new TwigFunction("formatWithMYSQL", function (
+            string $format,
+            int|null $timestamp = null,
+            string|null $optionalLang = 'en_GB'
+        ){
+            $oDate = Date::getInstance();
             return $oDate->formatWithMySQL($format, $timestamp, $optionalLang);
         });
     
     }
-     
+
     protected static function splitString(string &$sStr): array
     {
         $sStr = str_replace(' ', '', $sStr);

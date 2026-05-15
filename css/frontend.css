@@ -7,3 +7,13 @@ pre.subway {
     font-size: 11px;
     line-height: 1.4em;
 }
+
+ol.subway {
+    list-style-type: lower-alpha;
+    padding-left: 0px;
+
+}
+
+ol.subway li {
+    padding-bottom: 10px;
+}

@@ -38,12 +38,14 @@ $oTwig->registerPath(WB_PATH."/modules/Subway/templates/", "test");
 echo $oTwig->render(
   "@test/testFormatWithMYSQL.lte",
   [
-      'message' => "Test von Subway",
+      'message' => "Test von Subway - Twig function »formatWithMYSQL«.",
       'theFormat' => "%W, %d. %M, %Y  - %H:%i",
       'theTime' => time(),
       'theLang' => 'fr_FR'
   ]
 );
 ```
+See  https://dev.mysql.com/doc/refman/8.4/en/date-and-time-functions.html#function_date-format
+
 [1]: https://wbce.org/de/wbce/
 [2]: https://forum.wbce.org/search.php?action=show_recent
