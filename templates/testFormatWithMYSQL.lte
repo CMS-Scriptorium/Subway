@@ -18,12 +18,12 @@
 </p>
 <ol class='subway'>
     <li>
-    all three params set:<br><em>formatWithMYSQL( format, time, language )</em><br>
+    all three params set:<br><em>formatWithMYSQL( format, [timestamp], [optionalLanguage] )</em><br>
     {{ formatWithMYSQL(theFormat, theTime, theLang) }}
     </li>
 
     <li>
-    first two params set<br><em>formatWithMYSQL( format, time )</em><br>
+    first two params set<br><em>formatWithMYSQL( format, timestamp )</em><br>
     {{ formatWithMYSQL(theFormat, theTime) }}
     </li>
 

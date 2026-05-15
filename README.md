@@ -31,6 +31,9 @@ echo Data::display($aPages);
 
 - e.g. test
 ```php
+// css in frontend
+\Subway\core\Subway::getInstance()->initFrontend();
+
 echo "<p></p>";
 $oTwig = Subway\core\template\TwigBox::getInstance();
 $oTwig->registerPath(WB_PATH."/modules/Subway/templates/", "test");
