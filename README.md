@@ -50,5 +50,8 @@ echo $oTwig->render(
 ```
 See  https://dev.mysql.com/doc/refman/8.4/en/date-and-time-functions.html#function_date-format
 
+---
+06.2026 Aldus
+
 [1]: https://wbce.org/de/wbce/
 [2]: https://forum.wbce.org/search.php?action=show_recent
