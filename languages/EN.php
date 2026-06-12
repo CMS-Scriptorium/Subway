@@ -15,5 +15,4 @@ use Subway\core\language\EN;
  */
 
 // backwards compatible
-$MOD_INITIALPAGE = EN::getInstance()->getConstants();
-
+$MOD_SUBWAY = EN::getInstance()->getConstants();

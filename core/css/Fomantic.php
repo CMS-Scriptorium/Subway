@@ -21,14 +21,15 @@ class Fomantic
 {
     use Singleton;
 
+    protected const CSS_PATH = "/modules/Subway/core/css/Fomantic/semantic.min.css";
+    protected const JS_PATH = "/modules/Subway/core/css/Fomantic/semantic.min.js";
+
     public static $instance;
 
     public function initFramework()
     {
-        $cssFile = "/modules/Subway/core/css/Fomantic/semantic.min.css";
-        I::insertCssFile(WB_URL . $cssFile, 'HEAD BTM+');
-        
-        $jsFile = "/modules/Subway/core/css/Fomantic/semantic.min.js";
-        I::insertJsFile(WB_URL . $jsFile, 'HEAD BTM+');
+        I::insertCssFile(WB_URL . self::CSS_PATH, 'HEAD BTM+');
+
+        I::insertJsFile(WB_URL . self::JS_PATH, 'HEAD BTM+');
     }
 }
