@@ -46,9 +46,9 @@ class FomanticCalendar
     {
         $this->oTWIG = TwigBox::getInstance();
         $this->oTWIG->registerModule("Subway", "Subway");
-        
-        $this->setFixedEvents_Ger();
-        $this->setDisabledDates_Ger();
+
+        $this->setFixedEventsGer();
+        $this->setDisabledDatesGer();
     }
     
     public function addEvent(string|int $sDate, string $sMessage, string $sClass="", string $sVariation = ""): void
@@ -73,7 +73,7 @@ class FomanticCalendar
         ];
     
     }
-    
+
     public function generate(): string
     {
         $data = [
@@ -92,7 +92,7 @@ class FomanticCalendar
             $data
         );
     }
-    
+
     public function setDisplayMonths(int $iNumber): void
     {
         if ($iNumber < 1)
@@ -107,24 +107,22 @@ class FomanticCalendar
         $this->displayMonths = $iNumber;
     }
     
-    protected function setFixedEvents_Ger(): void
+    protected function setFixedEventsGer(): void
     {
         $year = date("Y"); // Actual year
         
         for ($i = $year-1; $i <= $year+1; $i++)
         {
             // Zeitumstellung
-            /*
-            $temp = strtotime('-1 week sun april' . $i);
+            $temp = strtotime('-1 week sun april' . $i); // Letzter So im März
             $this->addEvent(date("Y-m-d", $temp), 'Sommerzeit (+1)', 'blue', 'inverted blue tiny');
             
-            $temp = strtotime('-1 week sun november' . $i);
-            $this->addEvent(date("Y-m-d", $temp), 'Normalzeit (-1)', 'blue', 'inverted blue tiny');
-            */
-        }    
+            $temp2 = strtotime('-1 week sun november' . $i); // Letzter So im Oktober
+            $this->addEvent(date("Y-m-d", $temp2), 'Normalzeit (-1)', 'blue', 'inverted blue tiny');
+        }
     }
     
-    protected function setDisabledDates_Ger(): void
+    protected function setDisabledDatesGer(): void
     {
         $year = date("Y"); // Actual year
         
