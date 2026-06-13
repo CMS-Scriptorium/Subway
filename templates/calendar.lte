@@ -1,0 +1,75 @@
+{% autoescape false %} 
+<div class="ui tiny calendar {{ additionalCSSClass }}" id="{{ divID }}">
+</div>
+<script>
+$('#{{ divID }}')
+    .calendar({
+        type: 'date',
+        constantHeight: true,
+        disabledDaysOfWeek: [0, 6],
+        initialDate: new Date('{{ initialDate }}'),
+        multiMonth: {{ displayMonths }},
+        firstDayOfWeek: 1,
+        showWeekNumbers: true,
+        {% if (displayMonths > 1) %}
+        monthOffset: -1, // current month will be shown in the middle of 3 months
+        {% endif %}
+        formatter: {
+            // weekday : 'dddd'
+            // day: function (day, settings) { return day; }
+        },
+        
+        text: {
+            days: {{ daynames }},
+            months: {{ monthsnames }},
+            weekNo: 'W'
+        },
+        eventDates: [
+        {% for event in events %}
+            {
+                date: new Date('{{ event.date }}'),
+            {% if (event.message != "") %}
+                message: '{{ event.message }}',
+            {% endif %}
+            {% if (event.class != "") %}
+                class: '{{ event.class }}',   // cellclass
+            {% endif %}
+            {% if (event.variation != "") %}
+                variation: '{{ event.variation }}'         // tooltip variation
+            {% endif %}
+            },
+         {% endfor %}
+            /*
+            {
+                date: new Date(2024, 9, 30, 10, 00, 00),
+                message: "I got the default color (\"light red\") \\no'nly one line \n",
+                class: 'red'
+            },{
+                date: new Date(2024, 9, 30, 12, 00, 00),
+                message: 'Me too',
+                class: 'red'
+            }
+            */
+        ],
+        disabledDates: [
+        {% for day in disabledDates %}
+            {
+                date: new Date('{{ day.date }}'),
+            {% if (day.message != "") %}
+                message: '{{ day.message }}',
+            {% endif %}
+            {% if (day.class != "") %}
+                class: '{{ day.class }}',   // cellclass
+            {% endif %}
+            {% if (day.variation != "") %}
+                variation: '{{ day.variation }}'         // tooltip variation
+            {% endif %}
+            },
+        {% endfor %}
+        ],
+        onSelect: function (date, text, mode) {
+            console.log("w: "+date.getFullYear()+' - '+date + ' - '+text);
+        }
+});
+</script>
+{% endautoescape %}
