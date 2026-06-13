@@ -121,10 +121,20 @@ class FomanticCalendar
         {
             // Zeitumstellung
             $temp = strtotime('-1 week sun april' . $i); // Letzter So im März
-            $this->addEvent(date("Y-m-d", $temp), 'Sommerzeit (+1)', 'blue', 'inverted blue tiny');
+            $this->addEvent(
+                date("Y-m-d", $temp),
+                'Sommerzeit (+1)',
+                $this->dayColors['Summertime'][0],
+                $this->dayColors['Summertime'][1]
+            );
             
             $temp2 = strtotime('-1 week sun november' . $i); // Letzter So im Oktober
-            $this->addEvent(date("Y-m-d", $temp2), 'Normalzeit (-1)', 'blue', 'inverted blue tiny');
+            $this->addEvent(
+                date("Y-m-d", $temp2),
+                'Normalzeit (-1)',
+                $this->dayColors['Summertime'][0],
+                $this->dayColors['Summertime'][1]
+            );
         }
     }
     
@@ -134,36 +144,92 @@ class FomanticCalendar
         
         for ($i = $year-1; $i <= $year+1; $i++)
         {
-            $this->addDisabledDate($i.'-01-01', 'Neujahr');
-            $this->addDisabledDate($i.'-10-03', 'Tag der deutschen Einheit', 'yellow' , 'inverted yellow', true);
-            $this->addDisabledDate($i.'-12-24', 'Weihnachten', 'orange' , 'inverted orange', true);
-            $this->addDisabledDate($i.'-12-25', '1. Weihnachtsfeiertag', 'orange' , 'inverted orange', true);
-            $this->addDisabledDate($i.'-12-26', '2. Weihnachtsfeiertag', 'orange' , 'inverted orange', true);
-            $this->addDisabledDate($i.'-12-31', 'Sylvester');
+            $this->addDisabledDate(
+                $i.'-01-01',
+                'Neujahr'
+            );
+
+            $this->addDisabledDate(
+                $i.'-10-03',
+                'Tag der deutschen Einheit',
+                $this->dayColors['National_day'][0],
+                $this->dayColors['National_day'][1],
+                true
+            );
+
+            $this->addDisabledDate(
+                $i.'-12-24',
+                'Weihnachten',
+                $this->dayColors['National_holyday'][0],
+                $this->dayColors['National_holyday'][1],
+                true
+            );
+
+            $this->addDisabledDate(
+                $i.'-12-25',
+                '1. Weihnachtsfeiertag',
+                $this->dayColors['National_holyday'][0],
+                $this->dayColors['National_holyday'][1],
+                true
+            );
+
+            $this->addDisabledDate(
+                $i.'-12-26',
+                '2. Weihnachtsfeiertag',
+                $this->dayColors['National_holyday'][0],
+                $this->dayColors['National_holyday'][1],
+                true
+            );
+
+            $this->addDisabledDate(
+                $i.'-12-31',
+                'Sylvester'
+            );
 
             $temp = strtotime('-1 week sun april' . $i);
-            $this->addDisabledDate(date("Y-m-d", $temp), 'Sommerzeit (+1)', 'blue', 'inverted blue tiny');
-            
+            $this->addDisabledDate(
+                date("Y-m-d", $temp),
+                'Sommerzeit (+1)',
+                $this->dayColors['Summertime'][0],
+                $this->dayColors['Summertime'][1]
+            );
+
             $temp2 = strtotime('-1 week sun november' . $i);
-            $this->addDisabledDate(date("Y-m-d", $temp2), 'Normalzeit (-1)', 'blue', 'inverted blue tiny');
+            $this->addDisabledDate(
+                date("Y-m-d", $temp2),
+                'Normalzeit (-1)',
+                $this->dayColors['Summertime'][0],
+                $this->dayColors['Summertime'][1]
+            );
 
             // Ostern
             $ostern = strtotime("+ " . (easter_days($i)) . " days", mktime(0, 0, 0, 3, 21, $i));
-            $this->addDisabledDate(date("Y-m-d", $ostern), 'Ostersonntag', 'orange', 'inverted orange tiny');
+            $this->addDisabledDate(
+                date("Y-m-d", $ostern),
+                'Ostersonntag',
+                $this->dayColors['National_holyday'][0],
+                $this->dayColors['National_holyday'][1]
+            );
+
             // Ostermontag
             $ostermontag = strtotime("+1 day", $ostern);
-            $this->addDisabledDate(date("Y-m-d", $ostermontag), 'Ostermontag', 'orange', 'inverted orange tiny');
+            $this->addDisabledDate(
+                date("Y-m-d", $ostermontag),
+                'Ostermontag',
+                $this->dayColors['National_holyday'][0],
+                $this->dayColors['National_holyday'][1]
+            );
         }
     }
-    
+
     protected function getDayNames(): string
     {
         $oTOOL = Date::getInstance();
         $aNames = $oTOOL->getWeekdayNames("de_DE", true);
-        
+
         $temp = array_pop($aNames);
         array_unshift($aNames, $temp);
-        
+
         return "['".implode("','", $aNames)."']";
     }
     
