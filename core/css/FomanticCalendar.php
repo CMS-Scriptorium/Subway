@@ -37,6 +37,12 @@ class FomanticCalendar
         'variation' => 'olive'         // tooltip var
     ];
     
+    public array $dayColors = [
+        'Summertime'        => ['blue', 'inverted blue tiny'],
+        'National_holyday'  => ['orange' , 'inverted orange'],
+        'National_day'      => ['yellow' , 'inverted yellow']
+    ];
+
     protected int $displayMonths = 1;
     
     protected array $events = [];
