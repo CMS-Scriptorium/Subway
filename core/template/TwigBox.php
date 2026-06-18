@@ -97,7 +97,10 @@ class TwigBox
         $this->parser->addFunction(TwigFunctions::fileExists());
         $this->parser->addFunction(TwigFunctions::processTranslationL());
         $this->parser->addFunction(TwigFunctions::formatWithMYSQL());
-
+        // [3.1] WBCE 1.7.0 -- The long way round
+        $this->parser->addFunction(TwigFunctions::insertCssFile());
+        $this->parser->addFunction(TwigFunctions::insertJsFile());
+        
         // [4] Filters
         $this->parser->addFilter(TwigFilters::getFilterDisplay());
         $this->parser->addFilter(TwigFilters::getFilterIntersects());

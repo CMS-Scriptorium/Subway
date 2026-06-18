@@ -26,7 +26,7 @@ class Fomantic
 
     public static $instance;
 
-    public function initFramework()
+    protected function __construct()
     {
         I::insertCssFile(WB_URL . self::CSS_PATH, 'HEAD BTM+');
 

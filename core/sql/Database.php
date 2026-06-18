@@ -22,7 +22,6 @@ use Exception;
  */
 class Database
 {
-
     public const string DO_UPDATE = "update";
     public const string DO_INSERT = "insert";
     
@@ -66,7 +65,12 @@ class Database
      *      );
      *
      */
-    public static function executeQuery(string $aQuery="", bool $bFetch=false, array &$aStorage=[], bool $bFetchAll=true ): int
+    public static function executeQuery(
+        string $aQuery = "",
+        bool $bFetch = false,
+        array &$aStorage = [],
+        bool $bFetchAll = true
+    ): int
     {
         if (is_null(self::$instance))
         {
@@ -183,6 +187,25 @@ class Database
             TABLE_PREFIX,
             $source
         );
+    }
+
+    /**
+     * Make a (mySQL) string from an index array.
+     *
+     * @param  array  $fields   An assoc. array with the filednames.
+     * @param  string $prefix   An optional prefix.
+     *
+     * @return string
+     */
+    public static function prepareFields(array $fields = [], string|null $prefix = ""): string
+    {
+        $prefixWithDot = ((empty($prefix) || (is_null($prefix))) ? "" : $prefix.".");
+        if (empty($fields))
+        {
+            return $prefixWithDot."*";
+        }
+
+        return $prefixWithDot . "`" . implode("`, " . $prefixWithDot . "`", $fields) . "`";
     }
     
     // Avoid using "new" for a new instance.

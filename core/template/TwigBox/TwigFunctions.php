@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Subway\core\template\TwigBox;
 
+use I;
 use Subway\core\Date;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -97,9 +98,24 @@ class TwigFunctions extends AbstractExtension
             $oDate = Date::getInstance();
             return $oDate->formatWithMySQL($format, $timestamp, $optionalLang);
         });
-    
     }
 
+    public static function insertCssFile(string $path = ''): object
+    {
+        return new TwigFunction("insertCssFile", function (string $path)
+        {
+            I::insertCssFile(WB_URL . $path, 'HEAD BTM-');
+        });
+    }
+    
+    public static function insertJsFile(string $path = ''): object
+    {
+        return new TwigFunction("insertJsFile", function (string $path)
+        {
+            I::insertJsFile(WB_URL . $path, 'HEAD BTM-');
+        });
+    }
+    
     protected static function splitString(string &$sStr): array
     {
         $sStr = str_replace(' ', '', $sStr);

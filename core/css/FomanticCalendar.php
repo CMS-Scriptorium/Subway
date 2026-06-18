@@ -82,10 +82,12 @@ class FomanticCalendar
 
     public function generate(): string
     {
+        $iCurrendSectionID = $GLOBALS['section_id'] ?? random_int(12000, 99999);
+
         $data = [
-            'divID'              => "2021061300Tac7",
+            'divID'              => "ModSubWay97_".$iCurrendSectionID, // Must be unique!
             'additionalCSSClass' => "",
-            'initialDate'        => date("Y-m-d"),
+            'initialDate'        => date("Y-m-d", time()+TIMEZONE),
             'daynames'           => $this->getDayNames(), // "['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']"
             'monthsnames'        => $this->getMonthNames(),
             'events'             => $this->events,
@@ -232,12 +234,11 @@ class FomanticCalendar
 
         return "['".implode("','", $aNames)."']";
     }
-    
+
     protected function getMonthNames(): string
     {
         $oTOOL = Date::getInstance();
         $aNames = $oTOOL->getMonthNames("de_DE", false);
         return "['".implode("','", $aNames)."']";
     }
-
 }
