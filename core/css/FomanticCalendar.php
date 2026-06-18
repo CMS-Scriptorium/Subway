@@ -80,13 +80,20 @@ class FomanticCalendar
     
     }
 
-    public function generate(): string
+    /**
+     * Generates the complete calendar source.
+     *
+     * @param   string  $additionalCssClass     An optional css-class identifier.
+     *
+     * @return  string  The generated (HTML-) source(-code).
+     */
+    public function generate(string $additionalCssClass = ""): string
     {
         $iCurrendSectionID = $GLOBALS['section_id'] ?? random_int(12000, 99999);
 
         $data = [
             'divID'              => "ModSubWay97_".$iCurrendSectionID, // Must be unique!
-            'additionalCSSClass' => "",
+            'additionalCSSClass' => $additionalCssClass,
             'initialDate'        => date("Y-m-d", time()+TIMEZONE),
             'daynames'           => $this->getDayNames(), // "['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']"
             'monthsnames'        => $this->getMonthNames(),
