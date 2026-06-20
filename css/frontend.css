@@ -17,3 +17,10 @@ ol.subway {
 ol.subway li {
     padding-bottom: 10px;
 }
+
+/* calendar */
+.subway_single_month {
+    display: block;
+    margin: 0 auto;
+    max-width: 31% !important;
+}

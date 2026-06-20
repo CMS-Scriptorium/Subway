@@ -14,9 +14,11 @@ declare(strict_types=1);
 
 namespace Subway\core\css;
 
+use DateTime;
 use Subway\core\Date;
 use Subway\core\template\TwigBox;
 use Subway\core\traits\Singleton;
+use const TIMEZONE;
 
 /**
  *  @see    https://fomantic-ui.com/modules/calendar.html#/examples
@@ -27,37 +29,59 @@ class FomanticCalendar
 
     // Own instance for this class!
     public static $instance;
-    
+
     public object|null $oTWIG = null;
-    
+
     public array $defaultEvent = [
         'date'      => '',  // YYYY-MM-DD
         'message'   => '',
         'class'     => 'inverted olive',   // cellclass
         'variation' => 'olive'         // tooltip var
     ];
-    
+
     public array $dayColors = [
         'Summertime'        => ['blue', 'inverted blue tiny'],
         'National_holyday'  => ['orange' , 'inverted orange'],
-        'National_day'      => ['yellow' , 'inverted yellow']
+        'National_day'      => ['yellow' , 'inverted yellow'],
+        'Marked_day'        => ['green', 'green'],
+        'Blocked_day'       => ['red', 'red']
     ];
 
     protected int $displayMonths = 1;
-    
+
     protected array $events = [];
     protected array $disabledDates = [];
-    
+
+    protected string $timezone = "Europe/Berlin";
+
     public function __construct()
     {
+
+        date_default_timezone_set($this->timezone);
+
         $this->oTWIG = TwigBox::getInstance();
         $this->oTWIG->registerModule("Subway", "Subway");
 
         $this->setFixedEventsGer();
         $this->setDisabledDatesGer();
     }
-    
-    public function addEvent(string|int $sDate, string $sMessage, string $sClass="", string $sVariation = ""): void
+
+    /**
+     * Add a simple event to the internal list.
+     *
+     * @param string|int    $sDate      Form is "YYYY-MM-DD" or a timestamp.
+     * @param string        $sMessage   Any message to display.
+     * @param string        $sClass     Optional a 'base' (css) class [Fomantic].
+     * @param string        $sVariation Optional an additional variation class.
+     *
+     * @return void
+     */
+    public function addEvent(
+        string|int $sDate,
+        string $sMessage,
+        string $sClass = "",
+        string $sVariation = ""
+    ): void
     {
         $this->events[] = [
             'date'      => $sDate,     // YYYY-MM-DD
@@ -67,7 +91,84 @@ class FomanticCalendar
         ];
     
     }
-    
+
+    /**
+     * Adds a couple of days as range to the event list.
+     * 
+     * @param string|int    $startDate  Format is "YYYY-MM-DD" or a timestamp.
+     * @param string|int    $endDate    Format is "YYYY-MM-DD" or a timestamp.
+     * @param string        $sMessage   The text to display
+     * @param string        $sClass     Optional the (basic-) class. Default is "".
+     * @param string        $sVariation Optional the variaton. Default is "".
+     *
+     * @return void
+     */
+    public function addRange(
+        string|int $startDate,
+        string|int $endDate,
+        string $sMessage,
+        string $sClass = "",
+        string $sVariation = ""
+    ): void
+    {
+        $begin = strtotime($startDate);
+        $end = strtotime($endDate);
+
+        $date = new DateTime();
+        $date->setTimestamp($begin);
+
+        while ($date->getTimestamp() <= $end)
+        {
+            $this->addEvent(
+                date("Y-m-d", $date->getTimestamp()),
+                $sMessage,
+                $sClass,
+                $sVariation
+            );
+
+            $date->modify("+ 1 day");
+        }
+    }
+
+    public function addPeriod(
+        string|int $startDate,
+        string|int $endDate,
+        string|array $sMessage,
+        string $interval = "+ 1 week",
+        string $sClass = "",
+        string $sVariation = ""
+    ): void
+    {
+        $begin = strtotime($startDate);
+        $end = strtotime($endDate);
+
+        $date = new DateTime();
+        $date->setTimestamp($begin);
+
+        if (!is_array($sMessage))
+        {
+            $sMessage = [$sMessage];
+        }
+        $c = 0;
+        $cmax = count($sMessage);
+
+        while ($date->getTimestamp() <= $end)
+        {
+            $this->addEvent(
+                date("Y-m-d", $date->getTimestamp()),
+                $sMessage[$c++],
+                $sClass,
+                $sVariation
+            );
+
+            $date->modify($interval);
+            if ($c >= $cmax)
+            {
+                $c = 0;
+            }
+        }
+    }
+
     public function addDisabledDate(string|int $sDate, string $sMessage, string $sClass="", string $sVariation = "", bool $bInverted = false): void
     {
         $this->disabledDates[] = [
