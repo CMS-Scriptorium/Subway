@@ -50,6 +50,49 @@ echo $oTwig->render(
 ```
 See  https://dev.mysql.com/doc/refman/8.4/en/date-and-time-functions.html#function_date-format
 
+##### fomantic calendar
+
+```php
+/**
+ * Fomantic Calendar
+ *
+ */
+use Subway\core\Subway;
+use Subway\core\css\FomanticCalendar;
+use Subway\core\tools\Data;
+use Subway\core\css\Fomantic;
+
+Subway::getInstance()->initFrontend();
+
+// Pre-initialize Formantic framework
+Fomantic::getInstance();
+
+$oCal = FomanticCalendar::getInstance();
+$oCal->setDisplayMonths(3);
+
+$oCal->addPeriod(
+    '15.07.2026',
+    '18.10.2026',
+    ['Test Übungen 1', 'Prüfung A', 'Vorbereitung B'],
+    '+2 week', // 'Monday next week'
+    'orange',
+    'orange' 
+);
+
+$oCal->addPeriod(
+    '05.05.2026',
+    '30.05.2026',
+    ['Test Übungen 1', 'Test_Übung 2', 'Vorbereitung Test I', "Vorbereitung Prüfung II"],
+    ['+2 day', '+5 day'],
+    'green',
+    'green' 
+);
+
+echo $oCal->generate();
+```
+Result:  
+![Subway calendar](img/Subway_Fomantec_calendar.png) 
+
 ---
 06.2026 Aldus
 

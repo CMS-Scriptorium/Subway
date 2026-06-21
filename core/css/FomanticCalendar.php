@@ -18,6 +18,8 @@ use DateTime;
 use Subway\core\Date;
 use Subway\core\template\TwigBox;
 use Subway\core\traits\Singleton;
+use Subway\core\ArrayStep;
+
 use const TIMEZONE;
 
 /**
@@ -94,7 +96,7 @@ class FomanticCalendar
 
     /**
      * Adds a couple of days as range to the event list.
-     * 
+     *
      * @param string|int    $startDate  Format is "YYYY-MM-DD" or a timestamp.
      * @param string|int    $endDate    Format is "YYYY-MM-DD" or a timestamp.
      * @param string        $sMessage   The text to display
@@ -134,38 +136,41 @@ class FomanticCalendar
         string|int $startDate,
         string|int $endDate,
         string|array $sMessage,
-        string $interval = "+ 1 week",
+        string|array $interval = "+1 week",
         string $sClass = "",
         string $sVariation = ""
     ): void
     {
-        $begin = strtotime($startDate);
-        $end = strtotime($endDate);
+        $periodStart = strtotime($startDate);
+        $periodEnd = strtotime($endDate);
 
         $date = new DateTime();
-        $date->setTimestamp($begin);
+        $date->setTimestamp($periodStart);
 
         if (!is_array($sMessage))
         {
             $sMessage = [$sMessage];
         }
-        $c = 0;
-        $cmax = count($sMessage);
 
-        while ($date->getTimestamp() <= $end)
+        if (!is_array($interval))
+        {
+            $interval = [$interval];
+        }
+
+        $oMessageVal = new ArrayStep($sMessage); // , ArrayStep::MODE_HOLD);
+        $oInterfalVal = new ArrayStep($interval);
+
+        while ($date->getTimestamp() <= $periodEnd)
         {
             $this->addEvent(
                 date("Y-m-d", $date->getTimestamp()),
-                $sMessage[$c++],
+                $oMessageVal->getAndStep(), // $sMessage[$c++],
                 $sClass,
                 $sVariation
             );
 
-            $date->modify($interval);
-            if ($c >= $cmax)
-            {
-                $c = 0;
-            }
+            // @see: https://www.php.net/manual/de/datetime.modify.php
+            $date->modify($oInterfalVal->getAndStep());
         }
     }
 
