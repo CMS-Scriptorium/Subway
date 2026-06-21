@@ -58,7 +58,7 @@ class ArrayStep
 
         $this->place += $this->direction;
 
-        if ($this->place > $this->max)
+        if (($this->place > $this->max) || ($this->place < 0))
         {
             switch ($this->mode)
             {
@@ -68,6 +68,11 @@ class ArrayStep
 
                 case self::MODE_HOLD:
                     $this->place = ($this->direction > 0) ? $this->max : 0;
+                    break;
+
+                default:
+                    // At this time it is not clear to handle this situation!
+                    $this->place = 0;
                     break;
             }
         }
