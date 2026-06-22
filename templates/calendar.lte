@@ -68,8 +68,8 @@ $('#{{ divID }}')
             },
         {% endfor %}
         ],
-        onSelect: function (date, text, mode) {
-            console.log("w: "+date.getFullYear()+' - '+date + ' - '+text);
+        onSelect: function (date, mode) {
+            console.log("w: "+date.getFullYear()+' - '+date + ' - '+mode);
         }
 });
 </script>
