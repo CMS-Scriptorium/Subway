@@ -20,32 +20,33 @@ use I;
 /**
  * @see     https://flatpickr.js.org/getting-started/
  * @see     https://flatpickr.js.org/formatting/
- * 
+ *
  */
 class Flatpickr
 {
     use Singleton;
 
     protected const BASE_PATH = "/modules/Subway/core/datetimepicker/flatpickr/dist";
+    protected const STD_HEAD = "HEAD BTM+";
 
     public static $instance;
 
     protected function __construct()
     {
         // [1] css
-        I::insertCssFile(WB_URL . self::BASE_PATH . "/flatpickr.css", 'HEAD BTM+');
-        I::insertCssFile(WB_URL . self::BASE_PATH . "/ie.css", 'HEAD BTM+');
-        I::insertCssFile(WB_URL . self::BASE_PATH . "/plugins/confirmDate/confirmDate.css", 'HEAD BTM+');
-        I::insertCssFile(WB_URL . self::BASE_PATH . "/plugins/monthSelect/style.css", 'HEAD BTM+');
+        I::insertCssFile(WB_URL . self::BASE_PATH . "/flatpickr.css", self::STD_HEAD);
+        I::insertCssFile(WB_URL . self::BASE_PATH . "/ie.css", self::STD_HEAD);
+        I::insertCssFile(WB_URL . self::BASE_PATH . "/plugins/confirmDate/confirmDate.css", self::STD_HEAD);
+        I::insertCssFile(WB_URL . self::BASE_PATH . "/plugins/monthSelect/style.css", self::STD_HEAD);
         
         // [2] js
-        I::insertJsFile(WB_URL . self::BASE_PATH . "/flatpickr.js", 'HEAD BTM+');
-        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/rangePlugin.js", 'HEAD BTM+');
-        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/confirmDate/confirmDate.js", 'HEAD BTM+');
-        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/minMaxTimePlugin.js", 'HEAD BTM+');
-        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/monthSelect/index.js", 'HEAD BTM+');
-        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/scrollPlugin.js", 'HEAD BTM+');
-        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/weekSelect/weekSelect.js", 'HEAD BTM+');
+        I::insertJsFile(WB_URL . self::BASE_PATH . "/flatpickr.js", self::STD_HEAD);
+        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/rangePlugin.js", self::STD_HEAD);
+        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/confirmDate/confirmDate.js", self::STD_HEAD);
+        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/minMaxTimePlugin.js", self::STD_HEAD);
+        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/monthSelect/index.js", self::STD_HEAD);
+        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/scrollPlugin.js", self::STD_HEAD);
+        I::insertJsFile(WB_URL . self::BASE_PATH . "/plugins/weekSelect/weekSelect.js", self::STD_HEAD);
     }
 
     public function testPicker(): string
