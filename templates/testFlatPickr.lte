@@ -1,0 +1,29 @@
+{#
+/**
+ * @package         Subway
+ * @version         0.1.0
+ * @authors         Kant (Aldus)
+ * @license         CC BY-SA 4.0
+ * @license_terms   https://creativecommons.org/licenses/by-sa/4.0/
+ * @platform        WBCE 1.6.x
+ * @requirements    PHP 8.4.x (8.3 recommented)
+ */
+#}{% autoescape false %}
+<!-- Output by Twig :: module "Subway" -->
+<div style="display: block; max-width:20%;">
+    <div>
+        <label>
+        <div>{{ title_datepicker}}</div>
+        <input placeholder="Select Date..." class="subway_flatpickr_date" id="testPicker" value="2026-06-25"/>
+        </label>
+    </div>
+</div>
+<script>
+    var fp = flatpickr("#testPicker", {
+        dateFormat: "J F, Y",
+    });
+
+</script>
+
+<!-- end Twig -->
+{% endautoescape %}
