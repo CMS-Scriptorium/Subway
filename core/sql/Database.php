@@ -180,6 +180,20 @@ class Database
         return true;
     }
 
+    /**
+     * Handle some queries in an array.
+     *
+     * @param array $jobs
+     * @return void
+     */
+    public static function handleJobs(array $jobs = []): void
+    {
+        foreach ($jobs as $query)
+        {
+            self::query($query);
+        }
+    }
+    
     public static function handleTableprefix(string &$source): void
     {
         $source = str_replace(
