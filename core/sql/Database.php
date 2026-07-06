@@ -88,7 +88,7 @@ class Database
 
             $oResult = $oStatement->get_result();
 
-            if ($oResult == false)
+            if (!$oResult)
             {
                 return -1;
             }
