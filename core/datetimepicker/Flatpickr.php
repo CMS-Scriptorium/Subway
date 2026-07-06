@@ -23,7 +23,7 @@ use const WB_URL;
 
 /**
  * @see     https://flatpickr.js.org/getting-started/
- * @see     https://flatpickr.js.org/formatting/ 
+ * @see     https://flatpickr.js.org/formatting/
 *
  */
 class Flatpickr

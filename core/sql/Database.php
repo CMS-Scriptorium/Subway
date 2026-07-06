@@ -88,6 +88,11 @@ class Database
 
             $oResult = $oStatement->get_result();
 
+            if ($oResult == false)
+            {
+                return -1;
+            }
+            
             if (($oResult->num_rows > 0) && (true === $bFetch))
             {
                 $aStorage = (true === $bFetchAll)
@@ -188,12 +193,12 @@ class Database
      */
     public static function handleJobs(array $jobs = []): void
     {
-        foreach ($jobs as $query)
+        foreach ($jobs as $queryStr)
         {
-            self::query($query);
+            self::query($queryStr);
         }
     }
-    
+
     public static function handleTableprefix(string &$source): void
     {
         $source = str_replace(
