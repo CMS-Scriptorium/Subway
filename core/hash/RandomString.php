@@ -21,9 +21,9 @@ class RandomString
      *  Function to generate a random-string.
      *  Random-Strings are often used inside LEPTON-CMS, e.g. Captcha, Modul-Form, User-Account, Forgot-Password, etc.
      *
-     *  @param	int     $iNumOfChars    Number of chars to generate. Default is 8 (chars).
+     *  @param  int     $iNumOfChars    Number of chars to generate. Default is 8 (chars).
      *
-     *  @param	string  $aType          Type, default is 'alphanum'.
+     *  @param  string  $aType          Type, default is 'alphanum'.
      *                  Possible values are:
      *                  'alphanum'      = Generates an alphanumeric string with chars and numbers.
      *                  'alpha'         = Generates only chars.
@@ -54,7 +54,7 @@ class RandomString
      *                      - Will generate a shuffled-string with hex-decimalchars like 'afb2c22e7'.
      *
      */
-    static public function generate(int $iNumOfChars = 8, string $aType = "alphanum"): string
+    public static function generate(int $iNumOfChars = 8, string $aType = "alphanum"): string
     {
         switch (strtolower($aType))
         {
