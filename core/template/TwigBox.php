@@ -84,6 +84,9 @@ class TwigBox
         $this->parser->addGlobal("MEDIA_DIRECTORY", MEDIA_DIRECTORY);
         $this->parser->addGlobal("LANGUAGE", LANGUAGE);
 
+        // [1.1] Global text/messages
+        $this->parser->addGlobal("TEXT", $GLOBALS['TEXT'] ?? []);
+
         // [2] Extensions
         $this->parser->addExtension(new DebugExtension());
         if (version_compare(Environment::VERSION, "3.21.0") >= 0)
