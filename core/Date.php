@@ -346,7 +346,7 @@ class Date
 
         if (true === $bUseINTL)
         {
-            static::$instance->intl_installed = static::$instance->checkINTLExtensionExists();
+            static::$instance->intlInstalled = static::$instance->checkINTLExtensionExists();
         }
 
         return static::$instance;
@@ -407,7 +407,7 @@ class Date
     {
         if (is_null($iTimestamp))
         {
-            $iTimestamp = TIME();
+            $iTimestamp = time();
         }
 
         $retValue = "";
@@ -418,7 +418,7 @@ class Date
             $aTempLocale = setlocale(LC_ALL, 0);
         }
 
-        if ((true === $this->useINTL) && (true === $this->intl_installed))
+        if ((true === $this->useINTL) && (true === $this->intlInstalled))
         {
             $fmt = datefmt_create(
                 $aTempLocale, // 'de-DE',
@@ -459,7 +459,7 @@ class Date
             {
                 // Aldus 2025-01-19: Aldus fix for the "%"-char in format!
                 // This is a more thoretical problem at all.
-                echo "HOUSTON";
+                trigger_error("ERROR: Houson we've a problem here. [100347]");
                 $retValue = date(str_replace("%", "",$this->format), $iTimestamp);
             }
         }
@@ -516,17 +516,17 @@ class Date
         switch ($aFormat)
         {
             case 'dmy':
-                $this->forceYear($temp[2]);
+                $this->doForceYear($temp[2]);
                 $temp_time = mktime( 1, 0, 0, $temp[1], $temp[0], $temp[2]);
                 break;
 
             case 'mdy':
-                $this->forceYear($temp[2]);
+                $this->doForceYear($temp[2]);
                 $temp_time = mktime( 1, 0, 0, $temp[0], $temp[1], $temp[2]);
                 break;
 
             case 'ymd':
-                $this->forceYear($temp[0]);
+                $this->doForceYear($temp[0]);
                 $temp_time = mktime( 1, 0, 0, $temp[1], $temp[2], $temp[0]);
                 break;
 
@@ -580,7 +580,7 @@ class Date
 
         $aFormat = strtolower ($aFormat);
 
-        $pattern = ["*[\\/|.|-]+*", "*[ |%]+*"];
+        $pattern = ["~[\\/|.|-]+~", "~[ |%]+~"];
         $replace = ["", ""];
 
         $aFormat = preg_replace($pattern, $replace, $aFormat);
@@ -590,18 +590,18 @@ class Date
      *  private function that force a "short" Year to a "long" year
      *
      *  @param  string      $givenYearStr    The year - called by reference!
-     *  @see    force_year
+     *  @see    forceYear
      *
      *    If the year is future oriented more than two years by default at runtime,
      *    19xx is assumed.
      */
-    private function forceYear(string|int &$givenYearStr = "1971"): void
+    private function doForceYear(string|int &$givenYearStr = "1971"): void
     {
         $aYearStr = (string) $givenYearStr;
         
         if (strlen($aYearStr) == 2)
         {
-            $aYearStr = (((int) $aYearStr > $this->force_year + (int) DATE("y", TIME())) ? "19" : "20").$aYearStr;
+            $aYearStr = (((int) $aYearStr > $this->forceYear + (int) date("y", time())) ? "19" : "20").$aYearStr;
         }
         if (strlen($aYearStr) > 4)
         {
