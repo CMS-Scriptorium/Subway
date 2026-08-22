@@ -84,14 +84,14 @@ class Request
                 break;
 
             default:
-                $refLookUp = NULL;
+                $refLookUp = null;
                 break;
         }
         
         if (is_null($refLookUp))
         {
-            trigger_error(__CLASS__." : ".__LINE__." Unsupported lookup for get_value!");
-            echo "Unsupported lookup!";
+            trigger_error(__CLASS__." : ".__LINE__." Unsupported lookup for get_value! [".$where."]");
+            echo "ERROR: Unsupported lookup: " . $where;
             die();
         }
         
