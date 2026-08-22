@@ -19,10 +19,10 @@ namespace Subway\core;
  */
 class ArrayStep
 {
-    const int MODE_STILL = 0;
-    const int MODE_LOOP = 1;
-    const int MODE_HOLD = 2;
-    const int MODE_TOGGLE = 4;
+    public const int MODE_STILL  = 0;
+    public const int MODE_LOOP   = 1;
+    public const int MODE_HOLD   = 2;
+    public const int MODE_TOGGLE = 4;
 
     protected int $place = 0;
     protected int $max = 0;
@@ -48,7 +48,7 @@ class ArrayStep
      *
      * @return mixed
      */
-    public function get()
+    public function get(): mixed
     {
         return $this->values[$this->place];
     }
@@ -58,7 +58,7 @@ class ArrayStep
      *
      * @return mixed
      */
-    public function step()
+    public function step(): mixed
     {
         $this->next();
         return $this->values[$this->place];
@@ -69,7 +69,7 @@ class ArrayStep
      *
      * @return mixed
      */
-    public function getAndStep()
+    public function getAndStep(): mixed
     {
         $retVal = $this->values[$this->place];
         $this->next();
@@ -81,7 +81,7 @@ class ArrayStep
      *
      * @param int $newDirection
      */
-    public function setDirection(int $newDirection)
+    public function setDirection(int $newDirection): void
     {
         $this->direction = $newDirection;
     }
@@ -91,7 +91,7 @@ class ArrayStep
      *
      * @return bool
      */
-    protected function next()
+    protected function next(): bool
     {
         if ($this->mode == self::MODE_STILL)
         {

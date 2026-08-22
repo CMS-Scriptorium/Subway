@@ -56,6 +56,7 @@ class Request
     public function getValue(string $where, string $name, string $type, mixed $default, array $options = []): mixed
     {
 
+        $refLookUp = [];
         switch ($where)
         {
             case self::USE_POST :
@@ -83,10 +84,17 @@ class Request
                 break;
 
             default:
-                die("Unsupported lookup!");
+                $refLookUp = NULL;
                 break;
         }
-
+        
+        if (is_null($refLookUp))
+        {
+            trigger_error(__CLASS__." : ".__LINE__." Unsupported lookup for get_value!");
+            echo "Unsupported lookup!";
+            die();
+        }
+        
         $tempVal = $refLookUp[$name] ?? $default;
         $retVal = $this->testValue($tempVal, $type, $default);
 
