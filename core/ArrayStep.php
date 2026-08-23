@@ -156,7 +156,7 @@ class ArrayStep
     /**
      * Internal testing the given mode agains the supported ones.
      *
-     * @param   int $mode   A given mode as integer. 
+     * @param   int $mode   A given mode as integer.
      * @return  bool        True if the $mode is still supported, false if not.
      */
     protected function testMode(int $mode): bool
