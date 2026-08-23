@@ -46,12 +46,11 @@ class Subway
 
         if (!$this->cssLoaded)
         {
-            $lookFor = "/templates/".$template."/frontend/Subway/css/frontend.css";
+            $lookFor = "/templates/" . $template . "/frontend/Subway/css/frontend.css";
             
             $cssFile = (file_exists(WB_PATH.$lookFor))
                 ? $lookFor
-                : self::DEFAULT_FRONTEND_CSS
-                ;
+                : self::DEFAULT_FRONTEND_CSS;
 
             // Using WBCE internal
             I::insertCssFile(WB_URL . $cssFile, 'HEAD BTM-');
@@ -61,12 +60,11 @@ class Subway
 
         if (!$this->jsLoaded)
         {
-            $lookFor = "/templates/".$template."/frontend/Subway/js/frontend.js";
+            $lookFor = "/templates/" . $template . "/frontend/Subway/js/frontend.js";
             
             $jsFile = (file_exists(WB_PATH.$lookFor))
                 ? $lookFor
-                : self::DEFAULT_FRONTEND_JS
-                ;
+                : self::DEFAULT_FRONTEND_JS;
 
             // Using WBCE internal
             I::insertJsFile(WB_URL . $jsFile, 'HEAD BTM-');

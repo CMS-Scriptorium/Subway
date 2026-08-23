@@ -383,9 +383,9 @@ class Date
      *  @param  string  $aString The formatString, even empty.
      *
      */
-    public function setFormat( string $aString="" ): bool
+    public function setFormat(string $aString = ""): bool
     {
-        if($this->useINTL)
+        if ($this->useINTL)
         {
             $this->sINTLFormat = $aString;
         } else {
@@ -561,7 +561,7 @@ class Date
      */
     private function forceDate(string &$aDateString ): void
     {
-        $pattern = ["*[\\/|.|-]+*"];
+        $pattern = ["~[\\/|.|-]+~"];
         $replace = ["."];
 
         $aDateString = preg_replace($pattern, $replace, $aDateString);
@@ -794,7 +794,7 @@ class Date
         }
 
         // [2]
-        $sBasic = strtolower($sTempCurrentPageLanguage)."_".strtoupper($sTempCurrentPageLanguage);
+        $sBasic = strtolower($sTempCurrentPageLanguage) . "_" . strtoupper($sTempCurrentPageLanguage);
 
         // [3]
         return [
@@ -1023,8 +1023,8 @@ class Date
         $sSystemDefault = "";
         if (isset($user_time) && $user_time === true)
         {
-            $sSystemDefault = date(DEFAULT_DATE_FORMAT, $actual_time).' (';
-            $sSystemDefault .= ($TEXT['SYSTEM_DEFAULT'] ?? self::SYSTEM_DEFAULT_STR).')';
+            $sSystemDefault = date(DEFAULT_DATE_FORMAT, $actual_time) . ' (';
+            $sSystemDefault .= ($TEXT['SYSTEM_DEFAULT'] ?? self::SYSTEM_DEFAULT_STR) . ')';
         }
 
         // Add values to list
@@ -1115,8 +1115,8 @@ class Date
 
         if ((isset($user_time)) && ($user_time === true))
         {
-            $sSystemDefault = date(DEFAULT_TIME_FORMAT, $actual_time).' (';
-            $sSystemDefault .= ($TEXT['SYSTEM_DEFAULT'] ?? self::SYSTEM_DEFAULT_STR).')';
+            $sSystemDefault = date(DEFAULT_TIME_FORMAT, $actual_time) . ' (';
+            $sSystemDefault .= ($TEXT['SYSTEM_DEFAULT'] ?? self::SYSTEM_DEFAULT_STR) . ')';
         }
 
         return [

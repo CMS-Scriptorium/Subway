@@ -106,7 +106,7 @@ class Pages
     protected function makeList(int $aNum, array &$aRefArray): void
     {
 
-        foreach($this->allPages as &$aTempPage)
+        foreach ($this->allPages as &$aTempPage)
         {
             if ($aTempPage['parent'] > $aNum)
             {

@@ -117,7 +117,7 @@ class Request
     {
         $retVal = null;
 
-        switch(strtolower($type))
+        switch (strtolower($type))
         {
             case 'i':
             case 'int':
@@ -127,8 +127,7 @@ class Request
             case 'integer+':
                 $retVal = (is_numeric($value))
                     ? intval($value)
-                    : $default
-                    ;
+                    : $default;
                 break;
 
             case 's':
@@ -137,16 +136,14 @@ class Request
             case 'string':
                 $retVal = (is_string($value))
                     ? $value
-                    : $default
-                    ;
+                    : $default;
                 break;
 
             case 'email':
                 $sTempResult = trim($value);
                 $retVal = (false === filter_var($sTempResult, FILTER_VALIDATE_EMAIL))
                     ? $default
-                    : $sTempResult
-                    ;
+                    : $sTempResult;
                 break;
 
             default:
@@ -168,7 +165,7 @@ class Request
     {
         if (!empty($options))
         {
-            switch($type)
+            switch ($type)
             {
                 case 'i':
                 case 'int':
