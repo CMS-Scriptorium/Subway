@@ -23,11 +23,12 @@ class ArrayStep
     public const int MODE_LOOP   = 1;
     public const int MODE_HOLD   = 2;
     public const int MODE_TOGGLE = 4;
+    public const int MODE_RANDOM = 8;
 
     protected int $place = 0;
     protected int $max = 0;
     protected array $values = [];
-    protected int $mode = 1;
+    protected int $mode = self::MODE_LOOP;
     protected int $direction = 1; // 1 == up, -1 == down
 
     /**
@@ -42,9 +43,14 @@ class ArrayStep
         {
             throw new \InvalidArgumentException(__CLASS__ . ' requires a non-empty array in constructor!');
         }
+        
+        if ($this->testMode($mode))
+        {
+            $this->mode = $mode;
+        }
+        
         $this->values = $givenValues;
         $this->max = count($givenValues) -1;
-        $this->mode = $mode;
     }
 
     /**
@@ -91,6 +97,23 @@ class ArrayStep
     }
 
     /**
+     * Setting a new mode, e.g. MODE_HOLD or MODE_TOGGLE.
+     *
+     * @param  int  $newMode    The new mode as integer.
+     * @return bool             True if success, otherwise false;
+     */
+    public function setMode(int $newMode): bool
+    {
+        if ($this->testMode($newMode))
+        {
+            $this->mode = $newMode;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
      * Next step. Belongs to the mode and direction.
      *
      * @return bool
@@ -128,5 +151,30 @@ class ArrayStep
             }
         }
         return true;
+    }
+    
+    /**
+     * Internal testing the given mode agains the supported ones.
+     *
+     * @param   int $mode   A given mode as integer. 
+     * @return  bool        True if the $mode is still supported, false if not.
+     */
+    protected function testMode(int $mode): bool
+    {
+        $internalModes = [
+            self::MODE_STILL,
+            self::MODE_LOOP,
+            self::MODE_HOLD,
+            self::MODE_TOGGLE,
+            self::MODE_RANDOM
+        ];
+        
+        if (in_array($mode, $internalModes))
+        {
+            return true;
+        } else {
+            throw new \InvalidArgumentException(__CLASS__ . ':: mode not supported (constructor)!');
+            return false;
+        }
     }
 }
