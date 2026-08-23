@@ -173,7 +173,7 @@ class ArrayStep
         {
             return true;
         } else {
-            throw new \InvalidArgumentException(__CLASS__ . ':: mode not supported (constructor)!');
+            echo "<p>" . __CLASS__ . ":: mode not supported (constructor)!</p>";
             return false;
         }
     }
