@@ -33,11 +33,15 @@ class ArrayStep
     /**
      * Constructor of the class.
      *
-     * @param array $givenValues    An indexed array.
+     * @param array $givenValues    An indexed array with one element as a minimum!
      * @param int   $mode           Optional an initial mode.
      */
     public function __construct(array $givenValues, int $mode = self::MODE_LOOP)
     {
+        if (empty($givenValues))
+        {
+            throw new \InvalidArgumentException(__CLASS__ . ' requires a non-empty array in constructor!');
+        }
         $this->values = $givenValues;
         $this->max = count($givenValues) -1;
         $this->mode = $mode;
@@ -93,7 +97,7 @@ class ArrayStep
      */
     protected function next(): bool
     {
-        if ($this->mode == self::MODE_STILL)
+        if ($this->mode === self::MODE_STILL)
         {
             return true;
         }
