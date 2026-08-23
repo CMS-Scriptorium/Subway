@@ -39,7 +39,7 @@ class ArrayStep
     public function __construct(array $givenValues, int $mode = self::MODE_LOOP)
     {
         $this->values = $givenValues;
-        $this->max = (empty($givenValues)) ? 0 : count($givenValues);
+        $this->max = count($givenValues) -1;
         $this->mode = $mode;
     }
 
