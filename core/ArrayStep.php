@@ -36,10 +36,10 @@ class ArrayStep
      * @param array $givenValues    An indexed array.
      * @param int   $mode           Optional an initial mode.
      */
-    public function __construct(array &$givenValues, int $mode = self::MODE_LOOP)
+    public function __construct(array $givenValues, int $mode = self::MODE_LOOP)
     {
         $this->values = $givenValues;
-        $this->max = count($givenValues) - 1;
+        $this->max = (empty($givenValues)) ? 0 : count($givenValues);
         $this->mode = $mode;
     }
 

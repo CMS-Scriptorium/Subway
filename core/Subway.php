@@ -42,7 +42,7 @@ class Subway
     public function initFrontend(): void
     {
         $page = $GLOBALS['wb']->page ?? null;
-        $template = !empty($page->template) ? $page->template : DEFAULT_TEMPLATE;
+        $template = $page?->template ?? DEFAULT_TEMPLATE;
 
         if (!$this->cssLoaded)
         {
@@ -80,12 +80,11 @@ class Subway
     {
         $lang = defined("LANGUAGE") ? LANGUAGE : "EN";
         
-        if (!class_exists(self::CLASSNAMESPACE.$lang))
+        $class = self::CLASSNAMESPACE . $lang;
+        if (!class_exists($class))
         {
-            $lang= "EN";
+            $class = self::CLASSNAMESPACE . 'EN';
         }
-
-        $this->language = (self::CLASSNAMESPACE.$lang)::getInstance()
-            ->getConstants();
+        $this->language = $class::getInstance()->getConstants();
     }
 }
