@@ -833,7 +833,7 @@ class Date
     public function formatWithMySQL(
         string   $format       = DEFAULT_DATE_FORMAT,
         int|null $timestamp    = null,
-        string   $optionalLang = "" 
+        string   $optionalLang = ""
     ): string|null
     {
         if (is_null($timestamp))
