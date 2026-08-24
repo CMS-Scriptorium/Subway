@@ -93,6 +93,41 @@ echo $oCal->generate();
 Result:  
 ![Subway calendar](img/Subway_Fomantec_calendar.png) 
 
+
+##### ArraySteps
+Quick test inside code2 section ...
+
+```php
+use Subway\core\Subway;
+use Subway\core\ArrayStep;
+use Subway\core\tools\Data;
+
+Subway::getInstance()->initFrontend();
+
+$iMax = 15;
+$myArray = ["A", "B", "C", "D"];
+
+$modes = [
+    'Loop'      => ArrayStep::MODE_LOOP,
+    'Toggle'    => ArrayStep::MODE_TOGGLE,
+    'Hold'      => ArrayStep::MODE_HOLD,
+    'Random'    => ArrayStep::MODE_RANDOM
+];
+
+foreach ($modes as $name => $currendMode)
+{
+    $oARRAY_STEP = new ArrayStep($myArray, $currendMode);
+    $result = [];
+    for ($i=0; $i < $iMax; $i++)
+    {
+	    $result[] = $oARRAY_STEP->getAndStep();
+    }
+
+    echo "<p><strong>" . $name . "</strong><br>".implode(", ", $result) . "</p>";
+
+}
+```
+
 ---
 06.2026 Aldus
 
