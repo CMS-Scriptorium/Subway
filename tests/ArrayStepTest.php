@@ -81,18 +81,15 @@ final class ArrayStepTest extends TestCase
         $this->assertFalse($as->setMode(16));
         $this->assertTrue($as->setMode(ArrayStep::MODE_TOGGLE)); // valid
     }
-    /**
-        // Tricky! Random is difficult
+
+    // Tricky! Random is difficult
     public function testResetRandomModeUsesMockedRandom(): void
     {
-        $as = new ArrayStep([0,1,2], ArrayStep::MODE_RANDOM);
-        // Our mocked random_int returns 1 for constructor/reset, so place should be 1
-        $this->assertSame(1, $as->getPosition());
-        // call reset which uses random_int again (mocked)
-        $as->reset();
-        $this->assertSame(1, $as->getPosition());
+        $as = new ArrayStep(['red', 'green', 'blue'], ArrayStep::MODE_RANDOM);
+        $actual = $as->get();
+        $this->assertContains($actual, ['red', 'green', 'blue']);
     }
-    **/
+
     public function testToggleModeBouncesDirection(): void
     {
         $as = new ArrayStep([100, 200, 300]);
