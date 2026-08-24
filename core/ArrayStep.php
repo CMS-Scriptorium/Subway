@@ -33,8 +33,8 @@ class ArrayStep implements Iterator
     private const int MAX_RANDOM_ATTEMPTS = 100;
 
     // Valid mode bitmask for quick validation
-    private const int VALID_MODES = 
-        self::MODE_STILL | self::MODE_LOOP | self::MODE_HOLD | 
+    private const int VALID_MODES =
+        self::MODE_STILL | self::MODE_LOOP | self::MODE_HOLD |
         self::MODE_TOGGLE | self::MODE_RANDOM;
 
     private int $place = 0;
@@ -65,9 +65,9 @@ class ArrayStep implements Iterator
         if (!$this->isValidMode($mode))
         {
             throw new InvalidArgumentException(
-                "Unsupported mode: {$mode}. Valid modes: " . 
-                self::MODE_STILL . ', ' . self::MODE_LOOP . ', ' . 
-                self::MODE_HOLD . ', ' . self::MODE_TOGGLE . ', ' . 
+                "Unsupported mode: {$mode}. Valid modes: " .
+                self::MODE_STILL . ', ' . self::MODE_LOOP . ', ' .
+                self::MODE_HOLD . ', ' . self::MODE_TOGGLE . ', ' .
                 self::MODE_RANDOM
             );
         }
