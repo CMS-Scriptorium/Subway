@@ -31,17 +31,12 @@ class ArrayStep implements Iterator
 
     // Maximum attempts to find a different random index
     private const int MAX_RANDOM_ATTEMPTS = 100;
-
-    // Valid mode bitmask for quick validation
-    private const int VALID_MODES =
-        self::MODE_STILL | self::MODE_LOOP | self::MODE_HOLD |
-        self::MODE_TOGGLE | self::MODE_RANDOM;
-
     private int $place = 0;
     private int $max = 0;
     private array $values = [];
     private int $mode = self::MODE_LOOP;
     private int $direction = 1; // 1 = forward, -1 = backward
+
     // -1 means "not set" (no previous-last place recorded yet)
     private int $prevLastPlace = -1;
     private int $iteratorPosition = 0; // For Iterator interface
