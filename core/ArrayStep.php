@@ -57,6 +57,11 @@ class ArrayStep
         {
             $this->mode = self::MODE_HOLD;
         }
+
+        if ($this->mode === self::MODE_RANDOM)
+        {
+            $this->place = random_int(0, $this->max);
+        }
     }
 
     /**
