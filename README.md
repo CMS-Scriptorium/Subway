@@ -128,6 +128,34 @@ foreach ($modes as $name => $currendMode)
 }
 ```
 
+#### Example/Usage
+```php
+$colors = ['red', 'green', 'blue', 'yellow'];
+$stepper = new ArrayStep($colors, ArrayStep::MODE_LOOP);
+
+// Basic usage
+echo $stepper->getAndStep();  // 'red'
+echo $stepper->getAndStep();  // 'green'
+echo $stepper->getAndStep();  // 'blue'
+echo $stepper->getAndStep();  // 'yellow'
+echo $stepper->getAndStep();  // 'red' (loops)
+
+// Iterator interface
+foreach ($stepper as $color) {
+    echo $color . "\n";
+}
+
+// Reset and reposition
+$stepper->reset();
+$stepper->setPosition(2);
+echo $stepper->get();  // 'blue'
+
+// Safe mode switching
+if ($stepper->setMode(ArrayStep::MODE_RANDOM)) {
+    echo $stepper->getAndStep();  // Random element
+}
+```
+
 ---
 06.2026 Aldus
 

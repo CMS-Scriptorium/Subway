@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 /**
  * @package         Subway
- * @version         0.1.0
+ * @version         0.2.0
  * @authors         Kant (Aldus)
  * @license         CC BY-SA 4.0
  * @license_terms   https://creativecommons.org/licenses/by-sa/4.0/
  * @platform        WBCE 1.6.x
- * @requirements    PHP 8.4.x (8.3 recommented)
+ * @requirements    PHP 8.4.x
  */
 
 namespace Subway\core;
 
+use InvalidArgumentException;
+use Iterator;
+
 /**
- * That is truly experimental.
+ * ArrayStep - Iterates through array elements with various stepping modes.
+ * Supports LOOP, HOLD, TOGGLE, RANDOM, and STILL modes.
  */
-class ArrayStep
+class ArrayStep implements Iterator
 {
     public const int MODE_STILL  = 0;
     public const int MODE_LOOP   = 1;
@@ -25,39 +29,61 @@ class ArrayStep
     public const int MODE_TOGGLE = 4;
     public const int MODE_RANDOM = 8;
 
-    protected int $place = 0;
-    protected int $max = 0;
-    protected array $values = [];
-    protected int $mode = self::MODE_LOOP;
-    protected int $direction = 1; // 1 == up, -1 == down
+    // Maximum attempts to find a different random index
+    private const int MAX_RANDOM_ATTEMPTS = 100;
 
-    protected int $prevLastPlace = 0;
+    // Valid mode bitmask for quick validation
+    private const int VALID_MODES = 
+        self::MODE_STILL | self::MODE_LOOP | self::MODE_HOLD | 
+        self::MODE_TOGGLE | self::MODE_RANDOM;
+
+    private int $place = 0;
+    private int $max = 0;
+    private array $values = [];
+    private int $mode = self::MODE_LOOP;
+    private int $direction = 1; // 1 = forward, -1 = backward
+    private int $prevLastPlace = 0;
+    private int $iteratorPosition = 0; // For Iterator interface
 
     /**
-     * Constructor of the class.
+     * Constructor
      *
-     * @param array $givenValues    An indexed array with one element as a minimum!
-     * @param int   $mode           Optional an initial mode.
+     * @param array $givenValues An indexed array with at least one element
+     * @param int   $mode        Initial mode (default: MODE_LOOP)
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(array $givenValues, int $mode = self::MODE_LOOP)
     {
         if (empty($givenValues))
         {
-            throw new \InvalidArgumentException(__CLASS__ . ' requires a non-empty array in constructor!');
+            throw new InvalidArgumentException(
+                self::class . ' requires a non-empty array in constructor!'
+            );
         }
-        
-        if ($this->testMode($mode))
+
+        if (!$this->isValidMode($mode))
         {
-            $this->mode = $mode;
+            throw new InvalidArgumentException(
+                "Unsupported mode: {$mode}. Valid modes: " . 
+                self::MODE_STILL . ', ' . self::MODE_LOOP . ', ' . 
+                self::MODE_HOLD . ', ' . self::MODE_TOGGLE . ', ' . 
+                self::MODE_RANDOM
+            );
         }
-        
-        $this->values = $givenValues;
-        $this->max = count($givenValues) -1;
-        if ($this->max == 0)
+
+        // Re-index the array to ensure numeric keys
+        $this->values = array_values($givenValues);
+        $this->max = count($this->values) - 1;
+        $this->mode = $mode;
+
+        // Single element always uses MODE_HOLD
+        if ($this->max === 0)
         {
             $this->mode = self::MODE_HOLD;
         }
 
+        // Initialize random position if in RANDOM mode
         if ($this->mode === self::MODE_RANDOM)
         {
             $this->place = random_int(0, $this->max);
@@ -65,7 +91,7 @@ class ArrayStep
     }
 
     /**
-     * Get the current value without stepping forward or backward..
+     * Get current value without advancing
      *
      * @return mixed
      */
@@ -75,142 +101,243 @@ class ArrayStep
     }
 
     /**
-     * Step next and returns the value.
+     * Advance and return new value
      *
      * @return mixed
      */
     public function step(): mixed
     {
-        $this->next();
+        $this->advance();
         return $this->values[$this->place];
     }
 
     /**
-     * Get the current value and step forward (belongs to direction)
+     * Get current value, then advance
      *
      * @return mixed
      */
     public function getAndStep(): mixed
     {
         $retVal = $this->values[$this->place];
-        $this->next();
+        $this->advance();
         return $retVal;
     }
 
     /**
-     * Set the direction. Normaly 1 (forwards) or -1 (backwards).
+     * Set iteration direction
      *
-     * @param int $newDirection
+     * @param int $newDirection Direction: 1 (forward) or -1 (backward)
+     *
+     * @throws InvalidArgumentException
      */
     public function setDirection(int $newDirection): void
     {
+        if ($newDirection !== 1 && $newDirection !== -1)
+        {
+            throw new InvalidArgumentException(
+                "Direction must be 1 (forward) or -1 (backward), got: {$newDirection}"
+            );
+        }
         $this->direction = $newDirection;
     }
 
     /**
-     * Setting a new mode, e.g. MODE_HOLD or MODE_TOGGLE.
+     * Change stepping mode
      *
-     * @param  int  $newMode    The new mode as integer.
-     * @return bool             True if success, otherwise false;
+     * @param int $newMode New mode
+     *
+     * @return bool True if mode changed, false if invalid
      */
     public function setMode(int $newMode): bool
     {
-        if ($this->testMode($newMode))
+        if (!$this->isValidMode($newMode))
         {
-            $this->mode = $newMode;
-            return true;
-        } else {
             return false;
         }
+
+        $this->mode = $newMode;
+        return true;
     }
-    
+
     /**
-     * Next step. Belongs to the mode and direction.
+     * Reset position to start
      *
-     * @return bool
+     * @return void
      */
-    protected function next(): bool
+    public function reset(): void
+    {
+        $this->place = 0;
+        $this->prevLastPlace = 0;
+        if ($this->mode === self::MODE_RANDOM)
+        {
+            $this->place = random_int(0, $this->max);
+        }
+    }
+
+    /**
+     * Get current position index
+     *
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return $this->place;
+    }
+
+    /**
+     * Set position to specific index
+     *
+     * @param int $index Position index (0 to count-1)
+     *
+     * @throws InvalidArgumentException
+     */
+    public function setPosition(int $index): void
+    {
+        if ($index < 0 || $index > $this->max)
+        {
+            throw new InvalidArgumentException(
+                "Position must be between 0 and {$this->max}, got: {$index}"
+            );
+        }
+        $this->place = $index;
+    }
+
+    /**
+     * Get total number of elements
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return count($this->values);
+    }
+
+    /**
+     * ========== ITERATOR INTERFACE IMPLEMENTATION ==========
+     * Allows usage in foreach loops
+     */
+
+    public function current(): mixed
+    {
+        return $this->values[$this->iteratorPosition] ?? null;
+    }
+
+    public function key(): int
+    {
+        return $this->iteratorPosition;
+    }
+
+    public function next(): void
+    {
+        ++$this->iteratorPosition;
+    }
+
+    public function rewind(): void
+    {
+        $this->iteratorPosition = 0;
+    }
+
+    public function valid(): bool
+    {
+        return isset($this->values[$this->iteratorPosition]);
+    }
+
+    /**
+     * ========== PRIVATE/PROTECTED METHODS ==========
+     */
+
+    /**
+     * Advance position based on mode and direction
+     *
+     * @return void
+     */
+    private function advance(): void
     {
         if ($this->mode === self::MODE_STILL)
         {
-            return true;
+            return;
         }
 
         if ($this->mode === self::MODE_RANDOM)
         {
-            return $this->getRandomPlace();
+            $this->advanceRandom();
+            return;
         }
 
         $this->place += $this->direction;
 
-        if (($this->place > $this->max) || ($this->place < 0))
+        // Handle boundary conditions
+        if ($this->place > $this->max || $this->place < 0)
         {
-            switch ($this->mode)
-            {
-                case self::MODE_LOOP:
-                    $this->place = ($this->direction > 0) ? 0 : $this->max;
-                    break;
-
-                case self::MODE_HOLD:
-                    $this->place = ($this->direction > 0) ? $this->max : 0;
-                    break;
-
-                case self::MODE_TOGGLE:
-                    $this->place = ($this->direction > 0) ? $this->max : 0;
-                    $this->direction *= -1;
-                    $this->next();
-                    break;
-
-                default:
-                    // At this time it is not clear to handle this situation!
-                    $this->place = 0;
-                    break;
-            }
+            $this->handleBoundary();
         }
-        return true;
     }
-    
+
     /**
-     * Internal testing the given mode agains the supported ones.
+     * Advance to next random index (with safeguards)
      *
-     * @param   int $mode   A given mode as integer.
-     * @return  bool        True if the $mode is still supported, false if not.
+     * @return void
      */
-    protected function testMode(int $mode): bool
-    {
-        $internalModes = [
-            self::MODE_STILL,
-            self::MODE_LOOP,
-            self::MODE_HOLD,
-            self::MODE_TOGGLE,
-            self::MODE_RANDOM
-        ];
-        
-        if (in_array($mode, $internalModes))
-        {
-            return true;
-        } else {
-            echo "<p>" . __CLASS__ . ":: mode not supported (constructor)!</p>";
-            return false;
-        }
-    }
-
-    /**
-     * Looks for the nex random-place in the given array.
-     * @return bool At this time always true;
-     */
-    protected function getRandomPlace(): bool
+    private function advanceRandom(): void
     {
         if ($this->max < 2)
         {
+            // Single element or two elements: just pick any
             $this->place = random_int(0, $this->max);
-        } else {
-            $oldPlace = $this->place;
-            do {
-                $this->place = random_int(0, $this->max);
-            } while (($this->place == $oldPlace) || ($this->place == $this->prevLastPlace));
-            $this->prevLastPlace = $oldPlace;
+            return;
         }
-        return true;
+
+        $oldPlace = $this->place;
+        $attempts = 0;
+
+        // Try to find a different position (avoid repeats)
+        do {
+            $this->place = random_int(0, $this->max);
+            $attempts++;
+        } while (
+            $attempts < self::MAX_RANDOM_ATTEMPTS &&
+            ($this->place === $oldPlace || $this->place === $this->prevLastPlace)
+        );
+
+        $this->prevLastPlace = $oldPlace;
+    }
+
+    /**
+     * Handle position boundary crossing
+     *
+     * @return void
+     */
+    private function handleBoundary(): void
+    {
+        match ($this->mode) {
+            self::MODE_LOOP => $this->place = ($this->direction > 0) ? 0 : $this->max,
+            self::MODE_HOLD => $this->place = ($this->direction > 0) ? $this->max : 0,
+            self::MODE_TOGGLE => $this->handleToggle(),
+            default => $this->place = 0,
+        };
+    }
+
+    /**
+     * Handle TOGGLE mode: bounce direction and continue
+     *
+     * @return void
+     */
+    private function handleToggle(): void
+    {
+        $this->place = ($this->direction > 0) ? $this->max : 0;
+        $this->direction *= -1;
+        $this->advance(); // Recursively advance in new direction
+    }
+
+    /**
+     * Validate if mode is supported (using bitwise check)
+     *
+     * @param int $mode Mode to validate
+     *
+     * @return bool
+     */
+    private function isValidMode(int $mode): bool
+    {
+        return ($mode & self::VALID_MODES) === $mode;
     }
 }
