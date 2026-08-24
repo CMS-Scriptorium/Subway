@@ -17,6 +17,7 @@ namespace Subway\core;
 use I;
 use Subway\core\traits\Constants;
 use Subway\core\traits\Singleton;
+
 use const DEFAULT_TEMPLATE;
 use const LANGUAGE;
 use const WB_PATH;

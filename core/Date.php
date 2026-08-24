@@ -87,18 +87,18 @@ class Date
      *
      */
     public array $coreDateFormatsPHP = [
-        'l, jS F, Y'=> '%A, %e %B, %Y',
-        'jS F, Y'   => '%e %B, %Y',
-        'd M Y'     => '%d %a %Y',
-        'M d Y'     => '%a %d %Y',
-        'D M d, Y'  => '%a %b %d, %Y',  ##
-        'd-m-Y'     => '%d-%m-%Y',      #1
-        'm-d-Y'     => '%m-%d-%Y',
-        'd.m.Y'     => self::DEFAULT_FORMAT,      #2
-        'm.d.Y'     => '%m.%d.%Y',
-        'd/m/Y'     => '%d/%m/%Y',      #3
-        'm/d/Y'     => '%m/%d/%Y',
-        'j.n.Y'     => '%e.%n.%Y'       #4! Day in month without leading zero
+        'l, jS F, Y' => '%A, %e %B, %Y',
+        'jS F, Y'    => '%e %B, %Y',
+        'd M Y'      => '%d %a %Y',
+        'M d Y'      => '%a %d %Y',
+        'D M d, Y'   => '%a %b %d, %Y',
+        'd-m-Y'      => '%d-%m-%Y',             // 1
+        'm-d-Y'      => '%m-%d-%Y',
+        'd.m.Y'      => self::DEFAULT_FORMAT,   // 2
+        'm.d.Y'      => '%m.%d.%Y',
+        'd/m/Y'      => '%d/%m/%Y',             // 3
+        'm/d/Y'      => '%m/%d/%Y',
+        'j.n.Y'      => '%e.%n.%Y'              // 4! Day in month without leading zero
     ];
 
     /**
@@ -109,20 +109,20 @@ class Date
      *  @see    https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_date-format
      */
     public array $coreDateFormatsMYSQL = [
-        'l, jS F, Y'=> '%W, %D %M, %Y', // 1
-        'jS F, Y'   => '%D %M, %Y',     // 2
-        'd M Y'     => '%e. %M %Y',     // 3 e.g. 24. Juli 2022
-        'M d Y'     => '%b %e %Y',      // 4
-        'D M d, Y'  => '%a %b %e, %Y',  // 5 *
-        'd-m-Y'     => '%d-%m-%Y',      // 6
-        'm-d-Y'     => '%m-%d-%Y',      // 7
-        'd.m.Y'     => self::DEFAULT_FORMAT,      // 8
-        'm.d.Y'     => '%m.%d.%Y',      // 9
-        'd/m/Y'     => '%d/%m/%Y',      // 10
-        'm/d/Y'     => '%m/%d/%Y',      // 11
-        'j.n.Y'     => '%e.%c.%Y',       // 12 Day in month without leading zero
-        'Y-m-d'     => '%Y-%m-%d',      // L* 7.4
-        'Y.m.d'     => '%Y.%m.%d'       // L* 7.4
+        'l, jS F, Y' => '%W, %D %M, %Y', // 1
+        'jS F, Y'    => '%D %M, %Y',     // 2
+        'd M Y'      => '%e. %M %Y',     // 3 e.g. 24. Juli 2022
+        'M d Y'      => '%b %e %Y',      // 4
+        'D M d, Y'   => '%a %b %e, %Y',  // 5 *
+        'd-m-Y'      => '%d-%m-%Y',      // 6
+        'm-d-Y'      => '%m-%d-%Y',      // 7
+        'd.m.Y'      => self::DEFAULT_FORMAT,      // 8
+        'm.d.Y'      => '%m.%d.%Y',      // 9
+        'd/m/Y'      => '%d/%m/%Y',      // 10
+        'm/d/Y'      => '%m/%d/%Y',      // 11
+        'j.n.Y'      => '%e.%c.%Y',       // 12 Day in month without leading zero
+        'Y-m-d'      => '%Y-%m-%d',      // L* 7.4
+        'Y.m.d'      => '%Y.%m.%d'       // L* 7.4
     ];
 
     /**
@@ -161,20 +161,20 @@ class Date
      * @see https://api.jqueryui.com/datepicker/#utility-formatDate
      */
     public array $coreDateFormatsDatePicker = [
-        'l, jS F, Y'=> 'DD, d. MM yy',  //'A, e B, yy',
-        'jS F, Y'   => 'd. MM, yy',      // 1
-        'd M Y'     => 'd. MM yy',       // 2
-        'M d Y'     => 'M d yy',
-        'D M d, Y'  => 'D M d, yy',     // *!
-        'd-m-Y'     => 'd-m-yy',        // 3
-        'm-d-Y'     => 'm-d-yy',
-        'd.m.Y'     => 'd.m.yy',        // 4
-        'm.d.Y'     => 'm.d.yy',
-        'Y-m-d'     => 'yy-mm-dd',      // lepton 7.4
-        'Y.m.d'     => 'yy.mm.dd',      // lepton 7.4
-        'd/m/Y'     => 'd/m/yy',        // 5
-        'm/d/Y'     => 'm/d/yy',
-        'j.n.Y'     => 'd.m.yy'         // 6! Day in month without leading zero
+        'l, jS F, Y' => 'DD, d. MM yy',  //'A, e B, yy',
+        'jS F, Y'    => 'd. MM, yy',      // 1
+        'd M Y'      => 'd. MM yy',       // 2
+        'M d Y'      => 'M d yy',
+        'D M d, Y'   => 'D M d, yy',     // *!
+        'd-m-Y'      => 'd-m-yy',        // 3
+        'm-d-Y'      => 'm-d-yy',
+        'd.m.Y'      => 'd.m.yy',        // 4
+        'm.d.Y'      => 'm.d.yy',
+        'Y-m-d'      => 'yy-mm-dd',      // lepton 7.4
+        'Y.m.d'      => 'yy.mm.dd',      // lepton 7.4
+        'd/m/Y'      => 'd/m/yy',        // 5
+        'm/d/Y'      => 'm/d/yy',
+        'j.n.Y'      => 'd.m.yy'         // 6! Day in month without leading zero
     ];
 
     /**
@@ -198,18 +198,18 @@ class Date
      *  @see    https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
      */
     public array $coreDateFormatsINTL = [
-        'l, jS F, Y'=> 'A, e B, yyyy',
-        'jS F, Y'   => 'e B, yyyy',     // 1
-        'd M Y'     => 'd M yyyy',
-        'M d Y'     => 'M d yyyy',
-        'D M d, Y'  => 'EE d MM, yyyy', // 'a m d, yy',
-        'd-m-Y'     => 'd-M-yy',        // 3
-        'm-d-Y'     => 'M-d-yy',
-        'd.m.Y'     => 'd.M.yy',        // 4
-        'm.d.Y'     => 'M.d.yy',
-        'd/m/Y'     => 'd/M/yy',        // 5
-        'm/d/Y'     => 'M/d/yy',
-        'j.n.Y'     => 'd.M.yyyy'       // 6! Day in month without leading zero
+        'l, jS F, Y' => 'A, e B, yyyy',
+        'jS F, Y'    => 'e B, yyyy',     // 1
+        'd M Y'      => 'd M yyyy',
+        'M d Y'      => 'M d yyyy',
+        'D M d, Y'   => 'EE d MM, yyyy', // 'a m d, yy',
+        'd-m-Y'      => 'd-M-yy',        // 3
+        'm-d-Y'      => 'M-d-yy',
+        'd.m.Y'      => 'd.M.yy',        // 4
+        'm.d.Y'      => 'M.d.yy',
+        'd/m/Y'      => 'd/M/yy',        // 5
+        'm/d/Y'      => 'M/d/yy',
+        'j.n.Y'      => 'd.M.yyyy'       // 6! Day in month without leading zero
     ];
 
     /**
@@ -355,7 +355,7 @@ class Date
     /**
      *  The constructor
      */
-    protected function __construct ()
+    protected function __construct()
     {
         // nothing
     }
@@ -366,13 +366,13 @@ class Date
      *  Only added if not found inside the lang-array.
      *
      */
-    public function addLanguage ($aString=""): bool
+    public function addLanguage (string $language = ""): bool
     {
-        if ($aString == "") {
+        if ($language == "") {
             return false;
         }
-        if (false === in_array($aString, $this->lang)) {
-            $this->lang[] = $aString;
+        if (false === in_array($language, $this->lang)) {
+            $this->lang[] = $language;
         }
         return true;
     }
@@ -383,13 +383,13 @@ class Date
      *  @param  string  $aString The formatString, even empty.
      *
      */
-    public function setFormat(string $aString = ""): bool
+    public function setFormat(string $theFormat = ""): bool
     {
         if ($this->useINTL)
         {
-            $this->sINTLFormat = $aString;
+            $this->sINTLFormat = $theFormat;
         } else {
-            $this->format=$aString;
+            $this->format = $theFormat;
         }
         return true;
     }
@@ -403,7 +403,7 @@ class Date
      *  @return string  The formatted date string
      *
      */
-    public function toHTML(int|null $iTimestamp = 0 ): string
+    public function toHTML(int|null $iTimestamp = 0): string
     {
         if (is_null($iTimestamp))
         {
@@ -636,14 +636,13 @@ class Date
      *  @return bool    True if the key is known, false if failed.
      *
      */
-    public function setCoreLanguage(string $aKeyStr = ""): bool
+    public function setCoreLanguage(string $languageKey = ""): bool
     {
 
         $return_value = true;
 
-        switch ($aKeyStr)
+        switch ($languageKey)
         {
-
             case "DE":
                 $this->lang = ['de_DE.UTF-8', 'de_DE@euro', 'de_DE', 'de', 'ge'];
                 break;
@@ -673,7 +672,7 @@ class Date
                 break;
 
             default:
-                $this->testLocale($aKeyStr);
+                $this->testLocale($languageKey);
                 break;
         }
         return $return_value;
@@ -693,7 +692,7 @@ class Date
      *  @return array    all matches; could be empty.
      *
      */
-    public function testLocale (string $aKey = "de_DE", bool $use_it = true): array
+    public function testLocale(string $aKey = "de_DE", bool $use_it = true): array
     {
         if (strlen($aKey) == 2)
         {
@@ -831,7 +830,11 @@ class Date
      * @see https://dev.mysql.com/doc/refman/8.4/en/locale-support.html
      *
      */
-    public function formatWithMySQL(string $format = DEFAULT_DATE_FORMAT, int|null $timestamp = null, string $optionalLang = "" ): string|null
+    public function formatWithMySQL(
+        string   $format       = DEFAULT_DATE_FORMAT,
+        int|null $timestamp    = null,
+        string   $optionalLang = "" 
+    ): string|null
     {
         if (is_null($timestamp))
         {
@@ -855,7 +858,7 @@ class Date
             {
                 $database->query("SET lc_time_names = 'da_DK';");
             }
-            elseif($tempLang == "cz_CZ")
+            elseif ($tempLang == "cz_CZ")
             {
                 $database->query("SET lc_time_names = 'cs_CZ';");
             }
@@ -872,8 +875,7 @@ class Date
         // see: https://www.epochconverter.com/programming/mysql
         $sQuery = ($timestamp < 0)
             ? "SELECT DATE_FORMAT( DATE_ADD(FROM_UNIXTIME(0), interval " . $timestamp . " second),'" . $sRealFormat . "');"
-            : "SELECT DATE_FORMAT( FROM_UNIXTIME(" . $timestamp . "),'" . $sRealFormat . "');"
-            ;
+            : "SELECT DATE_FORMAT( FROM_UNIXTIME(" . $timestamp . "),'" . $sRealFormat . "');";
             
         return $database->get_one($sQuery);
     }
@@ -1104,27 +1106,26 @@ class Date
      */
     public static function getTimeformats(): array
     {
-        global $user_time;
-        global $TEXT;
-        
+        $user_time = $GLOBALS['user_time'] ?? null;
+
         // Get the current time (in the users timezone if required)
-        $actual_time = time();
+        $actualTime = time();
 
         // Get "System Default"
         $sSystemDefault = "";
 
         if ((isset($user_time)) && ($user_time === true))
         {
-            $sSystemDefault = date(DEFAULT_TIME_FORMAT, $actual_time) . ' (';
-            $sSystemDefault .= ($TEXT['SYSTEM_DEFAULT'] ?? self::SYSTEM_DEFAULT_STR) . ')';
+            $sSystemDefault = date(DEFAULT_TIME_FORMAT, $actualTime) . ' (';
+            $sSystemDefault .= ($GLOBALS['TEXT']['SYSTEM_DEFAULT'] ?? self::SYSTEM_DEFAULT_STR) . ')';
         }
 
         return [
             'system_default'    => $sSystemDefault,
-            'H:i'   => date('H:i',   $actual_time),
-            'H:i:s' => date('H:i:s', $actual_time),
-            'g:i a' => date('g:i a', $actual_time), // Lowercase Ante meridiem and Post meridiem
-            'g:i A' => date('g:i A', $actual_time)  // Uppercase Ante meridiem and Post meridiem
+            'H:i'   => date('H:i',   $actualTime),
+            'H:i:s' => date('H:i:s', $actualTime),
+            'g:i a' => date('g:i a', $actualTime), // Lowercase Ante meridiem and Post meridiem
+            'g:i A' => date('g:i A', $actualTime)  // Uppercase Ante meridiem and Post meridiem
         ];
     }
  
@@ -1139,9 +1140,10 @@ class Date
      *  @return array   An array with days.
      *
      */
-    public static function getDays(string $lang= "en_EN", bool $abbr= false): array
+    public static function getDays(string $lang = "en_EN", bool $abbr = false): array
     {
-        return self::getInstance()->getWeekdayNames($lang, $abbr);  // Wochentagsnamen ausgeschrieben
+        // Wochentagsnamen ausgeschrieben
+        return self::getInstance()->getWeekdayNames($lang, $abbr);
     }
 
     /**
@@ -1155,9 +1157,10 @@ class Date
      *  @return array   An array with months.
      *
      */
-    public static function getMonths(string $lang= "en_EN", bool $abbr= false): array
+    public static function getMonths(string $lang = "en_EN", bool $abbr = false): array
     {
-        return self::getInstance()->getMonthNames($lang, $abbr); // Monatsnamen ausgeschrieben
+        // Monatsnamen ausgeschrieben
+        return self::getInstance()->getMonthNames($lang, $abbr);
     }
 
     /**
