@@ -47,13 +47,15 @@ final class ArrayStepTest extends TestCase
     public function testConstructorEmptyArrayThrowsException(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        new ArrayStep([]);
+        $oTemp = new ArrayStep([]);
+        $oTemp->get(); // do something
     }
 
     public function testConstructorInvalidModeThrowsException(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        new ArrayStep([1,2,3], 16); // 16 is not a supported mode
+        $oTemp = new ArrayStep([1,2,3], 16); // 16 is not a supported mode
+        $oTemp->step(); // do something
     }
 
     public function testGetStepGetAndStepLoopMode(): void
