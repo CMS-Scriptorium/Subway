@@ -31,6 +31,8 @@ class ArrayStep
     protected int $mode = self::MODE_LOOP;
     protected int $direction = 1; // 1 == up, -1 == down
 
+    protected int $prevLastPlace = 0;
+
     /**
      * Constructor of the class.
      *
@@ -51,6 +53,10 @@ class ArrayStep
         
         $this->values = $givenValues;
         $this->max = count($givenValues) -1;
+        if ($this->max == 0)
+        {
+            $this->mode = self::MODE_HOLD;
+        }
     }
 
     /**
@@ -125,6 +131,11 @@ class ArrayStep
             return true;
         }
 
+        if ($this->mode === self::MODE_RANDOM)
+        {
+            return $this->getRandomPlace();
+        }
+
         $this->place += $this->direction;
 
         if (($this->place > $this->max) || ($this->place < 0))
@@ -142,6 +153,7 @@ class ArrayStep
                 case self::MODE_TOGGLE:
                     $this->place = ($this->direction > 0) ? $this->max : 0;
                     $this->direction *= -1;
+                    $this->next();
                     break;
 
                 default:
@@ -176,5 +188,24 @@ class ArrayStep
             echo "<p>" . __CLASS__ . ":: mode not supported (constructor)!</p>";
             return false;
         }
+    }
+
+    /**
+     * Looks for the nex random-place in the given array.
+     * @return bool At this time always true;
+     */
+    protected function getRandomPlace(): bool
+    {
+        if ($this->max < 2)
+        {
+            $this->place = random_int(0, $this->max);
+        } else {
+            $oldPlace = $this->place;
+            do {
+                $this->place = random_int(0, $this->max);
+            } while (($this->place == $oldPlace) || ($this->place == $this->prevLastPlace));
+            $this->prevLastPlace = $oldPlace;
+        }
+        return true;
     }
 }
