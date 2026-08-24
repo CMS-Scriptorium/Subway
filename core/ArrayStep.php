@@ -42,7 +42,8 @@ class ArrayStep implements Iterator
     private array $values = [];
     private int $mode = self::MODE_LOOP;
     private int $direction = 1; // 1 = forward, -1 = backward
-    private int $prevLastPlace = 0;
+    // -1 means "not set" (no previous-last place recorded yet)
+    private int $prevLastPlace = -1;
     private int $iteratorPosition = 0; // For Iterator interface
 
     /**
@@ -167,7 +168,7 @@ class ArrayStep implements Iterator
     public function reset(): void
     {
         $this->place = 0;
-        $this->prevLastPlace = 0;
+        $this->prevLastPlace = -1;
         if ($this->mode === self::MODE_RANDOM)
         {
             $this->place = random_int(0, $this->max);
@@ -296,7 +297,10 @@ class ArrayStep implements Iterator
             $attempts++;
         } while (
             $attempts < self::MAX_RANDOM_ATTEMPTS &&
-            ($this->place === $oldPlace || $this->place === $this->prevLastPlace)
+            (
+                $this->place === $oldPlace
+                || ($this->prevLastPlace !== -1 && $this->place === $this->prevLastPlace)
+            )
         );
 
         $this->prevLastPlace = $oldPlace;
@@ -338,6 +342,15 @@ class ArrayStep implements Iterator
      */
     private function isValidMode(int $mode): bool
     {
-        return ($mode & self::VALID_MODES) === $mode;
+        // Only allow exactly one of the predefined mode constants.
+        // This prevents combined bitmasks (e.g. MODE_LOOP | MODE_TOGGLE) from being considered valid.
+        $validModes = [
+            self::MODE_STILL,
+            self::MODE_LOOP,
+            self::MODE_HOLD,
+            self::MODE_TOGGLE,
+            self::MODE_RANDOM
+        ];
+        return in_array($mode, $validModes, true);
     }
 }
