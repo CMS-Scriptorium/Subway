@@ -82,7 +82,7 @@ class Data
             throw new InvalidArgumentException("Invalid tag given: ".$tag. " not supported", 40088);
         }
         
-        $sReturnVal = "\n<" . htmlspecialchars($tag) . 
+        $sReturnVal = "\n<" . htmlspecialchars($tag) .
               (is_null($css_class) ? "" : " class='" . htmlspecialchars($css_class) . "'") . ">\n";
 
         ob_start();
@@ -159,7 +159,7 @@ class Data
             
         }
         // [2] start return string        
-        $s = "\n<" . htmlspecialchars($tag) . 
+        $s = "\n<" . htmlspecialchars($tag) .
               (is_null($css_class) ? "" : " class='" . htmlspecialchars($css_class) . "'") . ">\n";
               
         $s .= $sOriginInfo;

@@ -201,15 +201,15 @@ class Database
 
     public static function handleTableprefix(string &$tablename): void
     {
-        $source = str_replace(
+        $tablename = str_replace(
             ['{TP}', '{TABLE_PREFIX}'],
             TABLE_PREFIX,
             $tablename
         );
         
-        if (!preg_match('/^[a-zA-Z0-9_]+$/', $tablename))
+        if (!preg_match('/^[a-z0-9_]+$/i', $tablename))
         {
-            throw new InvalidArgumentException("Invalid table name", 40067);
+            throw new InvalidArgumentException("[Basic!] Invalid table name", 40067);
         }
     }
 
