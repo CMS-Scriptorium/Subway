@@ -71,7 +71,7 @@ if ($stepper->setMode(ArrayStep::MODE_RANDOM)) {
     echo $stepper->getAndStep();  // Random element
 }
 ```
-##### Quick test inside code2 section ...
+#### Quick test inside code2 section ...
 
 ```php
 use Subway\core\Subway;
@@ -100,9 +100,10 @@ foreach ($modes as $name => $currendMode)
     }
 
     echo "<p><strong>" . $name . "</strong><br>".implode(", ", $result) . "</p>";
-
 }
 ```
+Output should be similar like:  
+![ArrayStep quick test](img/Subway_ArrayStep_example.png) 
 
 ---
 08.2026 Aldus
