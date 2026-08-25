@@ -158,7 +158,7 @@ class Data
                 );
             
         }
-        // [2] start return string        
+        // [2] start return string
         $s = "\n<" . htmlspecialchars($tag) .
               (is_null($css_class) ? "" : " class='" . htmlspecialchars($css_class) . "'") . ">\n";
               
