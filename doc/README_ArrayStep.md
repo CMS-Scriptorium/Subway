@@ -36,13 +36,13 @@ ArrayStep::MODE_LOOP|ArrayStep::MODE_RANDOM|ArrayStep::MODE_HOLD
 ```
 
 ##### Supported Constants
-const|value  
---------|-----
-ArrayStep::MODE\_STILL|0
-ArrayStep::MODE\_LOOP|1
-ArrayStep::MODE\_HOLD|2
-ArrayStep::MODE\_TOGGLE|4
-ArrayStep::MODE\_RANDOM|8
+| const | value |  
+| :-------- | :----- |
+| ArrayStep::MODE\_STILL | 0 |
+| ArrayStep::MODE\_LOOP | 1 |
+| ArrayStep::MODE\_HOLD | 2 |
+| ArrayStep::MODE\_TOGGLE | 4 |
+| ArrayStep::MODE\_RANDOM | 8 |
 
 #### Example/Usage
 ```php
