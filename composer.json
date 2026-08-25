@@ -1,0 +1,39 @@
+{
+    "name": "cms-scriptorium/subway",
+    "description": "Nothing more and nothing less than a private study for additional code for WBCE.",
+    "type": "wbce-module",
+    "version": "0.1.1",
+    "license": "CC-BY-SA-4.0",
+    "authors": [
+        {
+            "name": "Dietrich Roland Pehlke (Aldus)",
+            "email": "aldus1501@web.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Subway\\": "core/",
+            "Subway\\core\\": "core/",
+            "Subway\\core\\hash\\": "core/hash/",
+            "Subway\\core\\language\\": "core/language/",
+            "Subway\\core\\template\\": "core/template/",
+            "Subway\\core\\tools\\": "core/tools/",
+            "Subway\\core\\traits\\": "core/traits/",
+            "Subway\\core\\sql\\": "core/sql/",
+            "Subway\\core\\datetimepicker\\": "core/datetimepicker/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Subway\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "alpha"
+}
