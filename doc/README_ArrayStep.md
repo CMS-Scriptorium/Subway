@@ -12,7 +12,7 @@ for additional code for [WBCE][1].
 - [WBCE][1] >= 1.6.4
 - Twig >= 3.14.x
 
-##### Namespace
+#### Namespace
 Subway\core  
 e.g.  
 ```php
@@ -20,7 +20,7 @@ use Subway\core\ArrayStep;
 $stepper = new ArrayStep( ['A', 'B', 'C', 'D'], ArrayStep::MODE_LOOP);
 ```
 
-##### Supported values
+#### Supported values
 Any contable items, also mixed ones.  
 Like  
 - int
@@ -28,14 +28,14 @@ Like
 - array
 - object
 
-##### Notice
+#### Notice
 - NO empty array! At least one element as a minimum. Better min. three (for RANDOM)
 - NO mixed initial mode flags: e.g. 
 ```
 ArrayStep::MODE_LOOP|ArrayStep::MODE_RANDOM|ArrayStep::MODE_HOLD
 ```
 
-##### Supported Constants
+#### Supported Constants
 | const | value |  
 | :-------- | :----- |
 | ArrayStep::MODE\_STILL | 0 |
