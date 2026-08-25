@@ -45,9 +45,12 @@ class Data
      *
      * @return string
      *
-     *  example given:
+     * Example given
+     *
      *  @code{.php}
+     *
      *      LEPTON_tools::display( $result_array, "code", "example_class" )
+     *
      *  @endcode
      *      will return:
      *  @code{.xml}
@@ -107,9 +110,12 @@ class Data
      *
      * @return string
      *
-     *  example given:
+     * example/usage:
+     *
      *  @code{.php}
+     *
      *      LEPTON_tools::displayDev($resultArray, "code", "example_class")
+     *
      *  @endcode
      *      will return:
      *  @code{.xml}
@@ -120,7 +126,6 @@ class Data
      *      </code>
      *
      *  @endcode
-     *
      */
     public static function displayDev(
         mixed       $something_to_display = "",
