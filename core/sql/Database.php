@@ -179,7 +179,7 @@ class Database
     public static function drop(string $table): bool
     {
         self::handleTableprefix($table);
-
+        
         self::query("DROP table `".$table."` IF EXISTS;");
 
         return true;
@@ -199,13 +199,18 @@ class Database
         }
     }
 
-    public static function handleTableprefix(string &$source): void
+    public static function handleTableprefix(string &$tablename): void
     {
         $source = str_replace(
             ['{TP}', '{TABLE_PREFIX}'],
             TABLE_PREFIX,
-            $source
+            $tablename
         );
+        
+        if (!preg_match('/^[a-zA-Z0-9_]+$/', $tablename))
+        {
+            throw new InvalidArgumentException("Invalid table name", 40067);
+        }
     }
 
     /**

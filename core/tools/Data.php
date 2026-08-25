@@ -77,7 +77,14 @@ class Data
             : false
             ;
 
-        $sReturnVal = "\n<".$tag.(null === $css_class ? "" : " class='".$css_class."'").">\n";
+        if (!in_array(strtolower($tag), ["pre", "div", "code", "p", "span"]))
+        {
+            throw new InvalidArgumentException("Invalid tag given: ".$tag. " not supported", 40088);
+        }
+        
+        $sReturnVal = "\n<" . htmlspecialchars($tag) . 
+              (is_null($css_class) ? "" : " class='" . htmlspecialchars($css_class) . "'") . ">\n";
+
         ob_start();
             ((true === self::$useVarDump) || (true === $useVarDumpParam))
             ? var_dump($something_to_display)
@@ -132,6 +139,11 @@ class Data
             : false
             ;
 
+        if (!in_array(strtolower($tag), ["pre", "div", "code", "p", "span"]))
+        {
+            throw new InvalidArgumentException("Invalid tag given: ".$tag. " not supported", 40090);
+        }
+
         // [1] get 'caller'
         $backtrace = debug_backtrace();
 
@@ -146,8 +158,10 @@ class Data
                 );
             
         }
-        // [2] start return string
-        $s = "\n<".$tag.(null === $css_class ? "" : " class='".$css_class."'").">\n";
+        // [2] start return string        
+        $s = "\n<" . htmlspecialchars($tag) . 
+              (is_null($css_class) ? "" : " class='" . htmlspecialchars($css_class) . "'") . ">\n";
+              
         $s .= $sOriginInfo;
         ob_start();
             ((true === self::$useVarDump) || (true === $useVarDumpParam))

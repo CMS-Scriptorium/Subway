@@ -135,7 +135,7 @@ class Request
             case 'strip':
             case 'string':
                 $retVal = (is_string($value))
-                    ? $value
+                    ? htmlspecialchars(strip_tags($value))
                     : $default;
                 break;
 
