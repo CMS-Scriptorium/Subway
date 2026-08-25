@@ -157,7 +157,7 @@ if ($stepper->setMode(ArrayStep::MODE_RANDOM)) {
 ```
 
 ---
-06.2026 Aldus
+08.2026 Aldus
 
 [1]: https://wbce.org/de/wbce/
 [2]: https://forum.wbce.org/search.php?action=show_recent
