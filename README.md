@@ -124,9 +124,9 @@ $modes = [
     'Random'    => ArrayStep::MODE_RANDOM
 ];
 
-foreach ($modes as $name => $currendMode)
+foreach ($modes as $name => $currentMode)
 {
-    $oARRAY_STEP = new ArrayStep($myArray, $currendMode);
+    $oARRAY_STEP = new ArrayStep($myArray, $currentMode);
     $result = [];
     for ($i=0; $i < $iMax; $i++)
     {
@@ -134,7 +134,6 @@ foreach ($modes as $name => $currendMode)
     }
 
     echo "<p><strong>" . $name . "</strong><br>".implode(", ", $result) . "</p>";
-
 }
 ```
 
