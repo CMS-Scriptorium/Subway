@@ -61,10 +61,13 @@ class ArrayStep implements Iterator
         if (!$this->isValidMode($mode))
         {
             throw new InvalidArgumentException(
-                "Unsupported mode: {$mode}. Valid modes: " .
-                self::MODE_STILL . ', ' . self::MODE_LOOP . ', ' .
-                self::MODE_HOLD . ', ' . self::MODE_TOGGLE . ', ' .
-                self::MODE_RANDOM
+                "Unsupported mode: {$mode}. Valid modes are: " .
+                "ArrayStep::MODE_STILL (".self::MODE_STILL."), " .
+                "ArrayStep::MODE_LOOP (".self::MODE_LOOP."), " .
+                "ArrayStep::MODE_HOLD (".self::MODE_HOLD."), " .
+                "ArrayStep::MODE_TOGGLE (".self::MODE_TOGGLE."), " .
+                "ArrayStep::MODE_RANDOM (".self::MODE_RANDOM.")",
+                30011
             );
         }
 
