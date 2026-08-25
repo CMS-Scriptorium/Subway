@@ -24,3 +24,12 @@ ol.subway li {
     margin: 0 auto;
     max-width: 31% !important;
 }
+
+/**  ArrayStep **/
+span.arrayStepSmallRect {
+    display: block;
+    float: left;
+    width: 24px;
+    height: 24px;
+    background-color: #990000;
+}
