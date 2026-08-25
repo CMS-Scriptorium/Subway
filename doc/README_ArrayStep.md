@@ -103,7 +103,7 @@ foreach ($modes as $name => $currendMode)
 }
 ```
 Output should be similar like:  
-![ArrayStep quick test](img/Subway_ArrayStep_example.png) 
+![ArrayStep quick test](../img/Subway_ArrayStep_example.png) 
 
 ---
 08.2026 Aldus
