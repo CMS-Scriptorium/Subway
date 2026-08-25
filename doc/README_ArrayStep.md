@@ -31,7 +31,7 @@ Like
 #### Notice
 - NO empty array! At least one element as a minimum. Better min. three (for RANDOM)
 - NO mixed initial mode flags: e.g. 
-```
+```php
 ArrayStep::MODE_LOOP|ArrayStep::MODE_RANDOM|ArrayStep::MODE_HOLD
 ```
 
