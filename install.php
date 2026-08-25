@@ -6,7 +6,7 @@ use Subway\core\sql\Table;
 
 /**
  * @package         Subway
- * @version         0.1.0
+ * @version         0.1.1
  * @authors         Kant (Aldus)
  * @license         CC BY-SA 4.0
  * @license_terms   https://creativecommons.org/licenses/by-sa/4.0/
