@@ -30,6 +30,13 @@ span.arrayStepSmallRect {
     display: block;
     float: left;
     width: 24px;
-    height: 24px;
+    height: 16px;
     background-color: #990000;
+}
+
+p.arrayStepTitle {
+    color: #880000;
+    width: 100%;
+    height: 14px;
+    margin-top: 30px;
 }
