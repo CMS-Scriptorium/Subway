@@ -162,7 +162,7 @@ class Database
                 break;
 
             default:
-                die("[2004] Not correct job in ".__CLASS__." in ".__LINE__.". Passed: ".$what);
+                die("[Subway!] Not correct job in ".__CLASS__." in ".__LINE__.". Passed: ".$what);
                 break;
         }
 
