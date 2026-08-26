@@ -52,35 +52,35 @@ class DatabaseTest extends TestCase
 {
     /**
      * Mock database connection object.
-     * 
+     *
      * @var object
      */
     private $mockDatabase;
 
     /**
      * Mock database handle (mysqli).
-     * 
+     *
      * @var object
      */
     private $mockHandle;
 
     /**
      * Mock prepared statement.
-     * 
+     *
      * @var object
      */
     private $mockStatement;
 
     /**
      * Mock result object.
-     * 
+     *
      * @var object
      */
     private $mockResult;
 
     /**
      * Set up test fixtures before each test method.
-     * 
+     *
      * @return void
      */
     protected function setUp(): void
@@ -109,7 +109,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Clean up after each test method.
-     * 
+     *
      * @return void
      */
     protected function tearDown(): void
@@ -120,7 +120,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test getInstance() returns the singleton instance.
-     * 
+     *
      * @return void
      */
     public function testGetInstance(): void
@@ -132,7 +132,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test getInstance() initializes from global $database if instance is null.
-     * 
+     *
      * @return void
      */
     public function testGetInstanceInitializesFromGlobal(): void
@@ -148,7 +148,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test handleTableprefix() replaces {TP} with TABLE_PREFIX.
-     * 
+     *
      * @return void
      */
     public function testHandleTableprefix(): void
@@ -160,7 +160,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test handleTableprefix() replaces {TABLE_PREFIX} with TABLE_PREFIX.
-     * 
+     *
      * @return void
      */
     public function testHandleTablePrefixAlternative(): void
@@ -172,7 +172,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test testTablename() accepts valid table names.
-     * 
+     *
      * @return void
      */
     public function testTestTablenameValid(): void
@@ -185,7 +185,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test testTablename() rejects invalid table names.
-     * 
+     *
      * @dataProvider invalidTableNameProvider
      * @return void
      */
@@ -198,7 +198,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Data provider for invalid table name tests.
-     * 
+     *
      * @return array
      */
     public function invalidTableNameProvider(): array
@@ -217,7 +217,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test prepareFields() returns all fields with asterisk.
-     * 
+     *
      * @return void
      */
     public function testPrepareFieldsEmpty(): void
@@ -228,7 +228,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test prepareFields() returns properly formatted field list.
-     * 
+     *
      * @return void
      */
     public function testPrepareFieldsWithFields(): void
@@ -240,7 +240,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test prepareFields() with prefix.
-     * 
+     *
      * @return void
      */
     public function testPrepareFieldsWithPrefix(): void
@@ -252,7 +252,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test prepareFields() with empty prefix returns asterisk with prefix.
-     * 
+     *
      * @return void
      */
     public function testPrepareFieldsEmptyWithPrefix(): void
@@ -263,7 +263,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test executeQuery() returns -1 on exception.
-     * 
+     *
      * @return void
      */
     public function testExecuteQueryException(): void
@@ -278,7 +278,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test executeQuery() returns -1 when result is false.
-     * 
+     *
      * @return void
      */
     public function testExecuteQueryNoResult(): void
@@ -301,7 +301,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test executeQuery() with fetch=false returns row count.
-     * 
+     *
      * @return void
      */
     public function testExecuteQueryNoFetch(): void
@@ -325,7 +325,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test executeQuery() with fetch=true and bFetchAll=true.
-     * 
+     *
      * @return void
      */
     public function testExecuteQueryFetchAll(): void
@@ -362,7 +362,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test executeQuery() with fetch=true and bFetchAll=false.
-     * 
+     *
      * @return void
      */
     public function testExecuteQueryFetchOne(): void
@@ -395,7 +395,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test query() calls executeQuery and returns results.
-     * 
+     *
      * @return void
      */
     public function testQuery(): void
@@ -424,7 +424,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test update() with DO_UPDATE operation.
-     * 
+     *
      * @return void
      */
     public function testUpdateDoUpdate(): void
@@ -445,7 +445,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test update() with DO_INSERT operation.
-     * 
+     *
      * @return void
      */
     public function testUpdateDoInsert(): void
@@ -466,7 +466,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test update() returns false on exception.
-     * 
+     *
      * @return void
      */
     public function testUpdateException(): void
@@ -483,7 +483,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test update() with invalid operation terminates.
-     * 
+     *
      * @return void
      */
     public function testUpdateInvalidOperation(): void
@@ -496,7 +496,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test drop() calls query and returns true.
-     * 
+     *
      * @return void
      */
     public function testDrop(): void
@@ -520,7 +520,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test drop() with invalid table name throws exception.
-     * 
+     *
      * @return void
      */
     public function testDropInvalidTableName(): void
@@ -533,7 +533,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test handleJobs() executes multiple queries.
-     * 
+     *
      * @return void
      */
     public function testHandleJobs(): void
@@ -563,7 +563,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test that Database constructor is protected.
-     * 
+     *
      * @return void
      */
     public function testConstructorIsProtected(): void
@@ -576,7 +576,7 @@ class DatabaseTest extends TestCase
 
     /**
      * Test constants are properly defined.
-     * 
+     *
      * @return void
      */
     public function testConstants(): void
