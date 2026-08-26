@@ -162,6 +162,7 @@ class Database
                 break;
 
             default:
+                // @todo    Ugly die/break! Use InvalidArgumentException istead
                 die("[Subway!] Not correct job in ".__CLASS__." in ".__LINE__.". Passed: ".$what);
                 break;
         }

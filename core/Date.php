@@ -16,9 +16,17 @@ namespace Subway\core;
 
 use IntlDateFormatter;
 use Subway\core\sql\Database;
+use Subway\core\traits\DateFormattingTrait;
+use Swoole\MySQL\Exception;
+
+use const DATE_FORMAT;
+use const LANGUAGE;
+use function str_contains;
 
 class Date
 {
+    use DateFormattingTrait;
+
     public const SYSTEM_DEFAULT_STR = 'System Default';
 
     /**
@@ -80,104 +88,6 @@ class Date
     public int $forceYear = 2;
 
     /**
-     *  Translation-array for the LEPTON-CMS internal date-formats.
-     *
-     *  @var    array
-     *  @access public
-     *
-     */
-    public array $coreDateFormatsPHP = [
-        'l, jS F, Y' => '%A, %e %B, %Y',
-        'jS F, Y'    => '%e %B, %Y',
-        'd M Y'      => '%d %a %Y',
-        'M d Y'      => '%a %d %Y',
-        'D M d, Y'   => '%a %b %d, %Y',
-        'd-m-Y'      => '%d-%m-%Y',             // 1
-        'm-d-Y'      => '%m-%d-%Y',
-        'd.m.Y'      => self::DEFAULT_FORMAT,   // 2
-        'm.d.Y'      => '%m.%d.%Y',
-        'd/m/Y'      => '%d/%m/%Y',             // 3
-        'm/d/Y'      => '%m/%d/%Y',
-        'j.n.Y'      => '%e.%n.%Y'              // 4! Day in month without leading zero
-    ];
-
-    /**
-     *  Translation-array for the LEPTON-CMS internal date-formats.
-     *
-     *  @var    array
-     *  @access public
-     *  @see    https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_date-format
-     */
-    public array $coreDateFormatsMYSQL = [
-        'l, jS F, Y' => '%W, %D %M, %Y', // 1
-        'jS F, Y'    => '%D %M, %Y',     // 2
-        'd M Y'      => '%e. %M %Y',     // 3 e.g. 24. Juli 2022
-        'M d Y'      => '%b %e %Y',      // 4
-        'D M d, Y'   => '%a %b %e, %Y',  // 5 *
-        'd-m-Y'      => '%d-%m-%Y',      // 6
-        'm-d-Y'      => '%m-%d-%Y',      // 7
-        'd.m.Y'      => self::DEFAULT_FORMAT,      // 8
-        'm.d.Y'      => '%m.%d.%Y',      // 9
-        'd/m/Y'      => '%d/%m/%Y',      // 10
-        'm/d/Y'      => '%m/%d/%Y',      // 11
-        'j.n.Y'      => '%e.%c.%Y',       // 12 Day in month without leading zero
-        'Y-m-d'      => '%Y-%m-%d',      // L* 7.4
-        'Y.m.d'      => '%Y.%m.%d'       // L* 7.4
-    ];
-
-    /**
-     *  Translation-array for the LEPTON-CMS internal time-formats.
-     *
-     *  @var    array
-     *  @access public
-     *
-     */
-    public array $coreTimeFormatsPHP = [
-        'g:i A' => '%I:%M %p',
-        'g:i a' => '%I:%M %P',
-        'H:i:s' => '%H:%M:%S',
-        'H:i'   => '%H:%M'
-    ];
-
-    /**
-     *  Translation-array for the LEPTON-CMS internal time-formats.
-     *
-     *  @var    array
-     *  @access public
-     *  @see    https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_date-format
-     */
-    public array $coreTimeFormatsMYSQL = [
-        'g:i A' => '%l:%i %p',  // Uppercase Ante meridiem and Post meridiem
-        'g:i a' => '%r %p',
-        'H:i:s' => '%H:%i:%s',  // 3
-        'H:i'   => '%H:%i'      // 4
-    ];
-
-    /**
-     *  Translation-array for the LEPTON-CMS internal date-formats for datepicker(-s).
-     *
-     * @var    array
-     * @access public
-     * @see https://api.jqueryui.com/datepicker/#utility-formatDate
-     */
-    public array $coreDateFormatsDatePicker = [
-        'l, jS F, Y' => 'DD, d. MM yy',  //'A, e B, yy',
-        'jS F, Y'    => 'd. MM, yy',      // 1
-        'd M Y'      => 'd. MM yy',       // 2
-        'M d Y'      => 'M d yy',
-        'D M d, Y'   => 'D M d, yy',     // *!
-        'd-m-Y'      => 'd-m-yy',        // 3
-        'm-d-Y'      => 'm-d-yy',
-        'd.m.Y'      => 'd.m.yy',        // 4
-        'm.d.Y'      => 'm.d.yy',
-        'Y-m-d'      => 'yy-mm-dd',      // lepton 7.4
-        'Y.m.d'      => 'yy.mm.dd',      // lepton 7.4
-        'd/m/Y'      => 'd/m/yy',        // 5
-        'm/d/Y'      => 'm/d/yy',
-        'j.n.Y'      => 'd.m.yy'         // 6! Day in month without leading zero
-    ];
-
-    /**
      *  Boolean to switch to the IntlDateFormatter
      *
      *  @see: https://www.php.net/manual/de/intldateformatter.format.php
@@ -190,27 +100,6 @@ class Date
     public bool $useINTL = false;
     public bool $intlInstalled = false;
 
-    /**
-     *  Holds information for some dateFormatter patterns (M.f.i!)
-     *  @access public
-     *  @var    array
-     *
-     *  @see    https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
-     */
-    public array $coreDateFormatsINTL = [
-        'l, jS F, Y' => 'A, e B, yyyy',
-        'jS F, Y'    => 'e B, yyyy',     // 1
-        'd M Y'      => 'd M yyyy',
-        'M d Y'      => 'M d yyyy',
-        'D M d, Y'   => 'EE d MM, yyyy', // 'a m d, yy',
-        'd-m-Y'      => 'd-M-yy',        // 3
-        'm-d-Y'      => 'M-d-yy',
-        'd.m.Y'      => 'd.M.yy',        // 4
-        'm.d.Y'      => 'M.d.yy',
-        'd/m/Y'      => 'd/M/yy',        // 5
-        'm/d/Y'      => 'M/d/yy',
-        'j.n.Y'      => 'd.M.yyyy'       // 6! Day in month without leading zero
-    ];
 
     /**
      * @see https://dev.mysql.com/doc/refman/5.7/en/locale-support.html
@@ -718,24 +607,6 @@ class Date
             $this->lang = $all;
         }
         return $all;
-    }
-
-    /**
-     *  Public function to translate a given internal format string for the datepickers (js).
-     *
-     *  @param  string  $sFormatString  A valid format string.
-     *  @return string  The matching value inside the internal translation array as string or the current DATE_FORMAT or "" (empty) if non match.
-     *
-     */
-    public function formatToDatepicker(string $sFormatString = ""): string
-    {
-        if (isset($this->coreDateFormatsDatePicker[$sFormatString])) {
-            return $this->coreDateFormatsDatePicker[$sFormatString];
-        } elseif (isset($this->coreDateFormatsDatePicker[DATE_FORMAT])) {
-            return $this->coreDateFormatsDatePicker[DATE_FORMAT];
-        } else {
-            return "";
-        }
     }
 
     /**

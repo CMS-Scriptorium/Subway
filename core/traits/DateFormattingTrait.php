@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Subway\core\traits;
 
-use IntlDateFormatter;
-
 /**
  * Trait for date formatting operations
  * Handles conversion between different date format standards
