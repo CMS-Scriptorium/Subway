@@ -134,6 +134,12 @@ class Database
         {
             self::getInstance();
         }
+        
+        // Handle the {TP} in the tablename
+        self::handleTableprefix($table);
+        
+        // Is the tablename still valid?
+        self::testTablename($table);
 
         switch (strtolower($what))
         {
@@ -157,8 +163,6 @@ class Database
                 die("[2004] Not correct job in ".__CLASS__." in ".__LINE__.". Passed: ".$what);
                 break;
         }
- 
-        self::handleTableprefix($query);
 
         $oTempHandle = self::$instance->db_handle;
         
@@ -178,13 +182,27 @@ class Database
 
     public static function drop(string $table): bool
     {
+        // Handle {TP} in the tablename.
         self::handleTableprefix($table);
+        
+        // Is the tblename still valid? throw exception.
+        self::testTablename($table);
         
         self::query("DROP table `".$table."` IF EXISTS;");
 
         return true;
     }
 
+    public static function testTablename($string $table): bool
+    {
+        if (!preg_match('/^[\w]+$/i', $table))
+        {
+            throw new \InvalidArgumentException("[Basic!] Invalid table name: ".$table, 40067);
+            return false;
+        }
+        return true;
+    }
+    
     /**
      * Handle some queries in an array.
      *
@@ -206,11 +224,6 @@ class Database
             TABLE_PREFIX,
             $tablename
         );
-        
-        if (!preg_match('/^[a-z0-9_]+$/i', $tablename))
-        {
-            throw new InvalidArgumentException("[Basic!] Invalid table name", 40067);
-        }
     }
 
     /**
