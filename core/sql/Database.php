@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace Subway\core\sql;
 
 use Exception;
+use InvalidArgumentException;
+use const TABLE_PREFIX;
 
 /**
  * Keep in mind that we can only use static methods/properties here!
@@ -58,7 +60,7 @@ class Database
      *  @example
      *      $results_array = [];
      *      Subway\core\sql\Database::execute_query(
-     *          "SELECT * from ".TABLE_PREFIX."pages WHERE page_id = ".$page_id." ",
+     *          "SELECT * from `{TP}pages` WHERE page_id = " . $page_id . " ",
      *          true,
      *          $results_array,
      *          false
@@ -66,10 +68,10 @@ class Database
      *
      */
     public static function executeQuery(
-        string $aQuery = "",
-        bool $bFetch = false,
-        array &$aStorage = [],
-        bool $bFetchAll = true
+        string  $aQuery     = "",
+        bool    $bFetch     = false,
+        array   &$aStorage  = [],
+        bool    $bFetchAll  = true
     ): int
     {
         if (is_null(self::$instance))
@@ -180,6 +182,12 @@ class Database
         }
     }
 
+    /**
+     * Drop the given table from the database.
+     * 
+     * @param string $table
+     * @return bool
+     */
     public static function drop(string $table): bool
     {
         // Handle {TP} in the tablename.
@@ -193,16 +201,25 @@ class Database
         return true;
     }
 
-    public static function testTablename($string $table): bool
+    /**
+     * Is the given tablename valid? (injection)
+     * 
+     * @param   string  $table  A given tablename.
+     * @return  bool
+     * @throws  InvalidArgumentException
+     */
+    public static function testTablename(string $table): bool
     {
-        if (!preg_match('/^[\w]+$/i', $table))
+        if (!\preg_match('/^[\w]+$/i', $table))
         {
-            throw new \InvalidArgumentException("[Basic!] Invalid table name: ".$table, 40067);
-            return false;
+            throw new InvalidArgumentException(
+                "[Subway!] Invalid table name: " . $table,
+                40067
+            );
         }
         return true;
     }
-    
+
     /**
      * Handle some queries in an array.
      *
@@ -217,6 +234,12 @@ class Database
         }
     }
 
+    /**
+     * Replaces {TP} in the given table name.
+     * 
+     * @param  string   $tablename The tablemame as reference.
+     * @return void
+     */
     public static function handleTableprefix(string &$tablename): void
     {
         $tablename = str_replace(
