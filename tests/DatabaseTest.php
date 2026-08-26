@@ -44,7 +44,7 @@ require_once __DIR__ . '/../core/sql/Database.php';
 //  [5] Here we go
 /**
  * Test suite for Subway\core\sql\Database class.
- * 
+ *
  * @package Subway\Tests
  * @author  Test Suite
  */
