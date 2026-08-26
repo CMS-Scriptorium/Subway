@@ -184,7 +184,7 @@ class Database
 
     /**
      * Drop the given table from the database.
-     * 
+     *
      * @param string $table
      * @return bool
      */
@@ -203,7 +203,7 @@ class Database
 
     /**
      * Is the given tablename valid? (injection)
-     * 
+     *
      * @param   string  $table  A given tablename.
      * @return  bool
      * @throws  InvalidArgumentException
@@ -236,7 +236,7 @@ class Database
 
     /**
      * Replaces {TP} in the given table name.
-     * 
+     *
      * @param  string   $tablename The tablemame as reference.
      * @return void
      */
