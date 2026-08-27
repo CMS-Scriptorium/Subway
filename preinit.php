@@ -18,28 +18,7 @@ if (!defined('WB_PATH'))
     die();
 }
 
-/**
- * [1] Just to make sure the WBCE autoloader will find the module classes
- *     (As this one line is missing in the "inizialize" file of the root.)
- */
-// WbAuto::AddDir(WB_PATH."/modules/");
-
-/**
- * [1.1] Just to make sure the WBCE autoloader will find the frontend-template
- *       classes and also the theme ones.
- *       (As this one line is also missing in the "inizialize" file of the root.)
- */
-// WbAuto::AddDir(WB_PATH."/templates/");
-
-/**
- * [2] Backwards for the "L_" processTranslation by Stefek.
- 
-if (!defined('TWIG_SHOW_MISSING_LANG_STRINGS'))
-{
-    define('TWIG_SHOW_MISSING_LANG_STRINGS', false);
-}
-*/
-
+// Tell the installation how to handle the "addon\xxxx" (prefix) inside namespaces
 require_once __DIR__."/core/Autoloader.php";
 
 Subway\core\Autoloader::getInstance();
