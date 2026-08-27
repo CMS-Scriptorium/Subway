@@ -47,17 +47,16 @@ class Autoloader
     {
         if (str_starts_with($class, 'addon\\')) // Hack for WBCE
         {
-            
             $elements = explode("\\", $class);
             $elements[0] = "modules";
-            
+
             $lookupPath = WB_PATH . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $elements) . ".php";
             if (file_exists($lookupPath))
             {
                 require_once $lookupPath;
                 return true;
             }
-        
+
             return false;
         }
         return false;
