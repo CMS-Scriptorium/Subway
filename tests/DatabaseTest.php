@@ -186,9 +186,9 @@ class DatabaseTest extends TestCase
     /**
      * Test testTablename() rejects invalid table names.
      *
-     * @dataProvider invalidTableNameProvider
      * @return void
      */
+    #[DataProvider('invalidTableNameProvider')]
     public function testTestTablenameInvalid($tableName): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -201,7 +201,7 @@ class DatabaseTest extends TestCase
      *
      * @return array
      */
-    public function invalidTableNameProvider(): array
+    public static function invalidTableNameProvider(): array
     {
         return [
             ['users;'],
@@ -488,8 +488,9 @@ class DatabaseTest extends TestCase
      */
     public function testUpdateInvalidOperation(): void
     {
-        $this->expectException(\Error::class);
-        
+        $this->expectExceptionCode(40067);
+        // $this->expectException(\Error::class);
+        // $this->expectException("[Subway!] Not correct job in Subway\\core\\sql\\Database in 178. Passed: INVALID");
         $values = ['name' => 'Jane'];
         Database::update('INVALID', 'users', $values);
     }
