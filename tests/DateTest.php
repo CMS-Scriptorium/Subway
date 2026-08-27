@@ -16,9 +16,9 @@
  *
  *   Variation: asumee you are inside the "Subway" directory
  *   php ../../../phpunit.phar --colors='always' --display-warnings tests/DateTest.php
- * 
- *   php phpunit.phar --colors='always' --display-deprecations --display-warnings wbce/modules/Subway/tests/DateTest.php
  *
+ *   php phpunit.phar --colors='always' --display-deprecations --display-warnings wbce/modules/Subway/tests/DateTest.php
+ *   php ../../../phpunit.phar --colors='always' --display-deprecations --display-warnings tests/DateTest.php
  *  @notice
  *   To use a spezific php version, e.g. under MacOS e.g. MAMP you will have to export like
  *
