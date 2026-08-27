@@ -9,20 +9,23 @@ declare(strict_types=1);
  * @license         CC BY-SA 4.0
  * @license_terms   https://creativecommons.org/licenses/by-sa/4.0/
  * @platform        WBCE 1.6.x
- * @requirements    PHP 8.4.x (8.3 recommented)
+ * @requirements    PHP 8.x
  */
 
 namespace Subway\core;
 
 class Autoloader
 {
-    public static $instance;
+
+    /** @var self|null */
+    private static ?self $instance = null;
 
     /**
-     *  Return the instance of this class.
+     * Return the instance of this class.
      *
+     * @return self
      */
-    public static function getInstance()
+    public static function getInstance(): self
     {
         if (null === static::$instance)
         {
@@ -33,25 +36,44 @@ class Autoloader
 
     protected function __construct()
     {
-        spl_autoload_register([__CLASS__, 'subwayAutoload'], true, true);
+        // register the autoloader; throw on failure and prepend it
+        spl_autoload_register([static::class, 'subwayAutoload'], true, true);
     }
-    
+
     /**
      * Handles autoload of classes with namespace "addon\any\where\class" from WebsiteBaker
      *
-     * @param string $class A class name.
+     * @param   string $classname   A class name (fully qualified).
      *
-     * @return bool
+     * @return  bool    True if the class file was found and required.
      */
-    public static function subwayAutoload(string $class): bool
+    public static function subwayAutoload(string $classname): bool
     {
-        if (str_starts_with($class, 'addon\\')) // Hack for WBCE
+        // normalize leading backslash if present
+        $class = ltrim($classname, '\\');
+
+        // quick, case-insensitive check for "addon\" prefix
+        if (str_starts_with($class, 'addon\\') || strncasecmp($class, 'addon\\', 6) === 0)
         {
             $elements = explode("\\", $class);
-            $elements[0] = "modules";
+            if (count($elements) === 0)
+            {
+                return false;
+            }
 
-            $lookupPath = WB_PATH . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $elements) . ".php";
-            if (file_exists($lookupPath))
+            // map top-level 'addon' (any case) to 'modules'
+            if (strcasecmp($elements[0], 'addon') === 0)
+            {
+                $elements[0] = 'modules';
+            } else
+            {
+                // nothing to do if it's not addon
+                return false;
+            }
+
+            $lookupPath = WB_PATH . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $elements) . '.php';
+
+            if (is_readable($lookupPath))
             {
                 require_once $lookupPath;
                 return true;
@@ -59,6 +81,7 @@ class Autoloader
 
             return false;
         }
+
         return false;
     }
 }
