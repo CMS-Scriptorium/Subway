@@ -47,8 +47,7 @@ final class DateTest extends TestCase
     protected function setUp(): void
     {
         // Reset singletons between tests
-        Date::$instance = null;
-        Database::$instance = null;
+        $this->tearDown();
     }
 
     protected function tearDown(): void
