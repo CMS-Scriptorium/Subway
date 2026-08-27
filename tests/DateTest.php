@@ -15,10 +15,13 @@
  *   php phpunit.phar --colors='always' --display-warnings wbce/modules/Subway/tests/DateTest.php
  *
  *   Variation: asumee you are inside the "Subway" directory
+ *
+ *   cd /Applications/MAMP/htdocs/projekte/wbce_168/wbce/modules/Subway
  *   php ../../../phpunit.phar --colors='always' --display-warnings tests/DateTest.php
  *
  *   php phpunit.phar --colors='always' --display-deprecations --display-warnings wbce/modules/Subway/tests/DateTest.php
  *   php ../../../phpunit.phar --colors='always' --display-deprecations --display-warnings tests/DateTest.php
+ *
  *  @notice
  *   To use a spezific php version, e.g. under MacOS e.g. MAMP you will have to export like
  *
@@ -153,20 +156,22 @@ final class DateTest extends TestCase
             public function get_one(string $q): string
             {
                 // Return different values depending on requested MySQL format
-                if (str_contains($q, "%a") ) {
-                    return 'Mo';
+                $map = [
+                    "%a"    => "Mo",
+                    "%W"    => "Montag",
+                    "%M"    => "Januar",
+                    "%b"    => "Jan"
+                ];
+
+                foreach ($map as $key => $value)
+                {
+                    if (str_contains($q, $key))
+                    {
+                        return $value;
+                    }
                 }
-                if (str_contains($q, "%W") ) {
-                    return 'Montag';
-                }
-                if (str_contains($q, "%M") ) {
-                    return 'Januar';
-                }
-                if (str_contains($q, "%b") ) {
-                    return 'Jan';
-                }
-                // fallback
-                return 'VALUE';
+
+                return "VALUE";
             }
         };
 
