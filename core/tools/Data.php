@@ -158,7 +158,7 @@ class Data
             $sFormated = "<b>Location: %s ->Line %s</b>\n<br>";
             $sOriginInfo = sprintf(
                     $sFormated,
-                    str_replace(LEPTON_PATH, "~", $backtrace[0]['file']),
+                    str_replace(WB_PATH, "~", $backtrace[0]['file']),
                     $backtrace[0]['line']
                 );
             

@@ -2,6 +2,7 @@
  * Subway - frontend
  */
 
+pre.xdebug-var-dump,
 pre.subway {
     color: #880000;
     font-size: 11px;

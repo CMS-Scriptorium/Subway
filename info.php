@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 $module_directory   = 'Subway';
 $module_name        = 'Subway';
-$module_function    = 'tool, initialize';
+$module_function    = 'tool, initialize, preinit';
 $module_version     = '0.1.1';
 $module_status      = 'alpha';
 $module_platform    = '1.6.8';
