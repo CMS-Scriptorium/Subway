@@ -152,7 +152,15 @@ final class DateTest extends TestCase
                 return [];
             }
 
-            public function get_one(string $q): string
+            public function __call(string $name, array $args)
+            {
+                if ($name == "get_one")
+                {
+                    return $this->getOne($args[0]);
+                }
+            }
+
+            public function getOne(string $q): string
             {
                 $lookFor = "";      // SonarQube
                 $replaceValue = ""; // SonarQube
