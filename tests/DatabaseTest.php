@@ -28,7 +28,7 @@
 declare(strict_types=1);
 
 //  [2]
-namespace Subway\Tests;
+namespace Subway\tests;
 
 use PHPUnit\Framework\TestCase;
 use Subway\core\sql\Database;

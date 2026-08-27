@@ -1,14 +1,43 @@
 <?php
 
+/**
+ *  [0] Basics
+ *      PHPUnit 13.2.4
+ *      -- last test local: 2026-08-24 (Aldus)
+ *
+ *  to get phpunit use
+ *
+ *  wget -O phpunit https://phar.phpunit.de/phpunit-13.phar
+ *
+ *  @example
+ *
+ *   cd /Applications/MAMP/htdocs/projekte/wbce_168/
+ *   php phpunit.phar --colors='always' --display-warnings wbce/modules/Subway/tests/DateTest.php
+ *
+ *   Variation: asumee you are inside the "Subway" directory
+ *   php ../../../phpunit.phar --colors='always' --display-warnings tests/DateTest.php
+ * 
+ *   php phpunit.phar --colors='always' --display-deprecations --display-warnings wbce/modules/Subway/tests/DateTest.php
+ *
+ *  @notice
+ *   To use a spezific php version, e.g. under MacOS e.g. MAMP you will have to export like
+ *
+ *       export PATH=/Applications/MAMP/bin/php/php8.4.1/bin:$PATH
+ *
+ *   to get the correct PHP version to run.
+ */
+
 declare(strict_types=1);
+
+namespace Subway\tests;
 
 use PHPUnit\Framework\TestCase;
 use Subway\core\Date;
 use Subway\core\sql\Database;
 
-require_once __DIR__ . '/../core/Date.php';
-require_once __DIR__ . '/../core/sql/Database.php';
-require_once __DIR__ . '/../core/traits/DateFormattingTrait.php';
+require_once dirname(__DIR__) . '/core/traits/DateFormattingTrait.php';
+require_once dirname(__DIR__) . '/core/Date.php';
+require_once dirname(__DIR__) . '/core/sql/Database.php';
 
 final class DateTest extends TestCase
 {
