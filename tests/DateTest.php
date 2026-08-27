@@ -155,19 +155,22 @@ final class DateTest extends TestCase
 
             public function get_one(string $q): string
             {
+                $lookFor = "";      // SonarQube
+                $replaceValue = ""; // SonarQube
+
                 // Return different values depending on requested MySQL format
-                $map = [
+                $testMap = [
                     "%a"    => "Mo",
                     "%W"    => "Montag",
                     "%M"    => "Januar",
                     "%b"    => "Jan"
                 ];
 
-                foreach ($map as $key => $value)
+                foreach ($testMap as $lookFor => $replaceValue)
                 {
-                    if (str_contains($q, $key))
+                    if (str_contains($q, $lookFor))
                     {
-                        return $value;
+                        return $replaceValue;
                     }
                 }
 
