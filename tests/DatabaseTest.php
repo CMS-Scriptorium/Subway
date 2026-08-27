@@ -489,8 +489,6 @@ class DatabaseTest extends TestCase
     public function testUpdateInvalidOperation(): void
     {
         $this->expectExceptionCode(40067);
-        // $this->expectException(\Error::class);
-        // $this->expectException("[Subway!] Not correct job in Subway\\core\\sql\\Database in 178. Passed: INVALID");
         $values = ['name' => 'Jane'];
         Database::update('INVALID', 'users', $values);
     }
