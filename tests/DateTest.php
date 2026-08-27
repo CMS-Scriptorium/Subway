@@ -39,6 +39,7 @@ use Subway\core\Date;
 use Subway\core\sql\Database;
 
 require_once dirname(__DIR__) . '/core/traits/DateFormattingTrait.php';
+require_once dirname(__DIR__) . '/core/traits/DateOutsources.php';
 require_once dirname(__DIR__) . '/core/Date.php';
 require_once dirname(__DIR__) . '/core/sql/Database.php';
 
