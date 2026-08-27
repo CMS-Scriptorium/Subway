@@ -105,13 +105,14 @@ class Database
 
             return $oResult->num_rows;
         } catch(Exception $error) {
+            trigger_error(sprintf(self::STR_EXCEPTION . " [1]", $error->getMessage()));
             trigger_error(sprintf(self::STR_EXCEPTION, mysqli_error($oTempHandle)));
             trigger_error(sprintf(self::STR_STATEMENT, preg_replace('/\s+/', ' ', $aQuery)));
             self::$instance->set_error(sprintf(self::STR_EXCEPTION, mysqli_error($oTempHandle)));
             return -1;
         }
     }
-    
+
     /**
      *  Performs a simple query and returns the result as an assoc. array.
      *
@@ -130,6 +131,17 @@ class Database
         return $result;
     }
 
+    /**
+     * Update database entry with an given statement.
+     *
+     * @param string $what      Only accepted self::DO_UPDATE or self::DO_INSERT.
+     * @param string $table     Any valid tablename (with {TP} or {TABLENAME})
+     * @param array  $values    Assoc. array within the values.
+     * @param string $where     Opt. a WHERE as a string! (Ignored by INSERT)
+     * @return bool             True on success, false on faild.
+     *
+     * @throws InvalidArgumentException
+     */
     public static function update(string $what, string $table, array $values, string $where = ""): bool
     {
         if (is_null(self::$instance))
@@ -162,9 +174,10 @@ class Database
                 break;
 
             default:
-                // @todo    Ugly die/break! Use InvalidArgumentException istead
-                die("[Subway!] Not correct job in ".__CLASS__." in ".__LINE__.". Passed: ".$what);
-                break;
+                throw new InvalidArgumentException(
+                    "[Subway!] Not correct job in " . __CLASS__ . " in " . __LINE__ . ". Passed: " . $what,
+                    40067
+                );
         }
 
         $oTempHandle = self::$instance->db_handle;
@@ -176,6 +189,7 @@ class Database
 
             return true;
         } catch(Exception $error) {
+            trigger_error(sprintf(self::STR_EXCEPTION . "[2]", $error->getMessage()));
             trigger_error(sprintf(self::STR_EXCEPTION, mysqli_error($oTempHandle)));
             trigger_error(sprintf(self::STR_STATEMENT, preg_replace('/\s+/', ' ', $query)));
             self::$instance->set_error(sprintf(self::STR_EXCEPTION, mysqli_error($oTempHandle)));
@@ -196,7 +210,7 @@ class Database
         
         // Is the tblename still valid? throw exception.
         self::testTablename($table);
-        
+
         self::query("DROP table `".$table."` IF EXISTS;");
 
         return true;
