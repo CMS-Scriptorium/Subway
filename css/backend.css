@@ -11,3 +11,14 @@
 .ip_message {
     color: #880000;
 }
+
+p.tool_img {
+    width: 30%;
+    text-align: center;
+    margin: 0 auto; 
+}
+
+img.tool_img {
+    max-width: 48px;
+
+}

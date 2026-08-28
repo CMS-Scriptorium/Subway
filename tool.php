@@ -15,12 +15,15 @@ use Subway\core\template\TwigBox;
  * @requirements    PHP 8.4.x (8.3 recommented)
  */
 
+Subway::getInstance()->initBackend();
+
 $oTwig = TwigBox::getInstance();
 $oTwig->registerModule("Subway");
 
 echo $oTwig->render(
     "@Subway/tool.lte",
     [
-        'message' => Subway::getInstance()->language['NO_INTERFACE']
+        'message' => Subway::getInstance()->language['NO_INTERFACE'],
+        'cimage'  => WB_URL."/modules/Subway/img/construction_site.png"
     ]
 );

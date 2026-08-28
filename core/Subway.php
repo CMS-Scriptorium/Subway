@@ -32,14 +32,29 @@ class Subway
 
     public static $instance;
 
-    protected const string CLASSNAMESPACE = "\\Subway\\core\\language\\";
+    protected const string CLASS_LANGUAGE_NAMESPACE = "\\Subway\\core\\language\\";
 
     protected const string DEFAULT_FRONTEND_CSS = "/modules/Subway/css/frontend.css";
     protected const string DEFAULT_FRONTEND_JS = "/modules/Subway/js/frontend.js";
 
+    protected const string DEFAULT_BACKEND_CSS = "/modules/Subway/css/backend.css";
+    protected const string DEFAULT_BACKEND_JS = "/modules/Subway/js/backend.js";
+
     protected bool $cssLoaded = false;
     protected bool $jsLoaded = false;
 
+    /**
+     * Initialize the frontend - load the css- and js-files.
+     * Also looking for the files inside the frontend-tremplate,
+     * males use of the individuual settings of the page, or use
+     * the default-template
+     *
+     * E.g.
+     *   ~/templates/<current_frontend_template>/frontend/Subway/frontend.css
+     *   ~/templates/<current_frontend_template>/frontend/Subway/frontend.js
+     *
+     * @return void
+     */
     public function initFrontend(): void
     {
         $page = $GLOBALS['wb']->page ?? null;
@@ -75,14 +90,38 @@ class Subway
 
     }
 
+    /**
+     * Initialize the backend- load the css- (and js-)files.
+     * Also looking inside the theme-template for the files.
+     * E.g.
+     *  ~/templates/<current_theme>/backend/Subway/backend.css
+     *
+     * @return void
+     */
+    public function initBackend(): void
+    {
+        if (!$this->cssLoaded)
+        {
+            $lookUpFile = "/templates/" . DEFAULT_THEME . "/backend/Subway/backend.css";
+
+            $cssFile = file_exists(WB_PATH . $lookUpFile)
+                ? $lookUpFile
+                : self::DEFAULT_BACKEND_CSS;
+
+            I::insertCssFile(WB_URL . $cssFile, 'HEAD BTM-');
+
+            $this->cssLoaded = true;
+        }
+    }
+
     protected function __construct()
     {
         $lang = defined("LANGUAGE") ? LANGUAGE : "EN";
         
-        $class = self::CLASSNAMESPACE . $lang;
+        $class = self::CLASS_LANGUAGE_NAMESPACE  . $lang;
         if (!class_exists($class))
         {
-            $class = self::CLASSNAMESPACE . 'EN';
+            $class = self::CLASS_LANGUAGE_NAMESPACE  . 'EN';
         }
         $this->language = $class::getInstance()->getConstants();
     }
