@@ -40,6 +40,9 @@ class Subway
     protected const string DEFAULT_BACKEND_CSS = "/modules/Subway/css/backend.css";
     protected const string DEFAULT_BACKEND_JS = "/modules/Subway/js/backend.js";
 
+    protected const string TEMPLATE_DIR = "/templates/";
+    protected const string HEAD_FLAG = 'HEAD BTM-';
+
     protected bool $cssLoaded = false;
     protected bool $jsLoaded = false;
 
@@ -62,28 +65,28 @@ class Subway
 
         if (!$this->cssLoaded)
         {
-            $lookFor = "/templates/" . $template . "/frontend/Subway/css/frontend.css";
+            $lookFor = self::TEMPLATE_DIR . $template . "/frontend/Subway/css/frontend.css";
             
             $cssFile = (file_exists(WB_PATH.$lookFor))
                 ? $lookFor
                 : self::DEFAULT_FRONTEND_CSS;
 
             // Using WBCE internal
-            I::insertCssFile(WB_URL . $cssFile, 'HEAD BTM-');
+            I::insertCssFile(WB_URL . $cssFile, self::HEAD_FLAG);
 
             $this->cssLoaded = true;
         }
 
         if (!$this->jsLoaded)
         {
-            $lookFor = "/templates/" . $template . "/frontend/Subway/js/frontend.js";
+            $lookFor = self::TEMPLATE_DIR . $template . "/frontend/Subway/js/frontend.js";
             
             $jsFile = (file_exists(WB_PATH.$lookFor))
                 ? $lookFor
                 : self::DEFAULT_FRONTEND_JS;
 
             // Using WBCE internal
-            I::insertJsFile(WB_URL . $jsFile, 'HEAD BTM-');
+            I::insertJsFile(WB_URL . $jsFile, self::HEAD_FLAG);
 
             $this->jsLoaded = true;
         }
@@ -102,13 +105,13 @@ class Subway
     {
         if (!$this->cssLoaded)
         {
-            $lookUpFile = "/templates/" . DEFAULT_THEME . "/backend/Subway/backend.css";
+            $lookUpFile = self::TEMPLATE_DIR . DEFAULT_THEME . "/backend/Subway/backend.css";
 
             $cssFile = file_exists(WB_PATH . $lookUpFile)
                 ? $lookUpFile
                 : self::DEFAULT_BACKEND_CSS;
 
-            I::insertCssFile(WB_URL . $cssFile, 'HEAD BTM-');
+            I::insertCssFile(WB_URL . $cssFile, self::HEAD_FLAG);
 
             $this->cssLoaded = true;
         }
