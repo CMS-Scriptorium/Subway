@@ -56,30 +56,33 @@ class Autoloader
         if (str_starts_with($class, 'addon\\') || strncasecmp($class, 'addon\\', 6) === 0)
         {
             $elements = explode("\\", $class);
-            if (count($elements) === 0)
-            {
-                return false;
-            }
 
             // map top-level 'addon' (any case) to 'modules'
-            if (strcasecmp($elements[0], 'addon') === 0)
+            if (!empty($elements) && (strcasecmp($elements[0], 'addon') === 0))
             {
                 $elements[0] = 'modules';
-            } else
-            {
-                // nothing to do if it's not addon
-                return false;
+
+                return self::requireFile(
+                    WB_PATH . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $elements) . '.php'
+                );
             }
+        }
 
-            $lookupPath = WB_PATH . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $elements) . '.php';
+        return false;
+    }
 
-            if (is_readable($lookupPath))
-            {
-                require_once $lookupPath;
-                return true;
-            }
-
-            return false;
+    /**
+     * Require once a given file(-path).
+     *
+     * @param   string  $lookupPath The given file(-path) to load.
+     * @return  bool    True if it is readable (exists), false if not.
+     */
+    public static function requireFile(string $lookupPath): bool
+    {
+        if (is_readable($lookupPath))
+        {
+            require_once $lookupPath;
+            return true;
         }
 
         return false;
