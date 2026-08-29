@@ -10,13 +10,14 @@
  */
 #}{% autoescape false %}
 <!-- Output by Twig :: module "Subway" -->
-<p>
+<div>
     <h3 class="ip_message">{{ message }}</h3>
-</p>
-<p class="tool_img">
-    <img class="tool_img" src="{{ cimage }}" alt="">
-<p>
+    <p class="tool_img">
+        <img class="tool_img" src="{{ cimage }}" alt="">
+    <p>
+</div>
 <p></p>
+<hr>
 {#
 {% if (!aladin) && (message != "" ) %}AAAA{% endif %}
 
