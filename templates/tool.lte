@@ -11,10 +11,10 @@
 #}{% autoescape false %}
 <!-- Output by Twig :: module "Subway" -->
 <div>
-    <h3 class="ip_message">{{ message }}</h3>
     <p class="tool_img">
         <img class="tool_img" src="{{ cimage }}" alt="">
     <p>
+    <h2 class="ip_message">{{ message }}</h2>
 </div>
 <p></p>
 <hr>
