@@ -267,8 +267,7 @@ final class SubwayTest extends TestCase
      */
     public function testClassConstantsAreDefined(): void
     {
-        $reflection = new \ReflectionClass(Subway::class);
-        $constants = $reflection->getConstants();
+        $constants = Subway::getInstance()->getConstants();
 
         // Check for the constants mentioned in the source code
         $this->assertArrayHasKey('CLASS_LANGUAGE_NAMESPACE', $constants);
