@@ -49,7 +49,7 @@ class Data
      *
      *  @code{.php}
      *
-     *      LEPTON_tools::display( $result_array, "code", "example_class" )
+     *      LEPTON_tools::display($result_array, "code", "example_class")
      *
      *  @endcode
      *      will return:
@@ -63,8 +63,8 @@ class Data
      *
      */
     public static function display(
-        mixed       $something_to_display ="",
-        string      $tag="pre",
+        mixed       $something_to_display = "",
+        string      $tag = "pre",
         string|null $css_class = null,
         bool|null   $useVarDump = null
     ): string
