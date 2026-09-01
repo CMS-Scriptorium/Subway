@@ -16,6 +16,7 @@ for additional code for [WBCE][1].
 - [ ] *System*
 - [ ] *sql/Database*
 - [ ] *tools/Data*
+- [x] [hash/RandomString](/doc/README_RandomString.md)
 - [x] [template/TwigBox](/doc/README_TwigBox.md) !
 
 #### Examples

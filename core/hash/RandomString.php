@@ -23,7 +23,7 @@ class RandomString
      *
      *  @param  int     $iNumOfChars    Number of chars to generate. Default is 8 (chars).
      *
-     *  @param  string  $aType          Type, default is 'alphanum'.
+     *  @param  string|array  $aType          Type, default is 'alphanum'.
      *                  Possible values are:
      *                  'alphanum'      = Generates an alphanumeric string with chars and numbers.
      *                  'alpha'         = Generates only chars.
@@ -54,8 +54,13 @@ class RandomString
      *                      - Will generate a shuffled-string with hex-decimalchars like 'afb2c22e7'.
      *
      */
-    public static function generate(int $iNumOfChars = 8, string $aType = "alphanum"): string
+    public static function generate(int $iNumOfChars = 8, string|array $aType = "alphanum"): string
     {
+        if (is_array($aType))
+        {
+            $aType = implode("", $aType);
+        }
+        
         switch (strtolower($aType))
         {
             case 'alphanum':
