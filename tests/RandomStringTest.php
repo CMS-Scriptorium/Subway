@@ -279,7 +279,9 @@ class RandomStringTest extends TestCase
                 break;
             }
         }
-        
+        if ($hasZeroStart) {
+            echo "\n" . ($result ?? "xx") . "\n";
+        }
         // This may or may not be true depending on randomness
         // Just documenting the behavior
         $this->assertTrue(true); // This test just documents behavior
