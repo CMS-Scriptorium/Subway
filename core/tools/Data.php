@@ -82,7 +82,7 @@ class Data
 
         if (!in_array(strtolower($tag), ["pre", "div", "code", "p", "span"]))
         {
-            throw new InvalidArgumentException("Invalid tag given: ".$tag. " not supported", 40088);
+            throw new \InvalidArgumentException("Invalid tag given: ".$tag. " not supported", 40088);
         }
         
         $sReturnVal = "\n<" . htmlspecialchars($tag) .
@@ -146,7 +146,7 @@ class Data
 
         if (!in_array(strtolower($tag), ["pre", "div", "code", "p", "span"]))
         {
-            throw new InvalidArgumentException("Invalid tag given: ".$tag. " not supported", 40090);
+            throw new \InvalidArgumentException("Invalid tag given: ".$tag. " not supported", 40090);
         }
 
         // [1] get 'caller'
