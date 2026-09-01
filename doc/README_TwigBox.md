@@ -89,8 +89,8 @@ $twig = TwigBox::getInstance();
 $twig->registerModule("module_name");
 ```
 will register the following paths
-> ~module/<module_name>/templates
-> ~templates/<current_frontend_template>/frontend/<module_name>/
+> ~module/<module_name>/templates  
+> ~templates/<current_frontend_template>/frontend/<module_name>/  
 or (for backend)
 > ~/templates/<current_theme>/backend/<module_name>/  
 
