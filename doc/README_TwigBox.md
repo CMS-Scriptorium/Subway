@@ -72,9 +72,29 @@ The following global constants and variables are automatically available in all 
 | `TWIG_BASE_PATH` | `/include/Sensio/` | Path to Twig library files |
 | `TEMPLATE_DIR` | `/templates/` | Standard templates directory |
 
-## Public Methods
+### Public Methods
 
-### `registerPath(string $sPath = "", string $sNamespace = "__main__"): bool`
+#### `registerModule(string $sModuleDir): void`
+
+Registers a new template directory path by a given module-directory.
+
+**Parameters:**
+- `$sModuleDir` (string): Absolute path to a module directory
+
+**Returns:** `void` - nothing
+
+**Example:**
+```php
+$twig = TwigBox::getInstance();
+$twig->registerModule("module_name");
+```
+will register the following paths
+> ~module/<module_name>/templates
+> ~templates/<current_frontend_template>/frontend/<module_name>/
+or (for backend)
+> ~/templates/<current_theme>/backend/<module_name>/  
+
+#### `registerPath(string $sPath = "", string $sNamespace = "__main__"): bool`
 
 Registers a new template directory path with an optional namespace.
 
@@ -88,3 +108,4 @@ Registers a new template directory path with an optional namespace.
 ```php
 $twig = TwigBox::getInstance();
 $twig->registerPath("/path/to/templates", "my_module");
+```

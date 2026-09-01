@@ -30,7 +30,7 @@ class Data
      *  @see    __self__::display
      *
      */
-    public static function setVarDump(bool $bUseVarDump=true): void
+    public static function setVarDump(bool $bUseVarDump = true): void
     {
         self::$useVarDump = $bUseVarDump;
     }
