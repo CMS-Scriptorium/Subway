@@ -98,7 +98,7 @@ class Subway
      * Also looking inside the theme-template for the files.
      * E.g.
      *  ~/templates/<current_theme>/backend/Subway/backend.css
-     *  ~/templates/<current_theme>/backend/Subway/backend.js  
+     *  ~/templates/<current_theme>/backend/Subway/backend.js
      *
      * @return void
      */
