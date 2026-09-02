@@ -98,6 +98,7 @@ class Subway
      * Also looking inside the theme-template for the files.
      * E.g.
      *  ~/templates/<current_theme>/backend/Subway/backend.css
+     *  ~/templates/<current_theme>/backend/Subway/backend.js  
      *
      * @return void
      */
@@ -114,6 +115,19 @@ class Subway
             I::insertCssFile(WB_URL . $cssFile, self::HEAD_FLAG);
 
             $this->cssLoaded = true;
+        }
+
+        if (!$this->jsLoaded)
+        {
+            $lookUpFile = self::TEMPLATE_DIR . DEFAULT_THEME . "/backend/Subway/backend.js";
+
+            $jsFile = file_exists(WB_PATH . $lookUpFile)
+                ? $lookUpFile
+                : self::DEFAULT_BACKEND_JS;
+
+            I::insertJsFile(WB_URL . $jsFile, self::HEAD_FLAG);
+
+            $this->jsLoaded = true;
         }
     }
 
