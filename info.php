@@ -22,4 +22,4 @@ $module_author      = 'Kant (Aldus)';
 $module_license     = 'CC BY-SA 4.0';
 $module_description = 'Nothing more and nothing less than a private study for WBCE and some additional code.';
 $module_guid        = '9A4C71C8-E9DA-413D-A226-D31FB4A5E77F';
-$module_icon        = 'fa fa-diamond';
+$module_icon        = 'fa fa-cogs';
