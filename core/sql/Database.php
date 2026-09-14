@@ -317,12 +317,7 @@ class Database
                 $term['field'],
                 ($term['compare'] ?? "=")
             );
-/*
-            $mySQLstr .= ($term['concat'] ?? "AND") . " ";
-            $mySQLstr .= "`" . $term['field'] . "`";
-            $mySQLstr .= " " . ($term['compare'] ?? "=") . " ";
-            $mySQLstr .= " ? ";
-*/
+
             $test = filter_var($term['value'], FILTER_VALIDATE_INT);
             $params[] = $test ? $test : $term['value'];
         }
@@ -332,7 +327,7 @@ class Database
         } else {
             $s = substr($mySQLstr, 0, 3);
             $s2 = substr($mySQLstr, 3);
-            $mySQLstr = $s . "(".$s2.")";
+            $mySQLstr = $s . "(" . $s2 . ")";
         }
         return [
             "mysql"  => $mySQLstr,
