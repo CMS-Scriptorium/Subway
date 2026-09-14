@@ -142,7 +142,7 @@ class Database
      *
      * @throws InvalidArgumentException
      */
-    public static function update(string $what, string $table, array $values, string $where = ""): bool
+    public static function update(string $what, string $table, array $values, string|array $where = ""): bool
     {
         if (is_null(self::$instance))
         {
@@ -163,7 +163,19 @@ class Database
                 {
                     $query .= "`" . $field . "`= ?, ";
                 }
-                $query = substr($query, 0, -2) . (($where != "") ? " WHERE " . $where : "");
+                $query = substr($query, 0, -2); // . (($where != "") ? " WHERE " . $where : "");
+
+                if (is_array($where))
+                {
+                    $result = self::buildWhereCondition($where);
+                    $query .= " WHERE ".$result['mysql'];
+                    foreach ($result['params'] as $key => $value)
+                    {
+                        $values[$key] = $value;
+                    }
+                } else {
+                    $query .= ($where != "") ? " WHERE " . $where : "";
+                }
                 break;
 
             case self::DO_INSERT:
@@ -281,6 +293,51 @@ class Database
         }
 
         return $prefixWithDot . "`" . implode("`, " . $prefixWithDot . "`", $fields) . "`";
+    }
+
+    public static function buildWhereCondition(array $values, int $deep = 0): array
+    {
+        $mySQLstr = "";
+        $params = [];
+        foreach ($values as $term)
+        {
+            if (isset($term[0]))
+            {
+                $new = self::buildWhereCondition($term, $deep + 1);
+                $mySQLstr .= $new['mysql'];
+                foreach ($new['params'] as $v)
+                {
+                    $params[] = $v;
+                }
+                continue;
+            }
+            $mySQLstr .= sprintf(
+                "%s `%s` %s ? ",
+                ($term['concat'] ?? "AND"),
+                $term['field'],
+                ($term['compare'] ?? "=")
+            );
+/*
+            $mySQLstr .= ($term['concat'] ?? "AND") . " ";
+            $mySQLstr .= "`" . $term['field'] . "`";
+            $mySQLstr .= " " . ($term['compare'] ?? "=") . " ";
+            $mySQLstr .= " ? ";
+*/
+            $test = filter_var($term['value'], FILTER_VALIDATE_INT);
+            $params[] = $test ? $test : $term['value'];
+        }
+        if ($deep == 0)
+        {
+            $mySQLstr = substr($mySQLstr, 4);
+        } else {
+            $s = substr($mySQLstr, 0, 3);
+            $s2 = substr($mySQLstr, 3);
+            $mySQLstr = $s . "(".$s2.")";
+        }
+        return [
+            "mysql"  => $mySQLstr,
+            "params" => $params
+        ];
     }
     
     // Avoid using "new" for a new instance.
