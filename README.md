@@ -29,7 +29,8 @@ echo "PageTree - Neu mit »Subway«.";
 
 $aPages  = Pages::getInstance()->getPageTree(
     0, // root
-    ['page_id', 'page_title', 'menu_title']
+    ['page_id', 'page_title', 'menu_title'],
+    false // $getSections, true for additional information about the sections of each page.
 );
 
 echo Data::display($aPages);
@@ -167,7 +168,7 @@ if ($stepper->setMode(ArrayStep::MODE_RANDOM)) {
 ```
 
 ---
-08.2026 Aldus
+11.2026 Aldus
 
 [1]: https://wbce.org/de/wbce/
 [2]: https://forum.wbce.org/search.php?action=show_recent

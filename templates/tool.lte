@@ -14,9 +14,9 @@
     <p class="tool_img">
         <img class="tool_img" src="{{ cimage }}" alt="">
     <p>
-    <h2 class="ip_message">{{ message }}</h2>
+    <p class="ip_message">{{ message }}</p>
 </div>
-<p></p>
+<p>&nbsp;</p>
 <hr>
 {#
 {% if (!aladin) && (message != "" ) %}AAAA{% endif %}

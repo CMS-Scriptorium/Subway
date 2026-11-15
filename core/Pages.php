@@ -49,7 +49,8 @@ class Pages
      */
     public function getPageTree(
         int $root_id = 0,
-        array $fields = ['page_id', 'page_title', 'menu_title', 'parent','position', 'visibility', 'admin_groups']
+        array $fields = ['page_id', 'page_title', 'menu_title', 'parent','position', 'visibility', 'admin_groups'],
+        bool $getSections = false
         ): array
     {
 
@@ -90,10 +91,15 @@ class Pages
         }
         unset($ref);
 
-        $page_storage = [];
-        $this->makeList($root_id, $page_storage);
+        if ($getSections)
+        {
+            $this->getSectionsInfo();
+        }
+        
+        $pageStorage = [];
+        $this->makeList($root_id, $pageStorage);
 
-        return $page_storage;
+        return $pageStorage;
     }
 
     /**
@@ -125,6 +131,41 @@ class Pages
 
                 $aRefArray[] = &$aTempPage;
             }
+        }
+    }
+
+    /**
+     * Internal - add Sections information to the result-array for each page.
+     *
+     * @return nothing  As this refers all information internal.
+     *
+     */
+    protected function getSectionsInfo(): void
+    {
+        $aAllSections = [];
+        Database::executeQuery(
+            'SELECT `page_id`, `section_id`, `position`, `module`, `block`, `publ_start`, `publ_end`, `namesection` FROM `{TP}sections` ORDER BY `page_id`,`position`',
+            true,
+            $aAllSections,
+            true
+        );
+
+        foreach ($this->allPages as &$ref)
+        {
+            $temp = [];
+            foreach ($aAllSections as $section)
+            {
+                if ($section['page_id'] > $ref['page_id'])
+                {
+                    break;
+                }
+
+                if ($section['page_id'] == $ref['page_id'])
+                {
+                    $temp[] = $section;
+                }
+            }
+            $ref['sections'] = $temp;
         }
     }
 }
